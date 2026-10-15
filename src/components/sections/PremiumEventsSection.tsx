@@ -52,7 +52,7 @@ export const PremiumEventsSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="TICKETS"
-              className="p-6 md:p-8 rounded-3xl bg-[#F2F0EB] text-[#110B1C] hover:bg-white hover:scale-[1.01] transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-pointer shadow-lg hover:shadow-2xl block"
+              className="btn-magnetic p-6 md:p-8 rounded-[2rem] bg-[#F2F0EB] text-[#110B1C] hover:bg-white hover:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-black/5 flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-pointer shadow-md block transition-all"
             >
               {/* FECHA */}
               <div className="flex items-baseline gap-4 min-w-[160px]">
@@ -74,7 +74,7 @@ export const PremiumEventsSection: React.FC = () => {
                 </h3>
               </div>
 
-              {/* BOTÓN Y ESTADO */}
+              {/* BOTÓN Y ESTADO CON MICRO-FÍSICA */}
               <div className="flex items-center gap-4">
                 <span
                   className={`font-mono-code text-xs px-4 py-1.5 rounded-full font-bold uppercase transition-colors shadow-sm ${
@@ -83,17 +83,17 @@ export const PremiumEventsSection: React.FC = () => {
                       : ev.status === 'HOY' || ev.status === 'ÚLTIMAS ENTRADAS'
                       ? 'bg-[#6E1FE8] text-white font-black'
                       : ev.status === 'ESTA SEMANA'
-                      ? 'bg-[#00ECEF] text-black font-black'
+                      ? 'bg-[#C0D43E] text-[#110B1C] font-black'
                       : 'bg-black text-white font-black'
                   }`}
                 >
                   {ev.status}
                 </span>
                 <div
-                  className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center group-hover:bg-[#6E1FE8] group-hover:text-white group-hover:scale-110 group-hover:rotate-45 transition-all shadow-md border border-black/5"
+                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#6E1FE8] group-hover:text-white group-hover:scale-110 transition-all shadow-md border border-black/5"
                   title="Comprar entrada para este evento"
                 >
-                  <ArrowUpRight className="w-5 h-5 transition-transform" />
+                  <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </div>
             </a>

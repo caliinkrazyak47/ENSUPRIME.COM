@@ -215,21 +215,26 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
 
           <button
             onClick={onToggleRadio}
-            className={`px-3.5 py-1.5 rounded-full font-body font-bold text-xs flex items-center gap-2 transition-all shadow-sm ${
+            className={`btn-magnetic px-4 py-2 rounded-full font-body font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
               isRadioPlaying
-                ? 'bg-[#6E1FE8] text-white shadow-purple-500/25'
-                : 'bg-white hover:bg-black hover:text-white text-black border border-black/5'
+                ? 'bg-[#6E1FE8] text-white shadow-[0_0_25px_rgba(110,31,232,0.6)] border border-[#C0D43E]'
+                : 'bg-white/90 hover:bg-white text-[#110B1C] backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] border border-white/40'
             }`}
           >
-            <Radio className={`w-3.5 h-3.5 ${isRadioPlaying ? 'animate-spin' : ''}`} />
-            <span>{isRadioPlaying ? 'EN VIVO' : 'RADIO'}</span>
+            <span className={`w-5 h-5 rounded-full flex items-center justify-center ${isRadioPlaying ? 'bg-[#C0D43E] text-[#110B1C]' : 'bg-[#6E1FE8] text-white'}`}>
+              <Radio className={`w-3 h-3 ${isRadioPlaying ? 'animate-spin' : ''}`} />
+            </span>
+            <span className="tracking-wider">{isRadioPlaying ? 'EN VIVO' : 'RADIO'}</span>
           </button>
 
           <button
             onClick={onWatchLive}
-            className="hidden md:flex px-4 py-1.5 rounded-full bg-[#110B1C] text-white font-body font-bold text-xs hover:bg-[#6E1FE8] transition-colors"
+            className="btn-magnetic hidden md:flex items-center gap-2 pl-4 pr-2.5 py-1.5 rounded-full bg-[#110B1C]/90 hover:bg-[#6E1FE8] text-white font-body font-bold text-xs backdrop-blur-md border border-white/15 transition-all shadow-lg group cursor-pointer"
           >
-            VER DIRECTO
+            <span className="tracking-wider">VER DIRECTO</span>
+            <span className="w-5 h-5 rounded-full bg-white/10 group-hover:bg-white group-hover:text-[#6E1FE8] flex items-center justify-center transition-colors">
+              <span className="text-[10px]">▶</span>
+            </span>
           </button>
         </div>
       </header>

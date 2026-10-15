@@ -156,7 +156,7 @@ export const PremiumInstaFeedSection: React.FC = () => {
             return (
               <article
                 key={item.id}
-                className="group relative bg-white rounded-3xl overflow-hidden border border-[#DBDBDB] hover:border-[#6E1FE8]/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                className="group relative bg-white rounded-[2rem] overflow-hidden border border-[#E5E5E5] hover:border-[#6E1FE8]/40 transition-all duration-300 shadow-sm hover:shadow-[0_20px_45px_rgba(110,31,232,0.12)] hover:-translate-y-1 flex flex-col justify-between"
               >
                 {/* 1. CABECERA BLANCA OFICIAL DE INSTAGRAM CON AVATAR REAL */}
                 <div className="p-3.5 flex items-center justify-between border-b border-[#EFEFEF] bg-white z-20">
