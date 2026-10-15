@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Anton", "Bebas Neue", sans-serif;
+  --font-condensed: "Bebas Neue", "Anton", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  :root {
+    --bg-light: #F2F0EB;
+    --card-white: #FFFFFF;
+    --deep-ink: #110B1C;
+    --neon-purple: #8B3BFF;
+    --vibrant-violet: #6E1FE8;
+    --butterfly-glow: #A855F7;
+    --soft-border: rgba(110, 31, 232, 0.12);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #6E1FE8;
+    color: #FFFFFF;
+  }
+
+  html {
+    scroll-behavior: initial;
+    background-color: #F2F0EB;
+    color: #110B1C;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #F2F0EB;
+    color: #110B1C;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #E8E5DD;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6E1FE8;
+    border-radius: 9999px;
+  }
+}
+
+.font-impact {
+  font-family: "Anton", sans-serif;
+  letter-spacing: -0.02em;
+}
+.font-condensed {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.02em;
+}
+.font-body { font-family: "Plus Jakarta Sans", sans-serif; }
+.font-mono-code { font-family: "JetBrains Mono", monospace; }
+
+/* Subtle Film Grain */
+.editorial-grain {
+  position: relative;
+}
+.editorial-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Marquee infinite ticker */
+@keyframes tickerInfinite {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee-editorial {
+  display: flex;
+  width: max-content;
+  animation: tickerInfinite 28s linear infinite;
+  will-change: transform;
+}
+.animate-marquee-editorial:hover {
+  animation-play-state: paused;
+}
+
+/* Audio wave animation */
+@keyframes waveHeight {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+.animate-wave-1 { animation: waveHeight 0.9s ease-in-out infinite; }
+.animate-wave-2 { animation: waveHeight 0.7s ease-in-out infinite 0.2s; }
+.animate-wave-3 { animation: waveHeight 1.1s ease-in-out infinite 0.4s; }
+.animate-wave-4 { animation: waveHeight 0.8s ease-in-out infinite 0.1s; }
