@@ -334,7 +334,7 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
 
   const handleTogglePlay = (key: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (hasDraggedRef.current) return; // Si fue un deslizamiento, ignorar click
+    if (hasDraggedRef.current) return;
 
     const video = videoRefs.current[key];
     if (!video) return;
@@ -350,19 +350,10 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
           videoRefs.current[k]?.pause();
         }
       });
-      video.muted = isMuted;
       video.play().then(() => {
         setPlayingVideoId(key);
         setIsAutoScrollPaused(true);
-      }).catch((err) => {
-        console.warn('Video play error:', err);
-        video.muted = true;
-        setIsMuted(true);
-        video.play().then(() => {
-          setPlayingVideoId(key);
-          setIsAutoScrollPaused(true);
-        }).catch(() => {});
-      });
+      }).catch(() => {});
     }
   };
 
