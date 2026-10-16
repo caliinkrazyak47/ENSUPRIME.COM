@@ -94,12 +94,12 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       {/* Cortina Izquierda */}
       <div
         ref={leftCurtainRef}
-        className="absolute top-0 left-0 w-1/2 h-full bg-[#0A0A0A] border-r border-[#1C1C1C]"
+        className="absolute top-0 left-0 w-1/2 h-full bg-[#0A0A0A]"
       />
       {/* Cortina Derecha */}
       <div
         ref={rightCurtainRef}
-        className="absolute top-0 right-0 w-1/2 h-full bg-[#0A0A0A] border-l border-[#1C1C1C]"
+        className="absolute top-0 right-0 w-1/2 h-full bg-[#0A0A0A]"
       />
 
       {/* Ruido texturizado analógico */}
