@@ -51,12 +51,22 @@ export const PremiumFooter: React.FC = () => {
             <div className="md:col-span-3 font-body text-xs text-[#6B21A8]/80 space-y-3">
               <p className="text-[#3B0764] font-bold tracking-wider uppercase font-mono-code">[REDES OFICIALES]</p>
               <div className="flex flex-col space-y-2.5 font-semibold">
-                <a href="#" className="hover:text-[#6E1FE8] transition-colors flex items-center justify-between text-[#4A0E4E]">
-                  <span>TIKTOK @ENSUPRIME</span>
+                <a
+                  href="https://www.tiktok.com/@thiagovsc_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#6E1FE8] transition-colors flex items-center justify-between text-[#4A0E4E]"
+                >
+                  <span>TIKTOK @THIAGOVSC_</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8]/30 group-hover:bg-[#6E1FE8]" />
                 </a>
-                <a href="#" className="hover:text-[#6E1FE8] transition-colors flex items-center justify-between text-[#4A0E4E]">
-                  <span>INSTAGRAM @ENSUPRIME</span>
+                <a
+                  href="https://www.instagram.com/thiagovsc._/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#6E1FE8] transition-colors flex items-center justify-between text-[#4A0E4E]"
+                >
+                  <span>INSTAGRAM @THIAGOVSC._</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8]/30 group-hover:bg-[#6E1FE8]" />
                 </a>
                 <a href="#" className="hover:text-[#6E1FE8] transition-colors flex items-center justify-between text-[#4A0E4E]">

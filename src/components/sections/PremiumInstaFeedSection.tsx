@@ -642,20 +642,44 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
               <h3 className="font-impact text-2xl sm:text-3xl uppercase tracking-wide">
                 ¿QUIERES APARECER EN NUESTRO FEED?
               </h3>
-              <p className="font-body text-sm text-white/90">
-                Comparte tus reels y videos con <span className="font-mono-code font-bold text-white underline">#EnsuprimeLive</span> para ser destacado en portada.
+              <p className="font-body text-sm text-white/95 mt-1">
+                Si quieres aparecer en nuestra pagina escribe por mensaje al CEO{' '}
+                <a
+                  href="https://www.instagram.com/thiagovsc._/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono-code font-extrabold text-[#C0D43E] hover:underline"
+                >
+                  @thiagovsc_
+                </a>{' '}
+                por mensaje
               </p>
             </div>
           </div>
 
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-full bg-white text-[#110B1C] font-mono-code text-xs font-black uppercase tracking-wider hover:bg-[#C0D43E] hover:text-black transition-colors flex-shrink-0 shadow-lg"
-          >
-            ETIQUÉTANOS AHORA
-          </a>
+          <div className="flex items-center gap-3 shrink-0 flex-wrap justify-center">
+            <a
+              href="https://www.instagram.com/thiagovsc._/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-white text-[#110B1C] font-mono-code text-xs font-black uppercase tracking-wider hover:bg-[#C0D43E] hover:text-black transition-all flex items-center gap-2 shadow-lg active:scale-95 cursor-pointer"
+            >
+              <span>ESCRIBENOS AQUI</span>
+              <span className="text-[10px]">↗</span>
+            </a>
+            <a
+              href="https://www.tiktok.com/@thiagovsc_"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-3 rounded-full bg-black/40 hover:bg-black text-white font-mono-code text-xs font-bold uppercase tracking-wider border border-white/20 transition-all flex items-center gap-1.5 shadow-lg active:scale-95 cursor-pointer"
+              title="TikTok oficial @thiagovsc_"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.89 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3 15.67a6.34 6.34 0 0 0 6.34 6.33 6.34 6.34 0 0 0 6.34-6.33V8.89a8.18 8.18 0 0 0 4.91 1.63v-3.45a4.85 4.85 0 0 1-1-.38z" />
+              </svg>
+              <span>TIKTOK</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
