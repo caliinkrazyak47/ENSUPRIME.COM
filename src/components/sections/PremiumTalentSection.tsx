@@ -96,12 +96,8 @@ export const PremiumTalentSection: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* CABECERA VIBRANTE EDITORIAL AWWWARDS */}
-        <div className="text-center mb-12 sm:mb-16 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-white/90 mb-3.5 shadow-inner">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C0D43E] animate-pulse" />
-            <span>[ 04 // EXCLUSIVE ROSTER & ICON ]</span>
-          </div>
+        {/* CABECERA VIBRANTE: INFLUENCER DEL MES */}
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-impact text-5xl sm:text-7xl md:text-8xl text-white uppercase tracking-tight">
             INFLUENCER <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform rotate-1 shadow-[0_12px_32px_rgba(0,0,0,0.3)]">DEL MES</span>
           </h2>

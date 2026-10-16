@@ -338,13 +338,8 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
-        {/* CABECERA VIBRANTE EDITORIAL AWWWARDS */}
+        {/* CABECERA VIBRANTE CENTRADA */}
         <div className="text-center mb-10 sm:mb-16 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 border border-black/10 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-[#DD2A7B] mb-3.5 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#DD2A7B] animate-pulse" />
-            <span>[ 03 // INSTAGRAM REELS & CLIPS ]</span>
-          </div>
-
           <div className="flex items-center gap-2 mb-3">
             <span className="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-md">
               <InstagramIcon className="w-4 h-4 text-white" />

@@ -447,13 +447,7 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
         {/* CABECERA VIBRANTE */}
-        {/* CABECERA VIBRANTE EDITORIAL AWWWARDS */}
         <div className="text-center mb-10 sm:mb-16 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 border border-black/10 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-[#6E1FE8] mb-3.5 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8] animate-pulse" />
-            <span>[ 02 // VIRAL TRENDS & DROPS ]</span>
-          </div>
-
           <div className="flex items-center gap-2 mb-3">
             <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-black shadow-md border border-white/10 shrink-0 relative overflow-hidden">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">

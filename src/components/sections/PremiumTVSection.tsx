@@ -582,12 +582,8 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center">
-        {/* CABECERA EDITORIAL AWWWARDS: EYEBROW + TÍTULO TV ONLINE */}
+        {/* CABECERA: TÍTULO TV ONLINE */}
         <div className="text-center mb-8 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-white/90 mb-3 shadow-inner">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C0D43E] animate-pulse" />
-            <span>[ 01 // BROADCAST & URBAN STREAM ]</span>
-          </div>
           <h2 className="font-impact text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-white mt-1">
             TV <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform -rotate-1 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">ONLINE</span>
           </h2>
