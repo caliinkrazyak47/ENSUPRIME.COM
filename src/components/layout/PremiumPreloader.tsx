@@ -15,6 +15,8 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
 
+  const centerContentRef = useRef<HTMLDivElement>(null);
+
   const brandName = "ENSUPRIME";
 
   useEffect(() => {
@@ -50,33 +52,24 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         }
       });
 
-      // 1. Separación tipográfica (tracking expand & stagger out)
-      tl.to(lettersRef.current, {
-        y: -40,
+      // 1. Desvanecer de golpe todo el contenido central (textos, línea y números) limpiamente
+      tl.to(centerContentRef.current, {
         opacity: 0,
-        filter: 'blur(8px)',
-        stagger: 0.03,
-        duration: 0.6,
-        ease: 'power3.inOut'
-      }, "+=0.1");
+        y: -15,
+        duration: 0.35,
+        ease: 'power2.inOut'
+      });
 
-      // 2. Línea roja y contador fade out
-      tl.to([progressBarRef.current, counterRef.current], {
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power2.out'
-      }, "<");
-
-      // 3. Apertura de cortina doble vertical
+      // 2. Apertura fluida de las cortinas negras
       tl.to(leftCurtainRef.current, {
         yPercent: -100,
-        duration: 0.85,
+        duration: 0.75,
         ease: 'power4.inOut'
-      }, "-=0.2");
+      }, "+=0.05");
 
       tl.to(rightCurtainRef.current, {
         yPercent: 100,
-        duration: 0.85,
+        duration: 0.75,
         ease: 'power4.inOut'
       }, "<");
     }, containerRef);
@@ -106,7 +99,10 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#EDE8DF_1px,transparent_1px)] [background-size:16px_16px]" />
 
       {/* Contenido Central */}
-      <div className="relative z-10 flex flex-col items-center select-none w-full max-w-4xl px-8">
+      <div
+        ref={centerContentRef}
+        className="relative z-10 flex flex-col items-center select-none w-full max-w-4xl px-8"
+      >
         {/* Metadatos superiores */}
         <div className="w-full flex justify-between items-center text-[10px] tracking-[0.25em] font-mono-code text-[#6B6B6B] uppercase mb-12">
           <span>// BROADCAST FREQ: 98.4 MHZ</span>

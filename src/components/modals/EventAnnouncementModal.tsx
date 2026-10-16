@@ -17,12 +17,12 @@ export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Abrir cuando la web ya terminó de cargar y se quitó el preloader
+    // Abrir suavemente una vez que el preloader desapareció por completo
     if (!isReady) return;
 
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 450);
+    }, 850);
 
     return () => clearTimeout(timer);
   }, [isReady]);
