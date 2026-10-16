@@ -25,7 +25,7 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
   isHidden = false,
 }) => {
   const [currentStationIndex, setCurrentStationIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(85);
   const [isMuted, setIsMuted] = useState<boolean>(false);
@@ -52,6 +52,28 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
   const hlsRef = useRef<Hls | null>(null);
 
   const currentStation = RADIO_STATIONS[currentStationIndex] || RADIO_STATIONS[0];
+
+  // Desbloqueo y reproducción automática de la radio con la primera interacción del usuario si el navegador restringe audio
+  useEffect(() => {
+    const unlockAndPlay = () => {
+      if (audioRef.current && isPlaying) {
+        audioRef.current.play().catch(() => {});
+      }
+      window.removeEventListener('click', unlockAndPlay);
+      window.removeEventListener('keydown', unlockAndPlay);
+      window.removeEventListener('touchstart', unlockAndPlay);
+    };
+
+    window.addEventListener('click', unlockAndPlay, { once: true });
+    window.addEventListener('keydown', unlockAndPlay, { once: true });
+    window.addEventListener('touchstart', unlockAndPlay, { once: true });
+
+    return () => {
+      window.removeEventListener('click', unlockAndPlay);
+      window.removeEventListener('keydown', unlockAndPlay);
+      window.removeEventListener('touchstart', unlockAndPlay);
+    };
+  }, [isPlaying]);
 
   // Manejo de transmisión de audio
   useEffect(() => {
