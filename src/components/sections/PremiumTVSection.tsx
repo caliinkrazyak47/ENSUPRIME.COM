@@ -582,48 +582,52 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center">
-        {/* CABECERA LIMPIA: SOLO TÍTULO TV ONLINE */}
-        <div className="text-center mb-8">
+        {/* CABECERA EDITORIAL AWWWARDS: EYEBROW + TÍTULO TV ONLINE */}
+        <div className="text-center mb-8 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-white/90 mb-3 shadow-inner">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C0D43E] animate-pulse" />
+            <span>[ 01 // BROADCAST & URBAN STREAM ]</span>
+          </div>
           <h2 className="font-impact text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-white mt-1">
-            TV <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform -rotate-1 shadow-lg">ONLINE</span>
+            TV <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform -rotate-1 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">ONLINE</span>
           </h2>
         </div>
 
         {/* SELECTOR DE MODOS PRINCIPAL (DISEÑO AWWWARDS / VIKTOR ODDY & EMIL KOWALSKI: DOCK DE CRISTAL LÍQUIDO CON FEEDBACK HÁPTICO) */}
-        <div className="w-full max-w-5xl md:max-w-6xl mb-7 flex items-center justify-center">
-          <div className="inline-flex items-center p-1.5 sm:p-2 rounded-full bg-black/40 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.15)] gap-2">
+        <div className="w-full max-w-5xl md:max-w-6xl mb-8 flex items-center justify-center">
+          <div className="inline-flex items-center p-2 rounded-full bg-black/50 backdrop-blur-3xl border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.25)] gap-2.5">
             
             {/* BOTÓN 1: MÚSICA // URBAN STREAM */}
             <button
               onClick={() => setActiveMode('music')}
-              className={`group/btn relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-mono-code font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center gap-3 active:scale-95 ${
+              className={`group/btn relative px-6 sm:px-7 py-3 rounded-full font-mono-code font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center gap-3.5 active:scale-[0.96] ${
                 activeMode === 'music'
-                  ? 'bg-white text-[#110B1C] shadow-[0_10px_30px_rgba(255,255,255,0.35)]'
+                  ? 'bg-white text-[#110B1C] shadow-[0_12px_32px_rgba(255,255,255,0.35),inset_0_1px_0_rgba(255,255,255,0.8)]'
                   : 'text-white/70 hover:text-white hover:bg-white/[0.08]'
               }`}
             >
               {/* Micro-icono Awwwards con ecualizador animado */}
-              <span className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${
+              <span className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                 activeMode === 'music'
-                  ? 'bg-[#6E1FE8] text-[#C0D43E] shadow-sm'
+                  ? 'bg-[#6E1FE8] text-[#C0D43E] shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]'
                   : 'bg-white/10 text-white group-hover/btn:bg-white/20'
               }`}>
                 {activeMode === 'music' ? (
-                  <span className="flex items-end gap-[2px] h-3.5">
+                  <span className="flex items-end gap-[2.5px] h-4">
                     <span className="w-[2.5px] h-2 bg-current rounded-full animate-pulse" />
-                    <span className="w-[2.5px] h-3.5 bg-current rounded-full animate-pulse [animation-delay:150ms]" />
+                    <span className="w-[2.5px] h-4 bg-current rounded-full animate-pulse [animation-delay:150ms]" />
                     <span className="w-[2.5px] h-2.5 bg-current rounded-full animate-pulse [animation-delay:300ms]" />
                   </span>
                 ) : (
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                   </svg>
                 )}
               </span>
 
               <div className="flex flex-col text-left leading-none">
-                <span className="font-extrabold tracking-tight">Música</span>
-                <span className={`text-[9px] font-mono-code uppercase tracking-widest mt-0.5 ${
+                <span className="font-extrabold tracking-tight text-sm">Música</span>
+                <span className={`text-[9.5px] font-mono-code uppercase tracking-widest mt-0.5 ${
                   activeMode === 'music' ? 'text-[#6E1FE8] font-black' : 'text-white/40'
                 }`}>
                   {activeMode === 'music' ? '● En Directo' : 'Urban Clips'}
@@ -631,28 +635,28 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
               </div>
             </button>
 
-            {/* BOTÓN 2: TELEVISIÓN // MEDIPSET BROADCAST HD */}
+            {/* BOTÓN 2: TELEVISIÓN // BROADCAST HD */}
             <button
               onClick={() => setActiveMode('television')}
-              className={`group/btn relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-mono-code font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center gap-3 active:scale-95 ${
+              className={`group/btn relative px-6 sm:px-7 py-3 rounded-full font-mono-code font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center gap-3.5 active:scale-[0.96] ${
                 activeMode === 'television'
-                  ? 'bg-[#C0D43E] text-[#110B1C] shadow-[0_10px_35px_rgba(192,212,62,0.45)]'
+                  ? 'bg-[#C0D43E] text-[#110B1C] shadow-[0_12px_36px_rgba(192,212,62,0.45),inset_0_1px_0_rgba(255,255,255,0.8)]'
                   : 'text-white/70 hover:text-white hover:bg-white/[0.08]'
               }`}
             >
               {/* Micro-icono Awwwards de señal de transmisión / antena de TV */}
-              <span className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${
+              <span className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                 activeMode === 'television'
                   ? 'bg-[#110B1C] text-[#C0D43E] shadow-sm'
                   : 'bg-white/10 text-white group-hover/btn:bg-white/20'
               }`}>
                 {activeMode === 'television' ? (
-                  <span className="relative flex h-2.5 w-2.5">
+                  <span className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C0D43E] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C0D43E]" />
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#C0D43E]" />
                   </span>
                 ) : (
-                  <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                     <path d="M17 2l-5 5-5-5" />
                   </svg>
@@ -660,8 +664,8 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
               </span>
 
               <div className="flex flex-col text-left leading-none">
-                <span className="font-extrabold tracking-tight">Televisión</span>
-                <span className={`text-[9px] font-mono-code uppercase tracking-widest mt-0.5 ${
+                <span className="font-extrabold tracking-tight text-sm">Televisión</span>
+                <span className={`text-[9.5px] font-mono-code uppercase tracking-widest mt-0.5 ${
                   activeMode === 'television' ? 'text-[#3B0764] font-black' : 'text-white/40'
                 }`}>
                   {activeMode === 'television' ? '● Canales 24/7' : 'Señales TV'}

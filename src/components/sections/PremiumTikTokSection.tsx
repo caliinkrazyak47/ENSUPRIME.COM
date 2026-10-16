@@ -447,7 +447,13 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
         {/* CABECERA VIBRANTE */}
+        {/* CABECERA VIBRANTE EDITORIAL AWWWARDS */}
         <div className="text-center mb-10 sm:mb-16 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 border border-black/10 text-[11px] font-mono-code font-bold tracking-[0.2em] uppercase text-[#6E1FE8] mb-3.5 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8] animate-pulse" />
+            <span>[ 02 // VIRAL TRENDS & DROPS ]</span>
+          </div>
+
           <div className="flex items-center gap-2 mb-3">
             <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-black shadow-md border border-white/10 shrink-0 relative overflow-hidden">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -476,7 +482,7 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
           </div>
 
           <h2 className="font-impact text-4xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[#6E1FE8] flex items-center justify-center flex-wrap gap-2 sm:gap-3 text-center">
-            TIKTOK <span className="bg-[#6E1FE8] text-white px-3 sm:px-4 py-0.5 sm:py-1 rounded-2xl inline-block transform -rotate-1 shadow-lg">FEED</span>
+            TIKTOK <span className="bg-[#6E1FE8] text-white px-3 sm:px-4 py-0.5 sm:py-1 rounded-2xl inline-block transform -rotate-1 shadow-[0_12px_30px_rgba(110,31,232,0.35)]">FEED</span>
           </h2>
         </div>
 
