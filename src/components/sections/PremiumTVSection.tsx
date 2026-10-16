@@ -69,7 +69,6 @@ const getCategoryFlag = (name: string) => {
 
 // Playlist oficial de thiagovsc.es
 const YOUTUBE_PLAYLIST_ID = 'PLALJOp7e_srk';
-const DEFAULT_VIDEO_ID = 'gFZfwWZV074';
 
 declare global {
   interface Window {
@@ -320,40 +319,38 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     let qualityInterval: any = null;
 
     const initPlayer = () => {
-      if (window.YT && window.YT.Player && document.getElementById('youtube-tv-player')) {
+      const iframeEl = document.getElementById('youtube-tv-player') as HTMLIFrameElement | null;
+      if (window.YT && window.YT.Player && iframeEl) {
         try {
           if (playerRef.current) {
-            playerRef.current.destroy?.();
+            try {
+              playerRef.current.destroy?.();
+            } catch {}
           }
 
           playerRef.current = new window.YT.Player('youtube-tv-player', {
-            playerVars: {
-              autoplay: 1,
-              controls: 1,
-              enablejsapi: 1,
-              playsinline: 1,
-              rel: 0,
-              modestbranding: 1,
-              vq: 'hd2160',
-              loop: 1,
-              listType: 'playlist',
-              list: YOUTUBE_PLAYLIST_ID,
-            },
             events: {
               onReady: (event: any) => {
                 if (!isMounted) return;
                 try {
                   event.target.setShuffle?.(true);
                   event.target.setLoop?.(true);
-                  event.target.unMute?.();
-                  event.target.setVolume?.(volume);
-                  setIsMuted(false);
+
+                  // Activar modo aleatorio real seleccionando un vídeo aleatorio de la lista
+                  const playlist = event.target.getPlaylist?.() || [];
+                  if (playlist.length > 1) {
+                    const randomIdx = Math.floor(Math.random() * playlist.length);
+                    event.target.playVideoAt?.(randomIdx);
+                  } else {
+                    event.target.setShuffle?.(true);
+                  }
+
                   forceMaximumQuality(event.target);
 
+                  // Intentar reproducir directamente
                   const playPromise = event.target.playVideo?.();
                   if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {
-                      // Si el navegador bloquea autoplay con sonido, arrancamos y solicitamos interacción sin bloquearse
                       event.target.mute?.();
                       setIsMuted(true);
                       event.target.playVideo?.();
@@ -368,25 +365,34 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                 }
               },
               onStateChange: (event: any) => {
-                if (event.data === 1) { // PLAYING
+                if (!isMounted) return;
+                if (event.data === 1) { // PLAYING (Vídeo corriendo en pantalla)
                   setIsPlaying(true);
                   forceMaximumQuality(event.target);
                   updateVideoData(event.target);
 
-                  // Si estaba muteado por política del navegador, desmutear si ya hubo toque
                   let attempts = 0;
                   if (qualityInterval) clearInterval(qualityInterval);
                   qualityInterval = setInterval(() => {
                     attempts++;
                     forceMaximumQuality(event.target);
-                    if (attempts > 6) {
+                    if (attempts > 5) {
                       clearInterval(qualityInterval);
                     }
-                  }, 700);
+                  }, 800);
                 } else if (event.data === 2) { // PAUSED
                   setIsPlaying(false);
                 } else if (event.data === 0) { // ENDED
                   event.target.nextVideo?.();
+                } else if (event.data === -1) { // UNSTARTED
+                  // Si está sin iniciar tras cargar, forzar play
+                  setTimeout(() => {
+                    if (isMounted) {
+                      try {
+                        event.target.playVideo?.();
+                      } catch {}
+                    }
+                  }, 400);
                 }
               },
               onError: () => {
@@ -627,7 +633,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
   const initialPlaylistIframeUrl = useMemo(() => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `https://www.youtube.com/embed/${DEFAULT_VIDEO_ID}?list=${YOUTUBE_PLAYLIST_ID}&listType=playlist&enablejsapi=1&autoplay=1&playsinline=1&controls=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
+    return `https://www.youtube.com/embed/videoseries?list=${YOUTUBE_PLAYLIST_ID}&autoplay=1&mute=1&playsinline=1&controls=1&enablejsapi=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
       origin
     )}`;
   }, []);
