@@ -327,20 +327,35 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
           }
 
           playerRef.current = new window.YT.Player('youtube-tv-player', {
+            playerVars: {
+              autoplay: 1,
+              controls: 1,
+              enablejsapi: 1,
+              playsinline: 1,
+              rel: 0,
+              modestbranding: 1,
+              vq: 'hd2160',
+              loop: 1,
+              listType: 'playlist',
+              list: YOUTUBE_PLAYLIST_ID,
+            },
             events: {
               onReady: (event: any) => {
                 if (!isMounted) return;
                 try {
-                  // Mute garantizado para que los navegadores modernos ejecuten AUTOPLAY 100% sin bloqueo
-                  event.target.mute?.();
                   event.target.setShuffle?.(true);
                   event.target.setLoop?.(true);
+                  event.target.unMute?.();
+                  event.target.setVolume?.(volume);
+                  setIsMuted(false);
                   forceMaximumQuality(event.target);
 
                   const playPromise = event.target.playVideo?.();
                   if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {
+                      // Si el navegador bloquea autoplay con sonido, arrancamos y solicitamos interacción sin bloquearse
                       event.target.mute?.();
+                      setIsMuted(true);
                       event.target.playVideo?.();
                     });
                   }
@@ -358,16 +373,16 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                   forceMaximumQuality(event.target);
                   updateVideoData(event.target);
 
-                  // Insistir periódicamente en forzar 4K durante los primeros 4 segundos de reproducción
+                  // Si estaba muteado por política del navegador, desmutear si ya hubo toque
                   let attempts = 0;
                   if (qualityInterval) clearInterval(qualityInterval);
                   qualityInterval = setInterval(() => {
                     attempts++;
                     forceMaximumQuality(event.target);
-                    if (attempts > 5) {
+                    if (attempts > 6) {
                       clearInterval(qualityInterval);
                     }
-                  }, 800);
+                  }, 700);
                 } else if (event.data === 2) { // PAUSED
                   setIsPlaying(false);
                 } else if (event.data === 0) { // ENDED
