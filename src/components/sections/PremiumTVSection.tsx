@@ -330,7 +330,13 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                     event.target.unMute?.();
                   }
 
-                  event.target.playVideo?.();
+                  const playPromise = event.target.playVideo?.();
+                  if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                      event.target.mute?.();
+                      event.target.playVideo?.();
+                    });
+                  }
                   setIsPlaying(true);
                   updateVideoData(event.target);
                 } catch {
@@ -585,7 +591,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
   const initialPlaylistIframeUrl = useMemo(() => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `https://www.youtube.com/embed/${DEFAULT_VIDEO_ID}?list=${YOUTUBE_PLAYLIST_ID}&listType=playlist&enablejsapi=1&autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
+    return `https://www.youtube.com/embed/${DEFAULT_VIDEO_ID}?list=${YOUTUBE_PLAYLIST_ID}&listType=playlist&enablejsapi=1&autoplay=1&playsinline=1&controls=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
       origin
     )}`;
   }, []);
