@@ -83,10 +83,10 @@ export const INSTA_REELS_DATA: ReelCardData[] = [
     id: "reel-5",
     creator: "Hailey Picardi",
     handle: "@haileypicardi",
-    avatar: "https://scontent.cdninstagram.com/v/t51.71878-15/847917753_1125259850181705_7141591427495930757_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=pG7tBUg9gUoQ7kNvwHwXb16&_nc_oc=Adq-ALS6-Zgv85uYssRt_u3Wvlx7S6N1jrN2CAFRwTvSg-1hbMnKTz3UUVRNBaudwy8&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4IWlUKyViz5xipZ5q2ATxQ&_nc_ss=7b60f&oh=00_AQOPCSDoOU-YXZRn_sg6-6Bvi3saQuIawHYIKT33IAp53A&oe=6AD806D0",
+    avatar: "/hailey.jpg",
     reelUrl: "https://www.instagram.com/reels/DefrWfgTOLt/",
-    videoUrl: "https://files.catbox.moe/xyb4ew.mp4",
-    posterFrame: "https://scontent.cdninstagram.com/v/t51.71878-15/847917753_1125259850181705_7141591427495930757_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=pG7tBUg9gUoQ7kNvwHwXb16&_nc_oc=Adq-ALS6-Zgv85uYssRt_u3Wvlx7S6N1jrN2CAFRwTvSg-1hbMnKTz3UUVRNBaudwy8&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4IWlUKyViz5xipZ5q2ATxQ&_nc_ss=7b60f&oh=00_AQOPCSDoOU-YXZRn_sg6-6Bvi3saQuIawHYIKT33IAp53A&oe=6AD806D0",
+    videoUrl: "/hailey-reel.mp4",
+    posterFrame: "/hailey.jpg",
     caption: "presave my next song in bio btw <3 #surething #miguel #guitar #singing #cover",
     likes: "29K",
     comments: "104",
@@ -95,10 +95,10 @@ export const INSTA_REELS_DATA: ReelCardData[] = [
     id: "reel-6",
     creator: "SHELLY 🌟🐚",
     handle: "@shellymusicc",
-    avatar: "https://scontent.cdninstagram.com/v/t51.82787-15/848370811_17931956373415529_1494765945237019475_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=9ce4Dod034EQ7kNvwFW-jSf&_nc_oc=Adp-ZmvYJLo_-0MbNNoJXGFzpvsTJ62kcj4nu1dVeqJn0vx-e7XvgZxaCXmNsrQq_CM&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=a3Rn0O0ApJmQKXbKjjlSrA&_nc_ss=7b60f&oh=00_AQPscbrGx7KMqZroj-LKMUpOw6hPSdW85i5sBFIRSrYvmg&oe=6AD8243A",
+    avatar: "/shelly.jpg",
     reelUrl: "https://www.instagram.com/reels/Dee-O-FsADG/",
-    videoUrl: "https://files.catbox.moe/y14f56.mp4",
-    posterFrame: "https://scontent.cdninstagram.com/v/t51.82787-15/848370811_17931956373415529_1494765945237019475_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=9ce4Dod034EQ7kNvwFW-jSf&_nc_oc=Adp-ZmvYJLo_-0MbNNoJXGFzpvsTJ62kcj4nu1dVeqJn0vx-e7XvgZxaCXmNsrQq_CM&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=a3Rn0O0ApJmQKXbKjjlSrA&_nc_ss=7b60f&oh=00_AQPscbrGx7KMqZroj-LKMUpOw6hPSdW85i5sBFIRSrYvmg&oe=6AD8243A",
+    videoUrl: "/shelly-reel.mp4",
+    posterFrame: "/shelly.jpg",
     caption: "all that i knew - an original #originalmusic #singersongwriter #jazz #rnb #soul",
     likes: "15.6K",
     comments: "142",
@@ -445,7 +445,7 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
                         loop
                         muted={isMuted}
                         playsInline
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
                       />
 
                       {/* Gradiente sutil inferior */}
