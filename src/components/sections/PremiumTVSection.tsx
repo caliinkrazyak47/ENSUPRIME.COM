@@ -590,7 +590,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
         </div>
 
         {/* SELECTOR DE MODOS PRINCIPAL (DISEÑO AWWWARDS / VIKTOR ODDY & EMIL KOWALSKI: DOCK DE CRISTAL LÍQUIDO CON FEEDBACK HÁPTICO) */}
-        <div className="w-full max-w-5xl md:max-w-6xl mb-8 flex items-center justify-center">
+        <div className="w-full max-w-4xl md:max-w-5xl mb-7 flex items-center justify-center">
           <div className="inline-flex items-center p-2 rounded-full bg-black/50 backdrop-blur-3xl border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.25)] gap-2.5">
             
             {/* BOTÓN 1: MÚSICA // URBAN STREAM */}
@@ -672,11 +672,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
           </div>
         </div>
 
-        {/* TARJETA NEGRA FLOATING CARD CON MARCO CURVADO (AMPLIADA PARA MAYOR VISUALIZACIÓN) */}
-        <div className="relative w-full max-w-5xl md:max-w-6xl p-1.5 sm:p-2.5 rounded-[3.2rem] bg-white/10 ring-1 ring-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.55)] group/card">
-          <div className="absolute -inset-2 rounded-[3.4rem] bg-gradient-to-r from-[#8B3BFF]/30 via-[#6E1FE8]/25 to-[#C0D43E]/20 blur-2xl opacity-60 group-hover/card:opacity-90 transition-opacity duration-700 pointer-events-none -z-10" />
+        {/* TARJETA NEGRA FLOATING CARD CON MARCO CURVADO (TAMAÑO PROPORCIONADO) */}
+        <div className="relative w-full max-w-4xl md:max-w-5xl p-1.5 sm:p-2 rounded-[2.8rem] bg-white/10 ring-1 ring-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.55)] group/card">
+          <div className="absolute -inset-2 rounded-[3rem] bg-gradient-to-r from-[#8B3BFF]/30 via-[#6E1FE8]/25 to-[#C0D43E]/20 blur-2xl opacity-60 group-hover/card:opacity-90 transition-opacity duration-700 pointer-events-none -z-10" />
 
-          <div className="w-full bg-[#110B1C] rounded-[3rem] p-4 sm:p-6 md:p-8 border border-white/10 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+          <div className="w-full bg-[#110B1C] rounded-[2.6rem] p-3.5 sm:p-5 md:p-6 border border-white/10 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
             <span className="absolute top-5 right-6 text-2xl text-[#A855F7]">✦</span>
 
             {/* REPRODUCTOR DE VÍDEO (PASA A PANTALLA COMPLETA DIRECTA MANTENIENDO EL MISMO ELEMENTO EXACTO) */}
