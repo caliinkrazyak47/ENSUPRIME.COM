@@ -169,12 +169,8 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
         {/* Cabecera superior: Flecha chevron hacia abajo a la derecha */}
         <div className="w-full px-6 md:px-12 py-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="bg-white text-[#110B1C] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1.5">
-              <span className="text-[10px] tracking-widest text-[#6E1FE8] font-black">•••</span>
-              <span>En directe</span>
-            </span>
             <span className="text-sm font-semibold tracking-wide text-white/90">
-              ENSUPRIME.ES
+              ENSUPRIME.COM
             </span>
           </div>
 
@@ -200,20 +196,16 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
             />
           </div>
 
-          {/* Pastilla '... En directe' + Nombre de canción / estación */}
+          {/* Nombre de canción / estación limpio */}
           <div className="flex items-center justify-center gap-2.5 mb-2">
-            <span className="bg-white text-[#110B1C] text-[11px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1.5">
-              <span className="text-[9px] tracking-widest text-[#6E1FE8] font-black">•••</span>
-              <span>En directe</span>
-            </span>
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide">
               {currentStation.name}
             </h2>
           </div>
 
-          {/* Subtítulo: ENSUPRIME.ES */}
+          {/* Subtítulo: ENSUPRIME.COM */}
           <p className="text-xs sm:text-sm font-medium text-white/80 tracking-wider uppercase mb-8">
-            ENSUPRIME.ES · {currentStation.city}
+            ENSUPRIME.COM · {currentStation.city}
           </p>
 
           {/* Barra de Controles: Volumen, Anterior, Play/Pause Blanco, Siguiente, Compartir */}
@@ -313,16 +305,10 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
               />
             </div>
 
-            {/* Textos: Pastilla En directe + Nombre en la misma línea superior, ENSUPRIME.ES en la inferior */}
+            {/* Textos: Nombre de la emisora en la línea superior, ENSUPRIME.COM en la inferior */}
             <div className="min-w-0 flex flex-col justify-center">
               <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                {/* Pastilla blanca redondeada '... En directe' exacta */}
-                <span className="inline-flex items-center gap-1 bg-white text-[#110B1C] text-[9px] sm:text-[11px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full shrink-0 shadow-sm leading-none">
-                  <span className="text-[8px] sm:text-[9px] tracking-widest text-[#6E1FE8] font-black">•••</span>
-                  <span className="hidden xs:inline">En directe</span>
-                </span>
-
-                {/* Nombre de la canción / emisora al lado */}
+                {/* Nombre de la canción / emisora */}
                 <span
                   onClick={() => setIsExpanded(true)}
                   className="text-xs sm:text-sm md:text-base font-semibold text-white truncate cursor-pointer hover:underline leading-tight"
@@ -331,9 +317,9 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
                 </span>
               </div>
 
-              {/* Subtítulo inferior: ENSUPRIME.ES en mayúsculas como en la imagen */}
+              {/* Subtítulo inferior: ENSUPRIME.COM en mayúsculas */}
               <span className="text-[9px] sm:text-[11px] font-bold text-white/90 uppercase tracking-wider mt-0.5 sm:mt-1 truncate">
-                ENSUPRIME.ES
+                ENSUPRIME.COM
               </span>
             </div>
           </div>
