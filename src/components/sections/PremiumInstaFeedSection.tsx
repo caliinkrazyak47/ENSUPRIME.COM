@@ -271,11 +271,9 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
     e.stopPropagation();
     if (hasDraggedRef.current) return;
 
-    const video = videoRefs.current[key];
-    if (!video) return;
-
     if (playingId === key) {
-      video.pause();
+      const currentVideo = videoRefs.current[key];
+      if (currentVideo) currentVideo.pause();
       setPlayingId(null);
       setIsAutoScrollPaused(false);
     } else {
@@ -285,21 +283,22 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
           videoRefs.current[k]?.pause();
         }
       });
-      // El usuario hizo clic intencional para reproducir: activar audio
-      video.muted = false;
       setIsMuted(false);
-      video.play().then(() => {
-        setPlayingId(key);
-        setIsAutoScrollPaused(true);
-      }).catch(() => {
-        // Fallback silenciado si la política de autoplay del navegador es estricta
-        video.muted = true;
-        setIsMuted(true);
-        video.play().then(() => {
-          setPlayingId(key);
-          setIsAutoScrollPaused(true);
-        }).catch(() => {});
-      });
+      setPlayingId(key);
+      setIsAutoScrollPaused(true);
+
+      // Reproducir en el siguiente tick una vez montado con src
+      setTimeout(() => {
+        const video = videoRefs.current[key];
+        if (video) {
+          video.muted = false;
+          video.play().catch(() => {
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
+          });
+        }
+      }, 50);
     }
   };
 
@@ -444,21 +443,32 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
                       </button>
                     </div>
 
-                    {/* 2. CONTENEDOR DEL VIDEO: FRAME ORIGINAL + REPRODUCTOR NATIVO SIN BORDES NEGROS */}
+                    {/* 2. CONTENEDOR DEL VIDEO: CARGA BAJO DEMANDA PARA CERO LAG */}
                     <div
                       onClick={(e) => togglePlay(uniqueKey, e)}
                       className="relative w-full aspect-[9/14] overflow-hidden bg-black cursor-pointer select-none"
                     >
-                      <video
-                        ref={(el) => { videoRefs.current[uniqueKey] = el; }}
-                        src={item.videoUrl}
-                        poster={item.posterFrame}
-                        loop
-                        muted={isMuted}
-                        playsInline
-                        preload="metadata"
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none transform-gpu will-change-transform"
-                      />
+                      {isPlaying ? (
+                        <video
+                          ref={(el) => { videoRefs.current[uniqueKey] = el; }}
+                          src={item.videoUrl}
+                          poster={item.posterFrame}
+                          loop
+                          muted={isMuted}
+                          playsInline
+                          autoPlay
+                          preload="auto"
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none transform-gpu will-change-transform"
+                        />
+                      ) : (
+                        <img
+                          src={item.posterFrame}
+                          alt={item.creator}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none transform-gpu will-change-transform"
+                        />
+                      )}
 
                       {/* Gradiente sutil inferior */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />

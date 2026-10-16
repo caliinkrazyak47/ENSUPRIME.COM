@@ -336,11 +336,9 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
     e.stopPropagation();
     if (hasDraggedRef.current) return;
 
-    const video = videoRefs.current[key];
-    if (!video) return;
-
     if (playingVideoId === key) {
-      video.pause();
+      const currentVideo = videoRefs.current[key];
+      if (currentVideo) currentVideo.pause();
       setPlayingVideoId(null);
       setIsAutoScrollPaused(false);
     } else {
@@ -350,21 +348,22 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
           videoRefs.current[k]?.pause();
         }
       });
-      // El usuario hizo clic intencional para reproducir: activar audio
-      video.muted = false;
       setIsMuted(false);
-      video.play().then(() => {
-        setPlayingVideoId(key);
-        setIsAutoScrollPaused(true);
-      }).catch(() => {
-        // Fallback silenciado si la política de autoplay del navegador es estricta
-        video.muted = true;
-        setIsMuted(true);
-        video.play().then(() => {
-          setPlayingVideoId(key);
-          setIsAutoScrollPaused(true);
-        }).catch(() => {});
-      });
+      setPlayingVideoId(key);
+      setIsAutoScrollPaused(true);
+
+      // Reproducir en el siguiente tick una vez montado con src
+      setTimeout(() => {
+        const video = videoRefs.current[key];
+        if (video) {
+          video.muted = false;
+          video.play().catch(() => {
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
+          });
+        }
+      }, 50);
     }
   };
 
@@ -540,19 +539,30 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                         onClick={(e) => handleTogglePlay(uniqueKey, e)}
                         className="relative aspect-[9/13] w-full rounded-2xl sm:rounded-[1.4rem] overflow-hidden bg-black shadow-inner ring-1 ring-white/10 cursor-pointer [transform:translateZ(0)]"
                       >
-                        {/* VÍDEO NATIVO OPTIMIZADO: PRELOAD METADATA PARA CARGA ULTRARRÁPIDA Y CERO TIRONES */}
-                        <video
-                          ref={(el) => {
-                            videoRefs.current[uniqueKey] = el;
-                          }}
-                          src={item.videoUrl}
-                          poster={item.cover}
-                          loop
-                          muted={isMuted}
-                          playsInline
-                          preload="metadata"
-                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 pointer-events-none [transform:translateZ(0)] will-change-transform"
-                        />
+                        {/* VÍDEO NATIVO: CARGA BAJO DEMANDA (ON-DEMAND) PARA CERO LAG Y 0 BLOQUEOS DE RED */}
+                        {isPlaying ? (
+                          <video
+                            ref={(el) => {
+                              videoRefs.current[uniqueKey] = el;
+                            }}
+                            src={item.videoUrl}
+                            poster={item.cover}
+                            loop
+                            muted={isMuted}
+                            playsInline
+                            autoPlay
+                            preload="auto"
+                            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 pointer-events-none [transform:translateZ(0)] will-change-transform"
+                          />
+                        ) : (
+                          <img
+                            src={item.cover}
+                            alt={item.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 pointer-events-none [transform:translateZ(0)]"
+                          />
+                        )}
 
                         {/* Sombra de viñeta para lectura clara */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40 pointer-events-none" />
