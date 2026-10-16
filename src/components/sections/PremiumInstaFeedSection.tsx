@@ -393,10 +393,10 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
                 return (
                   <article
                     key={uniqueKey}
-                    className="w-[280px] sm:w-[320px] md:w-[340px] flex-shrink-0 bg-white rounded-[2rem] overflow-hidden border border-[#E5E5E5] hover:border-[#6E1FE8]/40 transition-all duration-300 shadow-sm hover:shadow-[0_20px_45px_rgba(110,31,232,0.12)] hover:-translate-y-1 flex flex-col justify-between select-none"
+                    className="w-[280px] sm:w-[320px] md:w-[340px] flex-shrink-0 bg-white rounded-[2rem] overflow-hidden border border-[#E8E8E8] hover:border-[#6E1FE8]/30 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_24px_55px_rgba(110,31,232,0.16)] hover:-translate-y-2 flex flex-col justify-between select-none ring-1 ring-black/[0.03]"
                   >
                     {/* 1. CABECERA BLANCA OFICIAL DE INSTAGRAM CON AVATAR REAL */}
-                    <div className="p-3.5 flex items-center justify-between border-b border-[#EFEFEF] bg-white z-20">
+                    <div className="p-3.5 flex items-center justify-between border-b border-[#F0F0F0] bg-white z-20">
                       <a
                         href={item.reelUrl}
                         target="_blank"

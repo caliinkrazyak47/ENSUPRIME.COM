@@ -528,15 +528,15 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                     data-cursor="PLAY"
                     className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 flex flex-col group cursor-pointer transition-all duration-300 hover:-translate-y-2 select-none [perspective:1000px]"
                   >
-                    {/* TARJETA CON COLORES Y ELEMENTOS VIBRANTES */}
+                    {/* TARJETA CON COLORES Y ELEMENTOS VIBRANTES (DOBLE BISEL TIPO HARDWARE AWWWARDS) */}
                     <div
-                      className="relative rounded-[2rem] sm:rounded-[2.4rem] p-4 sm:p-5 flex flex-col justify-between h-full transition-all duration-300 shadow-[0_15px_35px_rgba(0,0,0,0.1)] group-hover:shadow-[0_28px_60px_rgba(110,31,232,0.22)] border border-black/5"
+                      className="relative rounded-[2rem] sm:rounded-[2.4rem] p-4 sm:p-5 flex flex-col justify-between h-full transition-all duration-300 shadow-[0_15px_35px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.2)] group-hover:shadow-[0_30px_70px_rgba(110,31,232,0.28),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-black/10"
                       style={{ backgroundColor: item.bgColor }}
                     >
                       {/* RECIPIENTE MULTIMEDIA 9:13 */}
                       <div
                         onClick={(e) => handleTogglePlay(uniqueKey, e)}
-                        className="relative aspect-[9/13] w-full rounded-2xl sm:rounded-[1.4rem] overflow-hidden bg-black shadow-inner cursor-pointer [transform:translateZ(0)]"
+                        className="relative aspect-[9/13] w-full rounded-2xl sm:rounded-[1.4rem] overflow-hidden bg-black shadow-inner ring-1 ring-white/10 cursor-pointer [transform:translateZ(0)]"
                       >
                         {/* VÍDEO NATIVO OPTIMIZADO: PRELOAD CONDICIONAL PARA EVITAR LAG Y SATURACIÓN */}
                         <video

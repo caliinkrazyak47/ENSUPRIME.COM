@@ -1167,19 +1167,19 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                     <button
                       type="button"
                       onClick={handlePrevVideo}
-                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#3B0764] flex items-center justify-center transition-all cursor-pointer shadow-sm border border-white/10 active:scale-95 shrink-0"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#110B1C] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-sm border border-white/15 active:scale-95 shrink-0 group/ctrl"
                       title="Anterior"
                       aria-label="Anterior"
                     >
-                      <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                      <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current transition-transform duration-200 group-hover/ctrl:-translate-x-0.5" />
                     </button>
                   )}
 
-                  {/* Botón Play / Pausa estilo Awwwards */}
+                  {/* Botón Play / Pausa estilo Awwwards: concentric pill with inner light reflection */}
                   <button
                     type="button"
                     onClick={handleTogglePlay}
-                    className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white hover:bg-[#C0D43E] text-[#3B0764] flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer border border-white active:scale-90 shrink-0"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-[#C0D43E] text-[#110B1C] flex items-center justify-center transition-all duration-300 shadow-[0_8px_24px_rgba(255,255,255,0.25),inset_0_1px_1px_rgba(255,255,255,0.9)] cursor-pointer border border-white/80 active:scale-90 shrink-0"
                     title={isPlaying ? 'Pausar' : 'Reproducir'}
                     aria-label={isPlaying ? 'Pausar' : 'Reproducir'}
                   >
@@ -1195,11 +1195,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                     <button
                       type="button"
                       onClick={handleNextVideo}
-                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#3B0764] flex items-center justify-center transition-all cursor-pointer shadow-sm border border-white/10 active:scale-95 shrink-0"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#110B1C] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-sm border border-white/15 active:scale-95 shrink-0 group/ctrl"
                       title="Siguiente"
                       aria-label="Siguiente"
                     >
-                      <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                      <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current transition-transform duration-200 group-hover/ctrl:translate-x-0.5" />
                     </button>
                   )}
 
@@ -1208,11 +1208,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                     <button
                       type="button"
                       onClick={handleShuffleVideo}
-                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-[#C0D43E] text-white hover:text-[#3B0764] flex items-center justify-center transition-all cursor-pointer shadow-sm border border-white/10 active:scale-95 shrink-0"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-[#C0D43E] text-white hover:text-[#110B1C] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-sm border border-white/15 active:scale-95 shrink-0 group/ctrl"
                       title="Aleatorio"
                       aria-label="Aleatorio"
                     >
-                      <Shuffle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      <Shuffle className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 group-hover/ctrl:rotate-12" />
                     </button>
                   )}
                 </div>
