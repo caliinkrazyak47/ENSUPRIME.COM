@@ -232,29 +232,47 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Forzar máxima calidad (1080p Full HD / HighRes) y desactivar subtítulos
+  // Forzar máxima resolución posible (4K Ultra HD / 2160p -> 1440p -> 1080p -> highres)
   const forceMaximumQuality = useCallback((player: any) => {
     if (player) {
       try {
         player.unloadModule?.('captions');
         player.unloadModule?.('cc');
         const available = player.getAvailableQualityLevels?.() || [];
-        if (available.includes('hd1080')) {
-          player.setPlaybackQuality('hd1080');
-        } else if (available.includes('highres')) {
+        
+        // Priorizar la máxima resolución nativa disponible en el vídeo (4K highres / 1440p / 1080p)
+        if (available.includes('highres')) {
           player.setPlaybackQuality('highres');
-        } else if (available.includes('hd720')) {
-          player.setPlaybackQuality('hd720');
+          player.setPlaybackQualityRange?.('highres', 'highres');
+        } else if (available.includes('hd2160')) {
+          player.setPlaybackQuality('hd2160');
+          player.setPlaybackQualityRange?.('hd2160', 'hd2160');
+        } else if (available.includes('hd1440')) {
+          player.setPlaybackQuality('hd1440');
+          player.setPlaybackQualityRange?.('hd1440', 'hd1440');
+        } else if (available.includes('hd1080')) {
+          player.setPlaybackQuality('hd1080');
+          player.setPlaybackQualityRange?.('hd1080', 'hd1080');
+        } else if (available.length > 0) {
+          // El nivel 0 es siempre el de más alta resolución disponible
+          player.setPlaybackQuality(available[0]);
+          player.setPlaybackQualityRange?.(available[0], available[0]);
         }
       } catch {}
     }
 
     try {
       if (iframeRef.current?.contentWindow) {
-        iframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: 'command', func: 'setPlaybackQuality', args: ['hd1080'] }),
-          '*'
-        );
+        ['highres', 'hd2160', 'hd1440', 'hd1080'].forEach((quality) => {
+          iframeRef.current?.contentWindow?.postMessage(
+            JSON.stringify({ event: 'command', func: 'setPlaybackQuality', args: [quality] }),
+            '*'
+          );
+          iframeRef.current?.contentWindow?.postMessage(
+            JSON.stringify({ event: 'command', func: 'setPlaybackQualityRange', args: [quality, quality] }),
+            '*'
+          );
+        });
       }
     } catch {}
   }, []);
@@ -567,7 +585,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
   const initialPlaylistIframeUrl = useMemo(() => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `https://www.youtube.com/embed/${DEFAULT_VIDEO_ID}?list=${YOUTUBE_PLAYLIST_ID}&listType=playlist&enablejsapi=1&autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd1080&hd=1&origin=${encodeURIComponent(
+    return `https://www.youtube.com/embed/${DEFAULT_VIDEO_ID}?list=${YOUTUBE_PLAYLIST_ID}&listType=playlist&enablejsapi=1&autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
       origin
     )}`;
   }, []);
