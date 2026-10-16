@@ -158,12 +158,31 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
     targetFrameRef.current = CENTER_FRAME;
   };
 
+  // Manejo táctil (móviles y tablets): Frame scrubbing con el dedo
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 0) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const touchX = e.touches[0].clientX - rect.left;
+    const ratioX = Math.max(0, Math.min(1, touchX / rect.width));
+
+    const target = ratioX * (TOTAL_FRAMES - 1);
+    targetFrameRef.current = target;
+  };
+
+  const handleTouchEnd = () => {
+    targetFrameRef.current = CENTER_FRAME;
+  };
+
   return (
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full aspect-video min-h-[580px] max-h-[1080px] bg-[#EDE8E3] text-[#110B1C] flex flex-col justify-between overflow-hidden select-none"
+      onTouchStart={handleTouchMove}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
+      className="relative w-full aspect-video min-h-[580px] max-h-[1080px] bg-[#EDE8E3] text-[#110B1C] flex flex-col justify-between overflow-hidden select-none touch-pan-y"
     >
       {/* ============================================================== */}
       {/* 1. NAVBAR ESTILO SCHEME ENGINE (SCHEMEENGINE.COM) CON ENSUPRIME */}
