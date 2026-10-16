@@ -538,7 +538,7 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                         onClick={(e) => handleTogglePlay(uniqueKey, e)}
                         className="relative aspect-[9/13] w-full rounded-2xl sm:rounded-[1.4rem] overflow-hidden bg-black shadow-inner ring-1 ring-white/10 cursor-pointer [transform:translateZ(0)]"
                       >
-                        {/* VÍDEO NATIVO OPTIMIZADO: PRELOAD CONDICIONAL PARA EVITAR LAG Y SATURACIÓN */}
+                        {/* VÍDEO NATIVO OPTIMIZADO: PRELOAD METADATA PARA CARGA ULTRARRÁPIDA Y CERO TIRONES */}
                         <video
                           ref={(el) => {
                             videoRefs.current[uniqueKey] = el;
@@ -548,7 +548,7 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                           loop
                           muted={isMuted}
                           playsInline
-                          preload={isPlaying ? "auto" : "none"}
+                          preload="metadata"
                           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 pointer-events-none [transform:translateZ(0)] will-change-transform"
                         />
 

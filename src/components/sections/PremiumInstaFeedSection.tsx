@@ -445,7 +445,8 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
                         loop
                         muted={isMuted}
                         playsInline
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
+                        preload="metadata"
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none transform-gpu will-change-transform"
                       />
 
                       {/* Gradiente sutil inferior */}
