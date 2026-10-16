@@ -2,10 +2,10 @@
   "rewrites": [
     {
       "source": "/api/proxy",
-      "destination": "https://rtvelivestream.rtve.es/api"
+      "destination": "/api/proxy"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]

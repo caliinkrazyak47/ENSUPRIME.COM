@@ -206,8 +206,6 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
             type="video/mp4"
           />
         </video>
-        {/* Sutil viñeta para dar profundidad cinemática */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40 pointer-events-none" />
       </div>
 
       {/* ============================================================== */}
@@ -217,21 +215,17 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
         {/* CABECERA OFICIAL NETFLIX ORIGINAL */}
         <div className="flex items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2">
           {/* Logo icónico "N" roja de Netflix */}
-          <span className="font-impact text-xl sm:text-2xl text-[#E50914] font-black leading-none drop-shadow-[0_2px_10px_rgba(229,9,20,0.8)]">
+          <span className="font-impact text-xl sm:text-2xl text-[#E50914] font-black leading-none">
             N
           </span>
-          <span className="font-sans text-[11px] sm:text-xs md:text-sm font-extrabold tracking-[0.35em] uppercase text-white/95" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
+          <span className="font-sans text-[11px] sm:text-xs md:text-sm font-extrabold tracking-[0.35em] uppercase text-white/95">
             SERIES
           </span>
         </div>
 
         {/* TÍTULO PRINCIPAL: TIPOGRAFÍA CONDENSADA OFICIAL TIPO PÓSTER NETFLIX (NATURAL, PROPORCIONADA, SIN ESTIRAR) */}
         <h1
-          className="w-full text-center font-impact text-[13vw] sm:text-[12vw] md:text-[10.5vw] lg:text-[9.5vw] leading-[0.84] tracking-[-0.01em] uppercase text-white drop-shadow-[0_20px_60px_rgba(0,0,0,0.98)] select-none whitespace-nowrap"
-          style={{
-            WebkitTextStroke: '1px rgba(255,255,255,0.4)',
-            textShadow: '0 10px 40px rgba(0,0,0,0.95), 0 0 80px rgba(110,31,232,0.45)',
-          }}
+          className="w-full text-center font-impact text-[13vw] sm:text-[12vw] md:text-[10.5vw] lg:text-[9.5vw] leading-[0.84] tracking-[-0.01em] uppercase text-white select-none whitespace-nowrap"
         >
           TALENTO URBANO
         </h1>

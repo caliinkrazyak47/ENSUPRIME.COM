@@ -87,7 +87,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
   onFullscreenChange,
 }) => {
   // Modo activo: 'music' | 'television'
-  const [activeMode, setActiveMode] = useState<TVMode>('music');
+  const [activeMode, setActiveMode] = useState<TVMode>('television');
 
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(false);
@@ -456,9 +456,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     video.volume = isMuted ? 0 : volume / 100;
 
     let targetUrl = activeIptvChannel.url;
-    if (!targetUrl.includes('rtvelivestream.rtve.es') && !targetUrl.includes('cdn.jsdelivr.net')) {
-      targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
-    }
+    targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
 
     if (Hls.isSupported()) {
       if (iptvHlsRef.current) {
@@ -466,7 +464,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
       }
       const hls = new Hls({
         enableWorker: true,
-        lowLatencyMode: true,
+        lowLatencyMode: false,
+        backBufferLength: 60,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        liveSyncDurationCount: 3,
         capLevelToPlayerSize: false
       });
 
@@ -476,10 +478,19 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
       hls.on(Hls.Events.MANIFEST_PARSED, (_ev, data) => {
         setIsIptvLoading(false);
+        setIptvError(false);
         if (data?.levels && data.levels.length > 0) {
-          hls.currentLevel = data.levels.length - 1;
+          hls.currentLevel = -1; // Auto level
         }
-        video.play().catch(() => {});
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            // Si el navegador bloquea el autoplay con sonido, silenciar y reproducir
+            video.muted = true;
+            setIsMuted(true);
+            video.play().catch(() => {});
+          });
+        }
       });
 
       hls.on(Hls.Events.ERROR, (_ev, data) => {
