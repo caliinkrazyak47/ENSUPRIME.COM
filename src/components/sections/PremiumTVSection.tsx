@@ -347,12 +347,17 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
                   forceMaximumQuality(event.target);
 
-                  // Intentar reproducir directamente
+                  // Activar sonido con el volumen predeterminado
+                  try {
+                    event.target.unMute?.();
+                    event.target.setVolume?.(volume);
+                    setIsMuted(false);
+                  } catch {}
+
+                  // Reproducir vídeo
                   const playPromise = event.target.playVideo?.();
                   if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {
-                      event.target.mute?.();
-                      setIsMuted(true);
                       event.target.playVideo?.();
                     });
                   }
@@ -368,6 +373,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                 if (!isMounted) return;
                 if (event.data === 1) { // PLAYING (Vídeo corriendo en pantalla)
                   setIsPlaying(true);
+                  try {
+                    event.target.unMute?.();
+                    event.target.setVolume?.(volume);
+                    setIsMuted(false);
+                  } catch {}
                   forceMaximumQuality(event.target);
                   updateVideoData(event.target);
 
@@ -633,7 +643,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
   const initialPlaylistIframeUrl = useMemo(() => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `https://www.youtube.com/embed/videoseries?list=${YOUTUBE_PLAYLIST_ID}&autoplay=1&mute=1&playsinline=1&controls=1&enablejsapi=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
+    return `https://www.youtube.com/embed/videoseries?list=${YOUTUBE_PLAYLIST_ID}&autoplay=1&playsinline=1&controls=1&enablejsapi=1&rel=0&iv_load_policy=3&cc_load_policy=0&loop=1&vq=hd2160&hd=1&highres=1&origin=${encodeURIComponent(
       origin
     )}`;
   }, []);
