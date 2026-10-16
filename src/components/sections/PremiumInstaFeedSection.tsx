@@ -285,10 +285,21 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
           videoRefs.current[k]?.pause();
         }
       });
+      // El usuario hizo clic intencional para reproducir: activar audio
+      video.muted = false;
+      setIsMuted(false);
       video.play().then(() => {
         setPlayingId(key);
         setIsAutoScrollPaused(true);
-      }).catch(() => {});
+      }).catch(() => {
+        // Fallback silenciado si la política de autoplay del navegador es estricta
+        video.muted = true;
+        setIsMuted(true);
+        video.play().then(() => {
+          setPlayingId(key);
+          setIsAutoScrollPaused(true);
+        }).catch(() => {});
+      });
     }
   };
 

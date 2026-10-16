@@ -350,10 +350,21 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
           videoRefs.current[k]?.pause();
         }
       });
+      // El usuario hizo clic intencional para reproducir: activar audio
+      video.muted = false;
+      setIsMuted(false);
       video.play().then(() => {
         setPlayingVideoId(key);
         setIsAutoScrollPaused(true);
-      }).catch(() => {});
+      }).catch(() => {
+        // Fallback silenciado si la política de autoplay del navegador es estricta
+        video.muted = true;
+        setIsMuted(true);
+        video.play().then(() => {
+          setPlayingVideoId(key);
+          setIsAutoScrollPaused(true);
+        }).catch(() => {});
+      });
     }
   };
 
@@ -571,21 +582,20 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                           </div>
                         </div>
 
-                        {/* CONTROL DE AUDIO MUTE EN ESQUINA INFERIOR IZQUIERDA */}
-                        {isPlaying && (
-                          <button
-                            type="button"
-                            onClick={toggleMute}
-                            className="absolute bottom-3 left-3 p-2 rounded-full bg-black/75 hover:bg-black text-white transition-colors z-20 cursor-pointer shadow-lg backdrop-blur-md"
-                            title={isMuted ? 'Activar sonido' : 'Silenciar'}
-                          >
-                            {isMuted ? (
-                              <VolumeX className="w-4 h-4 text-red-400" />
-                            ) : (
-                              <Volume2 className="w-4 h-4 text-[#00ECEF]" />
-                            )}
-                          </button>
-                        )}
+                        {/* CONTROL DE AUDIO MUTE EN ESQUINA INFERIOR IZQUIERDA (ACCESIBLE SIEMPRE) */}
+                        <button
+                          type="button"
+                          onClick={toggleMute}
+                          className="absolute bottom-3 left-3 p-2 rounded-full bg-black/75 hover:bg-black text-white transition-all z-20 cursor-pointer shadow-lg backdrop-blur-md hover:scale-110 active:scale-95 border border-white/10"
+                          title={isMuted ? 'Activar sonido' : 'Silenciar'}
+                          aria-label={isMuted ? 'Activar sonido' : 'Silenciar'}
+                        >
+                          {isMuted ? (
+                            <VolumeX className="w-4 h-4 text-white/80" />
+                          ) : (
+                            <Volume2 className="w-4 h-4 text-[#00ECEF]" />
+                          )}
+                        </button>
 
                         {/* BOTÓN FLOTANTE PANTALLA COMPLETA ESTÉTICO (SIN TEXTO) */}
                         <button
