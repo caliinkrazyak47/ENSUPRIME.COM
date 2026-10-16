@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import GalleryStack from '../ui/GalleryStack';
 
 const ARTIST_CARDS = [
   {
     image: '/images/francesca/francesca-1.jpg',
     title: 'FRANCESCA CHIRI',
-    subtitle: 'Moda curvy, vanguardia y elegancia urbana internacional.',
+    subtitle: 'Vanguardia, elegancia urbana internacional y alta costura.',
     tag: 'PORTADA OFICIAL',
-    badge: 'TOP INFLUENCER ✦',
   },
   {
     image: '/images/francesca/francesca-2.jpg',
@@ -40,10 +41,30 @@ const ARTIST_CARDS = [
 ];
 
 export const PremiumTalentSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  // Bloquear scroll de la página cuando la imagen grande está abierta
+  useEffect(() => {
+    if (fullscreenImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [fullscreenImage]);
 
   const stackCards = ARTIST_CARDS.map((artist, idx) => (
-    <div key={idx} className="relative w-full h-full rounded-[2.5rem] overflow-hidden bg-[#110B1C] select-none">
+    <div
+      key={idx}
+      onDoubleClick={(e) => {
+        e.stopPropagation();
+        setFullscreenImage(artist.image);
+      }}
+      className="relative w-full h-full rounded-[2.5rem] overflow-hidden bg-[#110B1C] select-none cursor-pointer group"
+      title="Haz doble clic para ver la foto en tamaño completo"
+    >
       <img
         src={artist.image}
         alt={artist.title}
@@ -52,20 +73,9 @@ export const PremiumTalentSection: React.FC = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#110B1C]/95 via-[#110B1C]/40 to-black/20 pointer-events-none" />
 
-      <div className="relative z-10 w-full h-full p-6 sm:p-8 flex flex-col justify-between pointer-events-none">
-        <div className="flex items-center justify-between font-mono-code text-[11px] sm:text-xs">
-          <span className="px-3.5 py-1.5 rounded-full bg-white text-black font-bold shadow-md">
-            ESTILISMO: ENSUPRIME LAB
-          </span>
-          <span className="bg-[#6E1FE8] text-white px-3.5 py-1.5 rounded-full font-bold shadow-md">
-            {artist.badge}
-          </span>
-        </div>
-
+      {/* Contenido limpio sobre la foto (sin botones) */}
+      <div className="relative z-10 w-full h-full p-6 sm:p-8 flex flex-col justify-end pointer-events-none">
         <div className="text-white">
-          <span className="bg-white text-[#6E1FE8] text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block shadow-sm">
-            {artist.tag}
-          </span>
           <h3 className="font-impact text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight leading-[0.88] drop-shadow-md">
             {artist.title}
           </h3>
@@ -86,10 +96,10 @@ export const PremiumTalentSection: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* CABECERA VIBRANTE */}
+        {/* CABECERA VIBRANTE: INFLUENCER DEL MES */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-impact text-5xl sm:text-7xl md:text-8xl text-white uppercase tracking-tight">
-            ARTISTA <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform rotate-1 shadow-lg">DEL MES</span>
+            INFLUENCER <span className="bg-white text-[#6E1FE8] px-4 py-1 rounded-2xl inline-block transform rotate-1 shadow-lg">DEL MES</span>
           </h2>
         </div>
 
@@ -97,15 +107,12 @@ export const PremiumTalentSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* COLUMNA IZQUIERDA: CONTENIDO Y MÉTRICAS DE ZONA INFLUENCER */}
           <div className="lg:col-span-6 flex flex-col justify-center text-white">
-            {/* TAGLINE DE SECCIÓN Y CONTADOR DE TARJETA */}
-            <div className="flex items-center justify-between font-mono-code text-xs font-bold tracking-[0.25em] uppercase text-white/80 mb-3">
+            {/* TAGLINE DE SECCIÓN */}
+            <div className="flex items-center font-mono-code text-xs font-bold tracking-[0.25em] uppercase text-white/80 mb-3">
               <div className="inline-flex items-center gap-2">
                 <span>✦</span>
-                <span>03 · TALENTO EXCLUSIVO</span>
+                <span>TALENTO EXCLUSIVO</span>
               </div>
-              <span className="text-[11px] font-mono-code text-white/60">
-                0{activeIndex + 1} / 0{ARTIST_CARDS.length}
-              </span>
             </div>
 
             {/* NOMBRE DEL TALENTO */}
@@ -145,37 +152,78 @@ export const PremiumTalentSection: React.FC = () => {
 
             {/* PÁRRAFO DE BIO EDITORIAL */}
             <p className="font-body text-base sm:text-lg leading-relaxed text-white/90 max-w-lg my-6 font-medium">
-              Referente indiscutible del lifestyle y la moda curvy europea, Francesca Chiri conecta con millones de seguidores a través de rutinas de belleza, estilo vanguardista y una autenticidad magnética.
+              Referente indiscutible del lifestyle y la moda contemporánea europea, Francesca Chiri conecta con millones de seguidores a través de rutinas de belleza, estilo vanguardista y una autenticidad magnética.
             </p>
 
-            {/* BOTÓN AL ESTILO THIAGOVSC.ES */}
+            {/* BOTÓN AL ESTILO THIAGOVSC.ES CON ARQUITECTURA BUTTON-IN-BUTTON AWWWARDS */}
             <div>
               <a
                 href="https://linktr.ee/chirifrancesca"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="LINK"
-                className="group inline-flex items-center gap-3 bg-white text-black hover:bg-black hover:text-white font-mono-code font-bold px-8 py-3.5 text-xs tracking-[0.2em] rounded-full transition-all duration-300 shadow-xl cursor-pointer uppercase"
+                className="group inline-flex items-center gap-4 bg-white text-[#3B0764] hover:bg-[#C0D43E] hover:text-[#3B0764] font-mono-code font-extrabold px-8 py-3 text-xs tracking-[0.2em] rounded-full transition-all duration-300 shadow-[0_15px_35px_rgba(0,0,0,0.2)] active:scale-[0.97] cursor-pointer uppercase border border-white/20"
               >
                 <span>Descubrir a Francesca</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1.5 font-bold">→</span>
               </a>
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: FOTO POSTER CON GALLERYSTACK INTERACTIVO (CONSERVADO EXACTO) */}
+          {/* COLUMNA DERECHA: FOTO POSTER CON GALLERYSTACK INTERACTIVO */}
           <div
             data-cursor="CLICK"
             className="lg:col-span-6 relative min-h-[500px] sm:min-h-[560px] lg:min-h-[620px] rounded-[3rem] overflow-visible flex items-center justify-center p-2"
           >
             <GalleryStack
               cards={stackCards}
-              onChange={(idx) => setActiveIndex(idx)}
               className="w-full h-full"
             />
           </div>
         </div>
       </div>
+
+      {/* ============================================================== */}
+      {/* MODAL LIGHTBOX A PANTALLA COMPLETA AL HACER DOBLE CLIC EN LA FOTO */}
+      {/* ============================================================== */}
+      {fullscreenImage && typeof document !== 'undefined' && createPortal(
+        <div
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+          data-lenis-prevent-touch
+          onWheel={(e) => e.stopPropagation()}
+          onClick={() => setFullscreenImage(null)}
+          className="fixed inset-0 z-[9999999] flex items-center justify-center p-4 sm:p-8 bg-black/95 backdrop-blur-2xl animate-in fade-in duration-200 select-none cursor-zoom-out"
+        >
+          {/* Botón flotante para cerrar */}
+          <button
+            type="button"
+            onClick={() => setFullscreenImage(null)}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 w-12 h-12 rounded-full bg-white/20 hover:bg-[#6E1FE8] text-white flex items-center justify-center transition-colors shadow-2xl backdrop-blur-md cursor-pointer border border-white/20"
+            aria-label="Cerrar imagen completa"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Contenedor de la foto en tamaño completo grande */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-5xl max-h-[92vh] w-auto h-auto rounded-3xl overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.8)] border border-white/20 flex items-center justify-center bg-black cursor-default"
+          >
+            <img
+              src={fullscreenImage}
+              alt="Francesca Chiri - Tamaño Completo"
+              className="w-auto h-auto max-w-full max-h-[92vh] object-contain rounded-3xl"
+            />
+
+            {/* Overlay sutil inferior con pie editorial */}
+            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between text-white font-mono-code text-xs pointer-events-none">
+              <span className="font-bold tracking-wider text-sm">FRANCESCA CHIRI</span>
+              <span className="text-white/60 text-[11px] hidden sm:inline">Haz clic fuera o en la cruz para cerrar</span>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </section>
   );
 };

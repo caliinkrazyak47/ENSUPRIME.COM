@@ -111,7 +111,7 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         <div className="w-full flex justify-between items-center text-[10px] tracking-[0.25em] font-mono-code text-[#6B6B6B] uppercase mb-12">
           <span>// BROADCAST FREQ: 98.4 MHZ</span>
           <span className="flex items-center gap-1.5 text-[#6E1FE8]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8] animate-ping" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6E1FE8]" />
             SYNCHRONIZING AUDIO FEED
           </span>
           <span>MADRID — 40°25'N</span>

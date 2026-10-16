@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { PremiumPreloader } from './components/layout/PremiumPreloader';
+import { FilmbotTopMarquee } from './components/layout/FilmbotTopMarquee';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { InteractiveCharacterHero } from './components/hero/InteractiveCharacterHero';
 import { PremiumTicker } from './components/sections/PremiumTicker';
@@ -11,11 +12,14 @@ import { PremiumTalentSection } from './components/sections/PremiumTalentSection
 import { PremiumInstaFeedSection } from './components/sections/PremiumInstaFeedSection';
 import { PremiumEventsSection } from './components/sections/PremiumEventsSection';
 import { PremiumFooter } from './components/layout/PremiumFooter';
-import { RadioFloatingModal } from './components/radio/RadioFloatingModal';
+import { FlaixBottomPlayer } from './components/radio/FlaixBottomPlayer';
+import { EventAnnouncementModal } from './components/modals/EventAnnouncementModal';
 
 export default function App() {
-  const [isRadioPlaying, setIsRadioPlaying] = useState(false);
-  const [isRadioModalOpen, setIsRadioModalOpen] = useState(false);
+  const [isFullscreenTv, setIsFullscreenTv] = useState<boolean>(false);
+  const [isReelModalOpen, setIsReelModalOpen] = useState<boolean>(false);
+  const [isTikTokModalOpen, setIsTikTokModalOpen] = useState<boolean>(false);
+  const [isPreloaderDone, setIsPreloaderDone] = useState<boolean>(false);
 
   useEffect(() => {
     // Lenis Smooth Scroll continuous motion 60 FPS
@@ -41,11 +45,6 @@ export default function App() {
     };
   }, []);
 
-  const handleToggleRadio = () => {
-    setIsRadioModalOpen(true);
-    setIsRadioPlaying(true);
-  };
-
   const handleWatchLive = () => {
     const tvSection = document.getElementById('tv');
     if (tvSection) {
@@ -54,33 +53,34 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#EDE8E3] text-[#110B1C] selection:bg-[#6E1FE8] selection:text-white overflow-x-hidden font-body w-full">
+    <div className="relative min-h-screen bg-[#EDE8E3] text-[#3B0764] selection:bg-[#6E1FE8] selection:text-white overflow-x-hidden font-body w-full editorial-grain">
       {/* 0. PRELOADER CINEMATOGRÁFICO DE ENSUPRIME (CONSERVADO EXACTAMENTE COMO ESTÁ) */}
-      <PremiumPreloader onComplete={() => {}} />
+      <PremiumPreloader onComplete={() => setIsPreloaderDone(true)} />
 
       {/* CURSOR MAGNÉTICO PERSONALIZADO (AWWWARDS TIER) */}
       <CustomCursor />
+
+      {/* BARRA SUPERIOR MARQUEE DE NOTICIAS (ESTILO FILMBOT: RSS ESPAÑA & FÚTBOL) */}
+      <FilmbotTopMarquee />
 
       {/* CONTENIDO PRINCIPAL FULL-WIDTH EDGE-TO-EDGE */}
       <main className="relative z-10 w-full overflow-hidden">
         {/* 1. NUEVA SECCIÓN HÉROE INTERACTIVA (CONTROL DE MIRADA CON EL MOUSE) */}
         <InteractiveCharacterHero
           onWatchLive={handleWatchLive}
-          isRadioPlaying={isRadioPlaying}
-          onToggleRadio={handleToggleRadio}
         />
 
         {/* CINTA TICKER EN PÚRPURA */}
         <PremiumTicker />
 
         {/* 2. TV ONLINE EN BLOQUE MORADO CON ESTRELLAS Y TARJETA FLOTANTE */}
-        <PremiumTVSection />
+        <PremiumTVSection onFullscreenChange={setIsFullscreenTv} />
 
         {/* ONDA LÍQUIDA FLUIDA DE CRENCY AGENCY */}
         <LiquidDripDivider fillColor="#FFFFFF" bgColor="#6E1FE8" />
 
         {/* 3. TIKTOK FEED EN BLOQUE BLANCO LIMPIO */}
-        <PremiumTikTokSection />
+        <PremiumTikTokSection onModalOpen={setIsTikTokModalOpen} />
 
         {/* ONDA LÍQUIDA FLUIDA DE CRENCY AGENCY */}
         <LiquidDripDivider fillColor="#6E1FE8" bgColor="#FFFFFF" />
@@ -92,7 +92,7 @@ export default function App() {
         <LiquidDripDivider fillColor="#FFFFFF" bgColor="#6E1FE8" />
 
         {/* 5. INSTA FEED EN FORMATO TARJETAS LA MEGA EN BLOQUE BLANCO */}
-        <PremiumInstaFeedSection />
+        <PremiumInstaFeedSection onModalOpen={setIsReelModalOpen} />
 
         {/* CURVA LÍQUIDA FLUIDA DE CRENCY AGENCY: DE BLANCO A MORADO */}
         <LiquidDripDivider fillColor="#6E1FE8" bgColor="#FAFAFA" />
@@ -100,21 +100,22 @@ export default function App() {
         {/* 6. AGENDA DE SHOWS EN BLOQUE MORADO */}
         <PremiumEventsSection />
 
-        {/* CURVA LÍQUIDA FLUIDA DE CRENCY AGENCY: DE MORADO AL FOOTER NEGRO */}
-        <LiquidDripDivider fillColor="#110B1C" bgColor="#6E1FE8" />
+        {/* CURVA LÍQUIDA FLUIDA DE CRENCY AGENCY: DE MORADO A FOOTER BLANCO LIMPIO */}
+        <LiquidDripDivider fillColor="#FFFFFF" bgColor="#6E1FE8" />
       </main>
 
       {/* 6. FOOTER EN CONTRASTE NEGRO TINTA */}
-      <PremiumFooter />
+      <div className="pb-20 md:pb-24">
+        <PremiumFooter />
+      </div>
 
-      {/* 7. VENTANA FLOTANTE 3D MUSIC GLOBE RADIO PLAYER */}
-      <RadioFloatingModal
-        isOpen={isRadioModalOpen}
-        onClose={() => {
-          setIsRadioModalOpen(false);
-          setIsRadioPlaying(false);
-        }}
+      {/* 7. REPRODUCTOR DE RADIO EN BARRA INFERIOR CON FLECHA DESPLEGABLE (MODELO FLAIX FM) */}
+      <FlaixBottomPlayer
+        isHidden={isFullscreenTv || isReelModalOpen || isTikTokModalOpen}
       />
+
+      {/* 8. MODAL CARTEL / POPUP ANUNCIO ESTILO CARDI B (SE ABRE TRAS TERMINAR EL PRELOADER) */}
+      <EventAnnouncementModal isReady={isPreloaderDone} />
     </div>
   );
 }

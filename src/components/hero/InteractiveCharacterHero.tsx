@@ -1,25 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Radio } from 'lucide-react';
-import { VideoText } from '../ui/VideoText';
+import { SchemeNavbar } from '../layout/SchemeNavbar';
 
 interface HeroProps {
   onWatchLive: () => void;
-  isRadioPlaying: boolean;
-  onToggleRadio: () => void;
+  isRadioPlaying?: boolean;
+  onToggleRadio?: () => void;
 }
 
-const TOTAL_FRAMES = 48;
+const TOTAL_FRAMES = 49;
+const CENTER_FRAME = 24;
 
-export const InteractiveCharacterHero: React.FC<HeroProps> = ({
-  onWatchLive,
-  isRadioPlaying,
-  onToggleRadio,
-}) => {
+export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const currentFrameRef = useRef<number>(24);
-  const targetFrameRef = useRef<number>(24);
+  const currentFrameRef = useRef<number>(CENTER_FRAME);
+  const targetFrameRef = useRef<number>(CENTER_FRAME);
   const rafIdRef = useRef<number | null>(null);
 
   const [timeData, setTimeData] = useState({
@@ -58,17 +54,17 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  // Pre-carga ultra-rápida de los frames de la secuencia transparente
+  // Pre-carga ultra-rápida de los 49 fotogramas del personaje con fondo transparente perfecto
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
       const paddedIndex = String(i).padStart(3, '0');
-      img.src = `/sequence/frame_${paddedIndex}.webp`;
+      img.src = `/character_sequence/char_${paddedIndex}.webp`;
       img.onload = () => {
-        if (i === 24 && canvasRef.current) {
-          renderFrame(24);
+        if (i === CENTER_FRAME && canvasRef.current) {
+          renderFrame(CENTER_FRAME);
         }
       };
       loadedImages.push(img);
@@ -77,7 +73,7 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
     imagesRef.current = loadedImages;
   }, []);
 
-  // Render en Canvas con soporte Retina y escalado responsivo
+  // Render en Canvas con soporte Retina y centrado perfecto
   const renderFrame = (frameIndex: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -100,7 +96,6 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, width, height);
 
-    // Renderizado 4K Ultra-Crisp con interpolación de máxima fidelidad
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
@@ -109,14 +104,16 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
     let offsetX: number;
     let offsetY: number;
 
-    // Escalar al 85% para máxima densidad de píxeles y apreciación nítida de texturas
-    const baseScale = Math.max(width / img.naturalWidth, height / img.naturalHeight);
-    const scale = baseScale * 0.84;
+    // Proporción armónica para la sección Hero 16:9
+    // 68% de altura para dar máxima visibilidad y presencia a la tipografía monumental detrás
+    const targetHeight = height * 0.68;
+    const scale = targetHeight / img.naturalHeight;
     drawWidth = img.naturalWidth * scale;
-    drawHeight = img.naturalHeight * scale;
+    drawHeight = targetHeight;
 
+    // Centrado horizontal milimétrico en la escena
     offsetX = (width - drawWidth) / 2;
-    // Alineación en la parte inferior para que la base quede limpia y el rostro/joyas en el punto focal dorado
+    // Anclado en la base de la sección hero
     offsetY = height - drawHeight;
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
@@ -128,7 +125,7 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
     const loop = () => {
       const diff = targetFrameRef.current - currentFrameRef.current;
       if (Math.abs(diff) > 0.02) {
-        currentFrameRef.current += diff * 0.15;
+        currentFrameRef.current += diff * 0.16;
         const frameToRender = Math.min(
           TOTAL_FRAMES - 1,
           Math.max(0, Math.round(currentFrameRef.current))
@@ -145,18 +142,20 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
   }, []);
 
   // Manejo del ratón: Frame scrubbing horizontal
+  // Si el ratón se mueve a la izquierda -> mira a la izquierda (Frame 0)
+  // Si el ratón está al centro -> mira al frente (Frame 24)
+  // Si el ratón se mueve a la derecha -> mira a la derecha (Frame 48)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const ratioX = Math.max(0, Math.min(1, mouseX / rect.width));
 
-    // Personaje: Frame 0 mira a la derecha, Frame 47 mira a la izquierda
-    const target = (1 - ratioX) * (TOTAL_FRAMES - 1);
+    const target = ratioX * (TOTAL_FRAMES - 1);
     targetFrameRef.current = target;
   };
 
   const handleMouseLeave = () => {
-    targetFrameRef.current = 24;
+    targetFrameRef.current = CENTER_FRAME;
   };
 
   return (
@@ -167,77 +166,9 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
       className="relative w-full aspect-video min-h-[580px] max-h-[1080px] bg-[#EDE8E3] text-[#110B1C] flex flex-col justify-between overflow-hidden select-none"
     >
       {/* ============================================================== */}
-      {/* 1. NAVBAR INTEGRADO FULL-WIDTH EN GRADIENTE TRANSLÚCIDO       */}
+      {/* 1. NAVBAR ESTILO SCHEME ENGINE (SCHEMEENGINE.COM) CON ENSUPRIME */}
       {/* ============================================================== */}
-      <header className="relative z-30 w-full px-6 sm:px-10 md:px-16 py-6 flex items-center justify-between bg-gradient-to-b from-black/60 to-transparent">
-        <nav className="hidden lg:flex items-center gap-8 font-body font-bold text-xs uppercase tracking-wider text-white">
-          <a href="#tv" className="hover:text-[#A855F7] transition-colors">TV Online</a>
-          <a href="#tiktok" className="hover:text-[#A855F7] transition-colors">TikTok Feed</a>
-          <a href="#talento" className="hover:text-[#A855F7] transition-colors">Talento</a>
-          <a href="#eventos" className="hover:text-[#A855F7] transition-colors">Eventos</a>
-        </nav>
-
-        {/* LOGO CENTRAL */}
-        <a href="#" className="font-impact text-3xl md:text-4xl tracking-tight text-white flex items-center gap-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-          ENSUPRIME <span className="text-[#A855F7] text-2xl">✦</span>
-        </a>
-
-        {/* CONTROLES DERECHA */}
-        <div className="flex items-center gap-3">
-          {/* RELOJ DE LUJO MADRID (BESPOKE TIMEPIECE) */}
-          <div className="hidden sm:flex items-center gap-3 bg-black/40 backdrop-blur-md border border-white/10 hover:border-[#A855F7]/40 px-3.5 py-1.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all group">
-            <div className="flex items-center gap-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A855F7] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A855F7] shadow-[0_0_8px_#A855F7]"></span>
-              </span>
-              <span className="text-[9px] font-mono-code font-bold tracking-[0.2em] text-white/50 group-hover:text-white/80 transition-colors uppercase">
-                MADRID // 40°N
-              </span>
-            </div>
-
-            <div className="h-3 w-px bg-white/10" />
-
-            <div className="flex items-baseline font-mono-code tracking-wider">
-              <span className="text-xs font-bold text-white tabular-nums">
-                {timeData.hours}
-                <span className="text-[#A855F7] animate-pulse mx-0.5">:</span>
-                {timeData.minutes}
-              </span>
-              <span className="text-[10px] text-[#A855F7] font-semibold tabular-nums ml-0.5">
-                .{timeData.seconds}
-              </span>
-              <span className="text-[8px] font-bold text-white/40 ml-1.5 tracking-widest">
-                {timeData.cet}
-              </span>
-            </div>
-          </div>
-
-          <button
-            onClick={onToggleRadio}
-            className={`btn-magnetic px-4 py-2 rounded-full font-body font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
-              isRadioPlaying
-                ? 'bg-[#6E1FE8] text-white shadow-[0_0_25px_rgba(110,31,232,0.6)] border border-[#C0D43E]'
-                : 'bg-white/90 hover:bg-white text-[#110B1C] backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] border border-white/40'
-            }`}
-          >
-            <span className={`w-5 h-5 rounded-full flex items-center justify-center ${isRadioPlaying ? 'bg-[#C0D43E] text-[#110B1C]' : 'bg-[#6E1FE8] text-white'}`}>
-              <Radio className={`w-3 h-3 ${isRadioPlaying ? 'animate-spin' : ''}`} />
-            </span>
-            <span className="tracking-wider">{isRadioPlaying ? 'EN VIVO' : 'RADIO'}</span>
-          </button>
-
-          <button
-            onClick={onWatchLive}
-            className="btn-magnetic hidden md:flex items-center gap-2 pl-4 pr-2.5 py-1.5 rounded-full bg-[#110B1C]/90 hover:bg-[#6E1FE8] text-white font-body font-bold text-xs backdrop-blur-md border border-white/15 transition-all shadow-lg group cursor-pointer"
-          >
-            <span className="tracking-wider">VER DIRECTO</span>
-            <span className="w-5 h-5 rounded-full bg-white/10 group-hover:bg-white group-hover:text-[#6E1FE8] flex items-center justify-center transition-colors">
-              <span className="text-[10px]">▶</span>
-            </span>
-          </button>
-        </div>
-      </header>
+      <SchemeNavbar madridTime={timeData} />
 
       {/* ============================================================== */}
       {/* 0. VIDEO BACKGROUND 16:9 DETRÁS DE LAS LETRAS (NUEVO CLOUDINARY) */}
@@ -261,43 +192,55 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = ({
       </div>
 
       {/* ============================================================== */}
-      {/* 2. TIPOGRAFÍA GIGANTE DETRÁS DEL PERSONAJE: ENSUPRIME LIMPIA   */}
+      {/* 2. PÓSTER ORIGINAL NETFLIX PREMIUM: TÍTULO Y PRESENTACIÓN (z-10) */}
       {/* ============================================================== */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none select-none overflow-hidden">
-        <div className="w-fit flex flex-col items-center">
-          {/* TÍTULO ENSUPRIME CON EFECTO CANVAS (VIDEO DE LÍQUIDO SIN FONDO BLANCO) */}
-          <VideoText
-            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1791999461/Animar_liquido_medida_16_9_20261014193629.mp4"
-            text="ENSUPRIME"
-            className="filter drop-shadow-[0_8px_30px_rgba(0,0,0,0.7)]"
-          />
-
-          {/* CRÉDITOS CINEMATOGRÁFICOS ESTILO POSTER NETFLIX: ALINEADOS DEBAJO DE 'IME' SIN FORMA DE BOTÓN */}
-          <div className="w-full flex justify-end items-center px-[2vw] mt-2 select-none">
-            <span
-              className="font-mono-code text-[11px] sm:text-xs md:text-sm lg:text-base font-extrabold tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white whitespace-nowrap"
-              style={{
-                textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7)',
-              }}
-            >
-              <span className="text-white">HD VISION</span>
-              <span className="mx-2 text-white/50">/</span>
-              <span className="text-white/70 font-semibold">BY</span>
-              <span className="ml-1.5 text-white">THIAGOVSC</span>
-            </span>
-          </div>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none overflow-hidden px-4">
+        {/* CABECERA OFICIAL NETFLIX ORIGINAL */}
+        <div className="flex items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2">
+          {/* Logo icónico "N" roja de Netflix */}
+          <span className="font-impact text-xl sm:text-2xl text-[#E50914] font-black leading-none drop-shadow-[0_2px_10px_rgba(229,9,20,0.8)]">
+            N
+          </span>
+          <span className="font-sans text-[11px] sm:text-xs md:text-sm font-extrabold tracking-[0.35em] uppercase text-white/95" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
+            SERIES
+          </span>
         </div>
+
+        {/* TÍTULO PRINCIPAL: TIPOGRAFÍA CONDENSADA OFICIAL TIPO PÓSTER NETFLIX (NATURAL, PROPORCIONADA, SIN ESTIRAR) */}
+        <h1
+          className="w-full text-center font-impact text-[13vw] sm:text-[12vw] md:text-[10.5vw] lg:text-[9.5vw] leading-[0.84] tracking-[-0.01em] uppercase text-white drop-shadow-[0_20px_60px_rgba(0,0,0,0.98)] select-none whitespace-nowrap"
+          style={{
+            WebkitTextStroke: '1px rgba(255,255,255,0.4)',
+            textShadow: '0 10px 40px rgba(0,0,0,0.95), 0 0 80px rgba(110,31,232,0.45)',
+          }}
+        >
+          TALENTO URBANO
+        </h1>
       </div>
 
       {/* ============================================================== */}
-      {/* 3. PERSONAJE CENTRADO INTERACTIVO: 100% LIMPIO SIN FILTROS    */}
+      {/* 3. PERSONAJE CENTRADO INTERACTIVO: EN FRENTE DEL TÍTULO (z-20) */}
       {/* ============================================================== */}
-      <div className="absolute inset-0 z-10 w-full h-full pointer-events-none flex items-end justify-center">
+      <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex items-end justify-center">
         {/* Canvas reactivo al movimiento horizontal del mouse: 100% nítido y sin capas de filtro */}
         <canvas
           ref={canvasRef}
           className="w-full h-full object-cover"
         />
+      </div>
+
+      {/* ============================================================== */}
+      {/* 4. BILLING BLOCK CINEMATOGRÁFICO LIMPIO SIN LOGOS NI LÍNEAS   */}
+      {/* ============================================================== */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none select-none pb-4 sm:pb-6 px-6 sm:px-12 bg-gradient-to-t from-black/80 via-black/30 to-transparent pt-12">
+        <div className="w-full max-w-[1920px] mx-auto flex flex-col items-center">
+          {/* CRÉDITOS CINEMATOGRÁFICOS DE FICHA TÉCNICA */}
+          <div className="w-full max-w-4xl text-center text-white/50 text-[8px] sm:text-[9.5px] font-mono-code tracking-[0.22em] uppercase leading-relaxed hidden sm:block">
+            <span>ENSUPRIME STUDIOS PRESENTS IN ASSOCIATION WITH THIAGOVSC ENTERTAINMENT</span>
+            <br />
+            <span>MUSIC BY URBAN TALENT LAB · SOUND DESIGN BY FLAIX FM · PRODUCTION BY MADRID BROADCAST</span>
+          </div>
+        </div>
       </div>
     </section>
   );

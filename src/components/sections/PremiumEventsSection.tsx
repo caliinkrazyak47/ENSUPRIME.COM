@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { getUpcomingLiveShows } from '../../services/eventsService';
 
 export const PremiumEventsSection: React.FC = () => {
@@ -32,10 +31,9 @@ export const PremiumEventsSection: React.FC = () => {
               href="https://www.entradas.com/artist/beny-jr/#calendar-start=2026-10"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono-code text-xs font-bold text-white hover:text-white/80 uppercase tracking-wider transition-colors"
+              className="inline-flex items-center gap-1.5 font-mono-code text-xs font-bold text-white hover:text-[#C0D43E] uppercase tracking-wider transition-colors"
             >
               <span>VER EN ENTRADAS.COM</span>
-              <ArrowUpRight className="w-4 h-4" />
             </a>
             <p className="font-body text-xs font-semibold text-white/80 uppercase">
               Entradas oficiales verificadas // ENTRADAS.COM
@@ -52,11 +50,11 @@ export const PremiumEventsSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="TICKETS"
-              className="btn-magnetic p-6 md:p-8 rounded-[2rem] bg-[#F2F0EB] text-[#110B1C] hover:bg-white hover:shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-black/5 flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-pointer shadow-md block transition-all"
+              className="btn-magnetic p-6 md:p-8 rounded-[2rem] bg-[#F8F6F4] text-[#3B0764] hover:bg-white hover:shadow-[0_20px_50px_rgba(110,31,232,0.22)] border border-[#6E1FE8]/10 flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-pointer shadow-md block transition-all"
             >
               {/* FECHA */}
               <div className="flex items-baseline gap-4 min-w-[160px]">
-                <span className="font-impact text-6xl md:text-7xl text-[#110B1C] group-hover:text-[#6E1FE8] transition-colors">
+                <span className="font-impact text-6xl md:text-7xl text-[#3B0764] group-hover:text-[#6E1FE8] transition-colors">
                   {ev.date}
                 </span>
                 <span className="font-mono-code text-base font-extrabold text-[#6E1FE8] transition-colors">
@@ -66,35 +64,32 @@ export const PremiumEventsSection: React.FC = () => {
 
               {/* ARTISTA Y VENUE */}
               <div className="flex-1">
-                <span className="font-mono-code text-xs font-bold text-gray-500 uppercase block mb-1">
+                <span className="font-mono-code text-xs font-bold text-[#6B21A8]/70 uppercase block mb-1">
                   {ev.city} // {ev.venue}
                 </span>
-                <h3 className="font-impact text-3xl md:text-4xl text-[#110B1C] uppercase tracking-tight transition-colors">
+                <h3 className="font-impact text-3xl md:text-4xl text-[#3B0764] group-hover:text-[#6E1FE8] uppercase tracking-tight transition-colors">
                   {ev.artist}
                 </h3>
               </div>
 
-              {/* BOTÓN Y ESTADO CON MICRO-FÍSICA */}
-              <div className="flex items-center gap-4">
+              {/* BOTÓN Y ESTADO CON MICRO-FÍSICA LIMPIA SIN FLECHAS GENÉRICAS */}
+              <div className="flex items-center gap-3">
                 <span
-                  className={`font-mono-code text-xs px-4 py-1.5 rounded-full font-bold uppercase transition-colors shadow-sm ${
+                  className={`font-mono-code text-xs px-5 py-2 rounded-full font-black uppercase transition-all shadow-sm ${
                     ev.status === 'SOLD OUT'
-                      ? 'bg-gray-200 text-gray-600'
+                      ? 'bg-[#6E1FE8]/15 text-[#6E1FE8]'
                       : ev.status === 'HOY' || ev.status === 'ÚLTIMAS ENTRADAS'
-                      ? 'bg-[#6E1FE8] text-white font-black'
+                      ? 'bg-[#6E1FE8] text-white'
                       : ev.status === 'ESTA SEMANA'
-                      ? 'bg-[#C0D43E] text-[#110B1C] font-black'
-                      : 'bg-black text-white font-black'
+                      ? 'bg-[#C0D43E] text-[#3B0764]'
+                      : 'bg-[#6E1FE8] text-white'
                   }`}
                 >
                   {ev.status}
                 </span>
-                <div
-                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#6E1FE8] group-hover:text-white group-hover:scale-110 transition-all shadow-md border border-black/5"
-                  title="Comprar entrada para este evento"
-                >
-                  <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
+                <span className="font-mono-code text-xs font-black uppercase text-[#6E1FE8] group-hover:text-[#3B0764] transition-colors tracking-wider hidden sm:inline-block">
+                  TICKETS
+                </span>
               </div>
             </a>
           ))}

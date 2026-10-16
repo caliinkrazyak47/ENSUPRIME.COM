@@ -26,6 +26,21 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Blindaje total contra guardado y arrastre de imágenes */
+  img, picture, video, canvas {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   ::selection {
     background-color: #6E1FE8;
     color: #FFFFFF;
@@ -81,6 +96,16 @@
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 0.02em;
 }
+.font-netflix-poster {
+  font-family: "Montserrat", "Bebas Neue", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+.font-netflix-condensed {
+  font-family: "Oswald", "Bebas Neue", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
 .font-body { font-family: "Plus Jakarta Sans", sans-serif; }
 .font-mono-code { font-family: "JetBrains Mono", monospace; }
 .font-serif-luxury {
@@ -105,7 +130,33 @@
   backdrop-filter: blur(16px);
 }
 
-/* Subtle Film Grain */
+/* Cinematic Poster Title Gleam */
+@keyframes cinemaGleam {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.cinema-title-sheen {
+  background: linear-gradient(
+    115deg,
+    #FFFFFF 0%,
+    #FFFFFF 35%,
+    rgba(255, 255, 255, 0.45) 45%,
+    #FFFFFF 55%,
+    #EDE8E3 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: cinemaGleam 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Textura Grainy Cinematográfica Personalizada */
 .editorial-grain {
   position: relative;
 }
@@ -117,8 +168,11 @@
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.22;
+  background-image: url("/grain-texture.png");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
 }
 
 /* Marquee infinite ticker */
@@ -137,6 +191,7 @@
   animation-play-state: paused;
 }
 
+
 /* Audio wave animation */
 @keyframes waveHeight {
   0%, 100% { height: 4px; }
@@ -146,3 +201,19 @@
 .animate-wave-2 { animation: waveHeight 0.7s ease-in-out infinite 0.2s; }
 .animate-wave-3 { animation: waveHeight 1.1s ease-in-out infinite 0.4s; }
 .animate-wave-4 { animation: waveHeight 0.8s ease-in-out infinite 0.1s; }
+
+/* Mediaset Glass Vertical Channels Drawer Scrollbar */
+.mediaset-glass-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.mediaset-glass-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+}
+.mediaset-glass-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+}
+.mediaset-glass-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
