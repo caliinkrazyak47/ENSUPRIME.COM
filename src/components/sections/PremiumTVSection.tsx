@@ -234,32 +234,25 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
   // Forzar máxima resolución posible (4K Ultra HD / 2160p -> 1440p -> 1080p -> highres)
   const forceMaximumQuality = useCallback((player: any) => {
-    if (player) {
-      try {
-        player.unloadModule?.('captions');
-        player.unloadModule?.('cc');
-        const available = player.getAvailableQualityLevels?.() || [];
-        
-        // Priorizar la máxima resolución nativa disponible en el vídeo (4K highres / 1440p / 1080p)
-        if (available.includes('highres')) {
-          player.setPlaybackQuality('highres');
-          player.setPlaybackQualityRange?.('highres', 'highres');
-        } else if (available.includes('hd2160')) {
-          player.setPlaybackQuality('hd2160');
-          player.setPlaybackQualityRange?.('hd2160', 'hd2160');
-        } else if (available.includes('hd1440')) {
-          player.setPlaybackQuality('hd1440');
-          player.setPlaybackQualityRange?.('hd1440', 'hd1440');
-        } else if (available.includes('hd1080')) {
-          player.setPlaybackQuality('hd1080');
-          player.setPlaybackQualityRange?.('hd1080', 'hd1080');
-        } else if (available.length > 0) {
-          // El nivel 0 es siempre el de más alta resolución disponible
-          player.setPlaybackQuality(available[0]);
-          player.setPlaybackQualityRange?.(available[0], available[0]);
-        }
-      } catch {}
-    }
+    if (!player) return;
+    try {
+      player.unloadModule?.('captions');
+      player.unloadModule?.('cc');
+      const available = player.getAvailableQualityLevels?.() || [];
+      
+      const targetQuality = available.includes('highres')
+        ? 'highres'
+        : available.includes('hd2160')
+        ? 'hd2160'
+        : available.includes('hd1440')
+        ? 'hd1440'
+        : available.includes('hd1080')
+        ? 'hd1080'
+        : (available[0] || 'highres');
+
+      player.setPlaybackQuality?.(targetQuality);
+      player.setPlaybackQualityRange?.(targetQuality, targetQuality);
+    } catch {}
 
     try {
       if (iframeRef.current?.contentWindow) {
@@ -293,11 +286,38 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     } catch {}
   }, []);
 
-  // Inicializar YouTube IFrame API para reproducir la playlist urbana en aleatorio (shuffle) y 1080p
+  // Desmutear con el primer gesto de usuario en la página para no bloquear el autoplay inicial
+  useEffect(() => {
+    const handleFirstUserInteraction = () => {
+      if (playerRef.current && isMuted) {
+        try {
+          playerRef.current.unMute?.();
+          playerRef.current.setVolume?.(volume);
+          setIsMuted(false);
+        } catch {}
+      }
+      window.removeEventListener('click', handleFirstUserInteraction);
+      window.removeEventListener('keydown', handleFirstUserInteraction);
+      window.removeEventListener('touchstart', handleFirstUserInteraction);
+    };
+
+    window.addEventListener('click', handleFirstUserInteraction, { once: true });
+    window.addEventListener('keydown', handleFirstUserInteraction, { once: true });
+    window.addEventListener('touchstart', handleFirstUserInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener('click', handleFirstUserInteraction);
+      window.removeEventListener('keydown', handleFirstUserInteraction);
+      window.removeEventListener('touchstart', handleFirstUserInteraction);
+    };
+  }, [isMuted, volume]);
+
+  // Inicializar YouTube IFrame API para reproducir la playlist urbana en aleatorio (shuffle) y 4K
   useEffect(() => {
     if (activeMode !== 'music') return;
 
     let isMounted = true;
+    let qualityInterval: any = null;
 
     const initPlayer = () => {
       if (window.YT && window.YT.Player && document.getElementById('youtube-tv-player')) {
@@ -311,24 +331,11 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
               onReady: (event: any) => {
                 if (!isMounted) return;
                 try {
-                  forceMaximumQuality(event.target);
+                  // Mute garantizado para que los navegadores modernos ejecuten AUTOPLAY 100% sin bloqueo
+                  event.target.mute?.();
                   event.target.setShuffle?.(true);
                   event.target.setLoop?.(true);
-
-                  const playlist = event.target.getPlaylist?.() || [];
-                  if (playlist.length > 1) {
-                    const randomIdx = Math.floor(Math.random() * (playlist.length - 1)) + 1;
-                    event.target.playVideoAt?.(randomIdx);
-                  } else {
-                    event.target.nextVideo?.();
-                  }
-
-                  event.target.setVolume?.(volume);
-                  if (isMuted) {
-                    event.target.mute?.();
-                  } else {
-                    event.target.unMute?.();
-                  }
+                  forceMaximumQuality(event.target);
 
                   const playPromise = event.target.playVideo?.();
                   if (playPromise && typeof playPromise.catch === 'function') {
@@ -340,31 +347,36 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                   setIsPlaying(true);
                   updateVideoData(event.target);
                 } catch {
-                  event.target.playVideo?.();
+                  try {
+                    event.target.playVideo?.();
+                  } catch {}
                 }
               },
               onStateChange: (event: any) => {
-                if (event.data === 1) {
+                if (event.data === 1) { // PLAYING
                   setIsPlaying(true);
                   forceMaximumQuality(event.target);
                   updateVideoData(event.target);
 
-                  // Re-forzar 4K / máxima calidad tras cargar el buffer (1.2s y 2.5s) para evitar que YouTube lo baje a 720p
-                  setTimeout(() => {
+                  // Insistir periódicamente en forzar 4K durante los primeros 4 segundos de reproducción
+                  let attempts = 0;
+                  if (qualityInterval) clearInterval(qualityInterval);
+                  qualityInterval = setInterval(() => {
+                    attempts++;
                     forceMaximumQuality(event.target);
-                  }, 1200);
-                  setTimeout(() => {
-                    forceMaximumQuality(event.target);
-                  }, 2600);
-                } else if (event.data === 2) {
+                    if (attempts > 5) {
+                      clearInterval(qualityInterval);
+                    }
+                  }, 800);
+                } else if (event.data === 2) { // PAUSED
                   setIsPlaying(false);
-                } else if (event.data === 0) {
+                } else if (event.data === 0) { // ENDED
                   event.target.nextVideo?.();
                 }
               },
-              onError: (event: any) => {
+              onError: () => {
                 try {
-                  event?.target?.nextVideo?.();
+                  playerRef.current?.nextVideo?.();
                 } catch {}
               },
             },
@@ -373,7 +385,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
       }
     };
 
-    if (!window.YT) {
+    if (!window.YT || !window.YT.Player) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -385,6 +397,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
     return () => {
       isMounted = false;
+      if (qualityInterval) clearInterval(qualityInterval);
       if (playerRef.current?.destroy) {
         try {
           playerRef.current.destroy();
@@ -704,14 +717,14 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
           </div>
         </div>
 
-        {/* TARJETA NEGRA FLOATING CARD CON MARCO CURVADO (TAMAÑO MÁS COMPACTO Y ELEGANTE) */}
-        <div className="relative w-full max-w-3xl md:max-w-4xl p-1.5 sm:p-2 rounded-[2.6rem] bg-white/10 ring-1 ring-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.55)] group/card">
-          <div className="absolute -inset-2 rounded-[2.8rem] bg-gradient-to-r from-[#8B3BFF]/30 via-[#6E1FE8]/25 to-[#C0D43E]/20 blur-2xl opacity-60 group-hover/card:opacity-90 transition-opacity duration-700 pointer-events-none -z-10" />
+        {/* TARJETA NEGRA FLOATING CARD CON MARCO CURVADO (MÁS COMPACTA Y ULTRA OPTIMIZADA CON GPU) */}
+        <div className="relative w-full max-w-2xl md:max-w-3xl p-1.5 sm:p-2 rounded-[2.2rem] bg-white/10 ring-1 ring-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.45)] group/card will-change-transform transform-gpu">
+          <div className="absolute -inset-1 rounded-[2.4rem] bg-gradient-to-r from-[#8B3BFF]/25 via-[#6E1FE8]/20 to-[#C0D43E]/15 opacity-70 group-hover/card:opacity-95 transition-opacity duration-500 pointer-events-none -z-10" />
 
-          <div className="w-full bg-[#110B1C] rounded-[2.4rem] p-3 sm:p-4 md:p-5 border border-white/10 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
+          <div className="w-full bg-[#110B1C] rounded-[2rem] p-3 sm:p-4 border border-white/10 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]">
             <span className="absolute top-5 right-6 text-2xl text-[#A855F7]">✦</span>
 
-            {/* REPRODUCTOR DE VÍDEO (PASA A PANTALLA COMPLETA DIRECTA MANTENIENDO EL MISMO ELEMENTO EXACTO) */}
+            {/* REPRODUCTOR DE VÍDEO (ACELERACIÓN POR HARDWARE AISLADA PARA MÁXIMA FLUIDEZ 60FPS) */}
             <div
               ref={playerContainerRef}
               data-lenis-prevent
@@ -719,7 +732,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
               data-lenis-prevent-touch
               onMouseMove={isFullscreen ? handleUserActivity : undefined}
               onClick={isFullscreen ? handleUserActivity : undefined}
-              className={`transition-all duration-300 ${
+              className={`transform-gpu will-change-transform contain-layout ${
                 isFullscreen
                   ? 'fixed inset-0 z-[999999] w-screen h-screen bg-black flex items-center justify-center select-none overflow-hidden'
                   : 'relative aspect-video rounded-2xl bg-black overflow-hidden shadow-inner ring-1 ring-white/10'
@@ -869,12 +882,13 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                 </div>
               )}
 
-              {/* CASO 2: MODO PLAYLIST MUSICA VIDEOS */}
+              {/* CASO 2: MODO PLAYLIST MUSICA VIDEOS (GPU LAYER ISOLATION FOR MAXIMUM SMOOTHNESS) */}
               {activeMode === 'music' && (
                 <iframe
                   id="youtube-tv-player"
                   ref={iframeRef}
-                  className="w-full h-full border-0 pointer-events-auto"
+                  className="w-full h-full border-0 pointer-events-auto transform-gpu will-change-transform"
+                  style={{ transform: 'translateZ(0)' }}
                   src={initialPlaylistIframeUrl}
                   title="THIAGOVSC URBAN PLAYLIST 1080P"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
