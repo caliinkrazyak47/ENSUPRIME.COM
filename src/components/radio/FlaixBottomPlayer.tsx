@@ -53,39 +53,52 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
 
   const currentStation = RADIO_STATIONS[currentStationIndex] || RADIO_STATIONS[0];
 
-  // Desbloqueo y reproducción automática de la radio con la primera interacción del usuario si el navegador restringe audio
+  // Desbloqueo y reproducción garantizada con volumen activo
   useEffect(() => {
     const unlockAndPlay = () => {
-      if (audioRef.current && isPlaying) {
-        audioRef.current.play().catch(() => {});
+      const audio = audioRef.current;
+      if (audio) {
+        audio.muted = false;
+        audio.volume = volume / 100;
+        setIsMuted(false);
+        if (isPlaying) {
+          audio.play().catch(() => {});
+        }
       }
       window.removeEventListener('click', unlockAndPlay);
       window.removeEventListener('keydown', unlockAndPlay);
       window.removeEventListener('touchstart', unlockAndPlay);
+      window.removeEventListener('pointerdown', unlockAndPlay);
     };
 
     window.addEventListener('click', unlockAndPlay, { once: true });
     window.addEventListener('keydown', unlockAndPlay, { once: true });
     window.addEventListener('touchstart', unlockAndPlay, { once: true });
+    window.addEventListener('pointerdown', unlockAndPlay, { once: true });
 
     return () => {
       window.removeEventListener('click', unlockAndPlay);
       window.removeEventListener('keydown', unlockAndPlay);
       window.removeEventListener('touchstart', unlockAndPlay);
+      window.removeEventListener('pointerdown', unlockAndPlay);
     };
-  }, [isPlaying]);
+  }, [isPlaying, volume]);
 
   // Manejo de transmisión de audio
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio();
+      audioRef.current.preload = 'auto';
     }
     const audio = audioRef.current;
+    audio.muted = isMuted;
     audio.volume = isMuted ? 0 : volume / 100;
 
     const cleanupHls = () => {
       if (hlsRef.current) {
-        hlsRef.current.destroy();
+        try {
+          hlsRef.current.destroy();
+        } catch {}
         hlsRef.current = null;
       }
     };
@@ -109,6 +122,7 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
         }
       } else {
         audio.src = streamUrl;
+        audio.load();
         audio.play().catch(() => {});
       }
     } else {
