@@ -53,7 +53,7 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
 
   const currentStation = RADIO_STATIONS[currentStationIndex] || RADIO_STATIONS[0];
 
-  // Desbloqueo y reproducción garantizada con volumen activo
+  // Desbloqueo y reproducción garantizada con volumen activo (especial para móviles iOS y Android)
   useEffect(() => {
     const unlockAndPlay = () => {
       const audio = audioRef.current;
@@ -61,25 +61,33 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
         audio.muted = false;
         audio.volume = volume / 100;
         setIsMuted(false);
-        if (isPlaying) {
-          audio.play().catch(() => {});
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Una vez que el audio realmente comenzó a sonar, podemos retirar los oyentes
+              window.removeEventListener('click', unlockAndPlay);
+              window.removeEventListener('touchstart', unlockAndPlay);
+              window.removeEventListener('touchend', unlockAndPlay);
+              window.removeEventListener('pointerdown', unlockAndPlay);
+            })
+            .catch(() => {});
         }
       }
-      window.removeEventListener('click', unlockAndPlay);
-      window.removeEventListener('keydown', unlockAndPlay);
-      window.removeEventListener('touchstart', unlockAndPlay);
-      window.removeEventListener('pointerdown', unlockAndPlay);
     };
 
-    window.addEventListener('click', unlockAndPlay, { once: true });
-    window.addEventListener('keydown', unlockAndPlay, { once: true });
-    window.addEventListener('touchstart', unlockAndPlay, { once: true });
-    window.addEventListener('pointerdown', unlockAndPlay, { once: true });
+    window.addEventListener('click', unlockAndPlay);
+    window.addEventListener('touchstart', unlockAndPlay, { passive: true });
+    window.addEventListener('touchend', unlockAndPlay, { passive: true });
+    window.addEventListener('pointerdown', unlockAndPlay);
+
+    // Intento directo en la carga inicial
+    unlockAndPlay();
 
     return () => {
       window.removeEventListener('click', unlockAndPlay);
-      window.removeEventListener('keydown', unlockAndPlay);
       window.removeEventListener('touchstart', unlockAndPlay);
+      window.removeEventListener('touchend', unlockAndPlay);
       window.removeEventListener('pointerdown', unlockAndPlay);
     };
   }, [isPlaying, volume]);
