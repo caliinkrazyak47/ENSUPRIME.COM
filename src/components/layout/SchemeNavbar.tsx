@@ -13,21 +13,33 @@ export const SchemeNavbar: React.FC<SchemeNavbarProps> = ({
   madridTime,
 }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [hideAtBottom, setHideAtBottom] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 50);
+
+      // Si el usuario está llegando al footer (últimos 600px de la página), ocultar el navbar suavemente
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+      const distanceToBottom = scrollHeight - (scrollY + clientHeight);
+
+      setHideAtBottom(distanceToBottom < 450);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
-      className={`scheme-header fixed top-0 left-0 right-0 z-40 w-full select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        scrolled
-          ? 'py-3 bg-[#0d0717]/85 backdrop-blur-2xl border-b border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.45)]'
-          : 'pt-7 sm:pt-9 md:pt-11 pb-4 bg-transparent'
+      className={`scheme-header fixed top-0 left-0 right-0 z-40 w-full select-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        hideAtBottom
+          ? 'opacity-0 -translate-y-full pointer-events-none'
+          : scrolled
+          ? 'py-3 bg-[#0d0717]/95 backdrop-blur-3xl border-b border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.65)] opacity-100 translate-y-0'
+          : 'pt-7 sm:pt-9 md:pt-11 pb-4 bg-transparent opacity-100 translate-y-0'
       }`}
     >
       {/* Contenedor ancho 96% igual a .container de schemeengine.com */}
