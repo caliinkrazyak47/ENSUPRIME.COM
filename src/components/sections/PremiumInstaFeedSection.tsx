@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Play, Pause, Volume2, VolumeX, X, Heart, MessageCircle, Send, Bookmark } from 'lucide-react';
+import { Volume2, VolumeX, X, Heart, MessageCircle, Send, Bookmark } from 'lucide-react';
 
 export interface ReelCardData {
   id: string;
@@ -83,10 +83,10 @@ export const INSTA_REELS_DATA: ReelCardData[] = [
     id: "reel-5",
     creator: "Hailey Picardi",
     handle: "@haileypicardi",
-    avatar: "/hailey.jpg",
+    avatar: "https://res.cloudinary.com/v47hsuhi/video/upload/so_0,w_400,h_400,c_fill,g_face,q_auto,f_auto/v1792226626/reelsvideo.io_1792164152983.jpg",
     reelUrl: "https://www.instagram.com/reels/DefrWfgTOLt/",
     videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226626/reelsvideo.io_1792164152983.mp4",
-    posterFrame: "/hailey.jpg",
+    posterFrame: "https://res.cloudinary.com/v47hsuhi/video/upload/so_0,q_auto,f_auto/v1792226626/reelsvideo.io_1792164152983.jpg",
     caption: "presave my next song in bio btw <3 #surething #miguel #guitar #singing #cover",
     likes: "29K",
     comments: "104",
@@ -95,10 +95,10 @@ export const INSTA_REELS_DATA: ReelCardData[] = [
     id: "reel-6",
     creator: "SHELLY 🌟🐚",
     handle: "@shellymusicc",
-    avatar: "/shelly.jpg",
+    avatar: "https://res.cloudinary.com/v47hsuhi/video/upload/so_1,w_400,h_400,c_fill,g_face,q_auto,f_auto/v1792226625/reelsvideo.io_1792165014349.jpg",
     reelUrl: "https://www.instagram.com/reels/Dee-O-FsADG/",
     videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226625/reelsvideo.io_1792165014349.mp4",
-    posterFrame: "/shelly.jpg",
+    posterFrame: "https://res.cloudinary.com/v47hsuhi/video/upload/so_1,q_auto,f_auto/v1792226625/reelsvideo.io_1792165014349.jpg",
     caption: "all that i knew - an original #originalmusic #singersongwriter #jazz #rnb #soul",
     likes: "15.6K",
     comments: "142",
@@ -473,20 +473,6 @@ export const PremiumInstaFeedSection: React.FC<PremiumInstaFeedSectionProps> = (
                       {/* Gradiente sutil inferior */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                      {/* Botón central de Play / Pause */}
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div
-                          className={`w-14 h-14 rounded-full bg-white/95 backdrop-blur-md text-[#262626] flex items-center justify-center shadow-2xl transform transition-all duration-300 ${
-                            isPlaying ? 'opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100' : 'opacity-100 scale-100'
-                          }`}
-                        >
-                          {isPlaying ? (
-                            <Pause className="w-6 h-6 fill-current text-[#6E1FE8]" />
-                          ) : (
-                            <Play className="w-6 h-6 fill-current translate-x-0.5 text-[#6E1FE8]" />
-                          )}
-                        </div>
-                      </div>
 
                       {/* Botón flotante inferior para Pantalla Completa con ícono oficial Reels */}
                       <button

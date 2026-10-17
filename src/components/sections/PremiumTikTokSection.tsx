@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Play,
-  Pause,
   Volume2,
   VolumeX,
   Eye,
@@ -573,23 +572,6 @@ export const PremiumTikTokSection: React.FC<PremiumTikTokSectionProps> = ({
                             <Eye className="w-3.5 h-3.5 text-[#00ECEF]" />
                             {item.views}
                           </span>
-                        </div>
-
-                        {/* BOTÓN REPRODUCTOR PLAY / PAUSE CENTRAL (CLICK INTERACTIVO) */}
-                        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                          <div
-                            className={`w-14 sm:w-16 h-14 sm:h-16 rounded-full bg-white/95 text-black flex items-center justify-center shadow-[0_8px_25px_rgba(0,0,0,0.35)] transform transition-all duration-300 ${
-                              isPlaying
-                                ? 'opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100'
-                                : 'opacity-100 scale-100'
-                            }`}
-                          >
-                            {isPlaying ? (
-                              <Pause className="w-6 h-6 fill-current text-[#6E1FE8]" />
-                            ) : (
-                              <Play className="w-6 h-6 fill-current ml-0.5 text-[#6E1FE8]" />
-                            )}
-                          </div>
                         </div>
 
                         {/* CONTROL DE AUDIO MUTE EN ESQUINA INFERIOR IZQUIERDA (ACCESIBLE SIEMPRE) */}
