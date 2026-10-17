@@ -46,7 +46,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "luckybrown.official - sonido original",
     title: "Diario de una princesa 👑 // sonido original",
     cover: "https://files.catbox.moe/txjxs7.jpg",
-    videoUrl: "https://files.catbox.moe/vzp8ea.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226174/TikSnap-xmmelii-7696660365064555796-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@xmmelii/video/7696660365064555796",
     bgColor: "#787B91",
     tags: [
@@ -66,7 +66,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "original sound - quinn",
     title: "Might spam a lil 🤭#hi #seattle",
     cover: "https://files.catbox.moe/1zvzrn.jpg",
-    videoUrl: "https://files.catbox.moe/9wztrv.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226273/TikSnap-julia_grace_b-7696441318423235871-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@julia_grace_b/video/7696441318423235871",
     bgColor: "#C0D43E",
     tags: [
@@ -86,7 +86,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "Fuera del Planeta - Eloy & Randy",
     title: "No puedo hacerme la linda y que el pelo quede DURO EN LA POSE",
     cover: "https://files.catbox.moe/icx9n6.jpg",
-    videoUrl: "https://files.catbox.moe/49uafr.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226341/TikSnap-elimaaciel-7677773486105873684-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@elimaaciel/video/7677773486105873684",
     bgColor: "#284334",
     tags: [
@@ -106,7 +106,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "Good Looking - Suki Waterhouse",
     title: "Good Looking // Тгк: эй полина",
     cover: "https://files.catbox.moe/aswf9g.jpg",
-    videoUrl: "https://files.catbox.moe/62llvf.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226388/TikSnap-ey.polinaa-7695654661415554337-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@ey.polinaa/video/7695654661415554337",
     bgColor: "#FFF302",
     tags: [
@@ -126,7 +126,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "original sound - Greylo",
     title: "mattiagallettini // original sound",
     cover: "https://files.catbox.moe/mtrkwb.jpg",
-    videoUrl: "https://files.catbox.moe/ncp618.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226435/TikSnap-mattiagallettini-7693198774075706657-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@mattiagallettini/video/7693198774075706657",
     bgColor: "#1EB6E2",
     tags: [
@@ -146,7 +146,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "Earned it ￴ ￴￴ - The Weeknd",
     title: "For u // Luca.tarantino",
     cover: "https://files.catbox.moe/hg43r7.jpg",
-    videoUrl: "https://files.catbox.moe/6781f9.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226472/TikSnap-luca.tarantino03-7649861067262151958-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@luca.tarantino03/video/7649861067262151958",
     bgColor: "#6E1FE8",
     tags: [
@@ -166,7 +166,7 @@ export const TIKTOK_DATA: TikTokItem[] = [
     music: "الصوت الأصلي - آلمـصـمـم /دآيـــنــــر🔥💎",
     title: "0 kcal // daaniisndvv",
     cover: "https://files.catbox.moe/8vgh31.jpg",
-    videoUrl: "https://files.catbox.moe/5f7vyx.mp4",
+    videoUrl: "https://res.cloudinary.com/v47hsuhi/video/upload/f_auto,q_auto/v1792226517/TikSnap-daaniisndvv-7696242500268199191-Original.mp4",
     tiktokUrl: "https://www.tiktok.com/@daaniisndvv/video/7696242500268199191",
     bgColor: "#E53935",
     tags: [
