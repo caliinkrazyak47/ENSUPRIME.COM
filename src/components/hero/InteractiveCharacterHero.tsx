@@ -202,33 +202,34 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
           className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1]"
         >
           <source
-            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1791976976/Animate_locker_and_paper_movement_20261014132221.mp4"
+            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1792336432/Animate_static_American_style_image_20261018171323.mp4"
             type="video/mp4"
           />
         </video>
       </div>
 
       {/* ============================================================== */}
-      {/* 2. PÓSTER ORIGINAL NETFLIX PREMIUM: TÍTULO Y PRESENTACIÓN (z-10) */}
+      {/* 2. PÓSTER EDITORIAL POSTER STYLE: TÍTULO Y PRESENTACIÓN (z-10) */}
       {/* ============================================================== */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none overflow-hidden px-4">
-        {/* CABECERA OFICIAL NETFLIX ORIGINAL */}
-        <div className="flex items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2">
-          {/* Logo icónico "N" roja de Netflix */}
-          <span className="font-impact text-xl sm:text-2xl text-[#E50914] font-black leading-none">
-            N
-          </span>
-          <span className="font-sans text-[11px] sm:text-xs md:text-sm font-extrabold tracking-[0.35em] uppercase text-white/95">
-            SERIES
-          </span>
-        </div>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-[14vh] sm:pt-[15vh] md:pt-[16vh] pointer-events-none select-none overflow-hidden px-4">
+        {/* PRE-TÍTULO / EYEBROW EDITORIAL CON TRACKING ANCHO */}
+        <p className="font-mono-code text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.35em] uppercase text-white/80 mb-1.5 sm:mb-2.5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+          ORIGINAL BROADCAST // EN VIVO
+        </p>
 
-        {/* TÍTULO PRINCIPAL: TIPOGRAFÍA CONDENSADA OFICIAL TIPO PÓSTER NETFLIX (NATURAL, PROPORCIONADA, SIN ESTIRAR) */}
-        <h1
-          className="w-full text-center font-impact text-[13vw] sm:text-[12vw] md:text-[10.5vw] lg:text-[9.5vw] leading-[0.84] tracking-[-0.01em] uppercase text-white select-none whitespace-nowrap"
-        >
-          TALENTO URBANO
+        {/* TÍTULO PRINCIPAL: ENSUPRIME.COM A LA ALTURA DE LA LUNA */}
+        <h1 className="w-full text-center font-impact text-[13vw] sm:text-[12vw] md:text-[10.5vw] lg:text-[9.5vw] leading-[0.85] tracking-tight uppercase text-white select-none whitespace-nowrap">
+          ENSU<span className="text-[#5518D3]">PRIME</span><span className="text-[#9FB32F]">.COM</span>
         </h1>
+
+        {/* SUBTÍTULO INFERIOR TIPO PÓSTER EDITORIAL */}
+        <div className="flex items-center gap-3 mt-2.5 sm:mt-3">
+          <span className="h-[1px] w-6 sm:w-12 bg-white/40" />
+          <p className="font-sans text-[11px] sm:text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            EL EPICENTRO DEL TALENTO URBANO
+          </p>
+          <span className="h-[1px] w-6 sm:w-12 bg-white/40" />
+        </div>
       </div>
 
       {/* ============================================================== */}

@@ -74,21 +74,21 @@ export const SchemeNavbar: React.FC<SchemeNavbarProps> = ({
             </a>
           </div>
 
-          {/* 2. CENTRO MONUMENTAL: LOGO ENSUPRIME CON ESTILO SCHEME ENGINE */}
+          {/* 2. CENTRO ELEGANTE: LOGO ENSUPRIME COMPACTO PARA DEJAR PROTAGONISMO AL TÍTULO */}
           <div className="brand-logo-container flex items-center justify-center px-4 sm:px-8">
             <a
               href="#"
               className="scheme-brand-logo group flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-[1.04]"
               title="ENSUPRIME"
             >
-              <div className="flex items-center tracking-[-0.03em] select-none">
-                <span className="font-impact text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-[0.02em] uppercase leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] group-hover:text-white transition-colors">
+              <div className="flex items-center tracking-[-0.02em] select-none">
+                <span className="font-impact text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.03em] uppercase leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] group-hover:text-white transition-colors">
                   ENSU
                 </span>
-                <span className="font-impact text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#6E1FE8] group-hover:text-[#C0D43E] tracking-[0.02em] uppercase leading-none transition-colors">
+                <span className="font-impact text-2xl sm:text-3xl md:text-4xl text-[#6E1FE8] group-hover:text-[#C0D43E] tracking-[0.03em] uppercase leading-none transition-colors">
                   PRIME
                 </span>
-                <span className="inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 bg-[#C0D43E] rounded-none ml-1.5 sm:ml-2 animate-pulse self-end mb-1 sm:mb-1.5" />
+                <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#C0D43E] rounded-none ml-1 sm:ml-1.5 animate-pulse self-end mb-1" />
               </div>
             </a>
           </div>
