@@ -9,9 +9,9 @@ interface EventAnnouncementModalProps {
 }
 
 export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
-  flyerUrl = '/images/joy-eslava-halloween.jpg',
-  eventUrl = 'https://site.fourvenues.com/es/momentum-web/events/joy-eslava-halloween---30-10-2026-TT3P',
-  eventTitle = 'JOY ESLAVA HALLOWEEN · 30 DE OCTUBRE',
+  flyerUrl = '/images/madness-halloween-tiffanys.jpg',
+  eventUrl = 'https://venta.madnesslight.com/ventatpv.php?fiesta_id=376#ventadeentradas',
+  eventTitle = 'HALLOWEEN 2026 BY MADFEST YOUNG EN TIFFANYS · 30 DE OCTUBRE',
   isReady = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
