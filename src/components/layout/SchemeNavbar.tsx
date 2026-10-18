@@ -190,42 +190,38 @@ export const SchemeNavbar: React.FC<SchemeNavbarProps> = ({
             <span className="text-xl font-bold">✕</span>
           </button>
 
-          {/* Enlaces grandes verticales con espaciado limpio */}
+          {/* Enlaces grandes verticales con espaciado limpio sin flechas */}
           <div className="flex flex-col gap-6 my-auto">
             <a
               href="#tv"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight flex items-center justify-between border-b border-white/10 pb-4 transition-colors"
+              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight border-b border-white/10 pb-4 transition-colors"
             >
-              <span>TV ONLINE</span>
-              <span className="text-[#6E1FE8] text-2xl">↗</span>
+              TV ONLINE
             </a>
 
             <a
               href="#tiktok"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight flex items-center justify-between border-b border-white/10 pb-4 transition-colors"
+              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight border-b border-white/10 pb-4 transition-colors"
             >
-              <span>TIKTOK FEED</span>
-              <span className="text-[#6E1FE8] text-2xl">↗</span>
+              TIKTOK FEED
             </a>
 
             <a
               href="#talento"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight flex items-center justify-between border-b border-white/10 pb-4 transition-colors"
+              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight border-b border-white/10 pb-4 transition-colors"
             >
-              <span>TALENTO</span>
-              <span className="text-[#6E1FE8] text-2xl">↗</span>
+              TALENTO
             </a>
 
             <a
               href="#eventos"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight flex items-center justify-between border-b border-white/10 pb-4 transition-colors"
+              className="font-impact text-4xl sm:text-5xl text-white active:text-[#C0D43E] uppercase tracking-tight border-b border-white/10 pb-4 transition-colors"
             >
-              <span>EVENTOS</span>
-              <span className="text-[#6E1FE8] text-2xl">↗</span>
+              EVENTOS
             </a>
           </div>
 
