@@ -116,20 +116,25 @@ export const PremiumPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         {/* Monograma ENSUPRIME con máscara de corte */}
         <div className="overflow-hidden flex items-center justify-center py-2">
           <div className="flex tracking-[-0.04em]">
-            {brandName.split("").map((letter, idx) => (
-              <span
-                key={idx}
-                ref={(el) => {
-                  if (el) lettersRef.current[idx] = el;
-                }}
-                className="inline-block font-display text-5xl md:text-8xl lg:text-9xl font-bold text-[#EDE8DF] transition-transform duration-300"
-                style={{
-                  clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%)`,
-                }}
-              >
-                {letter}
-              </span>
-            ))}
+            {brandName.split("").map((letter, idx) => {
+              const isPrime = idx >= 4; // 'P', 'R', 'I', 'M', 'E'
+              return (
+                <span
+                  key={idx}
+                  ref={(el) => {
+                    if (el) lettersRef.current[idx] = el;
+                  }}
+                  className={`inline-block font-display text-5xl md:text-8xl lg:text-9xl font-bold transition-transform duration-300 ${
+                    isPrime ? 'text-[#4714CC]' : 'text-[#EDE8DF]'
+                  }`}
+                  style={{
+                    clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 100%)`,
+                  }}
+                >
+                  {letter}
+                </span>
+              );
+            })}
           </div>
         </div>
 
