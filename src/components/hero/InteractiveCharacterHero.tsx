@@ -173,6 +173,39 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
     targetFrameRef.current = CENTER_FRAME;
   };
 
+  // Crossfade buffer continuo para loop 100% sin parpadeos ni pausas
+  const videoARef = useRef<HTMLVideoElement | null>(null);
+  const videoBRef = useRef<HTMLVideoElement | null>(null);
+  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
+
+  const handleTimeUpdateA = () => {
+    const vA = videoARef.current;
+    const vB = videoBRef.current;
+    if (!vA || !vB || !vA.duration) return;
+
+    // 0.6 segundos antes del final, preparar y arrancar el vídeo B en segundo plano
+    if (vA.duration - vA.currentTime <= 0.6 && activeVideo === 'A') {
+      vB.currentTime = 0;
+      vB.play().then(() => {
+        setActiveVideo('B');
+      }).catch(() => {});
+    }
+  };
+
+  const handleTimeUpdateB = () => {
+    const vA = videoARef.current;
+    const vB = videoBRef.current;
+    if (!vA || !vB || !vB.duration) return;
+
+    // 0.6 segundos antes del final, preparar y arrancar el vídeo A
+    if (vB.duration - vB.currentTime <= 0.6 && activeVideo === 'B') {
+      vA.currentTime = 0;
+      vA.play().then(() => {
+        setActiveVideo('A');
+      }).catch(() => {});
+    }
+  };
+
   return (
     <section
       ref={containerRef}
@@ -182,7 +215,7 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
-      className="relative w-full aspect-video min-h-[580px] max-h-[1080px] bg-[#EDE8E3] text-[#110B1C] flex flex-col justify-between overflow-hidden select-none touch-pan-y"
+      className="relative w-full aspect-video min-h-[580px] max-h-[1080px] bg-[#0d0717] text-[#110B1C] flex flex-col justify-between overflow-hidden select-none touch-pan-y"
     >
       {/* ============================================================== */}
       {/* 1. NAVBAR ESTILO SCHEME ENGINE (SCHEMEENGINE.COM) CON ENSUPRIME */}
@@ -190,16 +223,37 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
       <SchemeNavbar madridTime={timeData} />
 
       {/* ============================================================== */}
-      {/* 0. VIDEO BACKGROUND 16:9 DETRÁS DE LAS LETRAS (NUEVO CLOUDINARY) */}
+      {/* 0. VIDEO BACKGROUND SEAMLESS CROSSFADE BUFFER (CERO PARPADEO) */}
       {/* ============================================================== */}
-      <div className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden bg-[#0d0717]">
+        {/* Capa A */}
         <video
+          ref={videoARef}
           autoPlay
-          loop
           muted
           playsInline
           preload="auto"
-          className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1]"
+          onTimeUpdate={handleTimeUpdateA}
+          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-500 ease-linear ${
+            activeVideo === 'A' ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <source
+            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1792336432/Animate_static_American_style_image_20261018171323.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Capa B (buffer para solapamiento continuo) */}
+        <video
+          ref={videoBRef}
+          muted
+          playsInline
+          preload="auto"
+          onTimeUpdate={handleTimeUpdateB}
+          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-500 ease-linear ${
+            activeVideo === 'B' ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <source
             src="https://res.cloudinary.com/v47hsuhi/video/upload/v1792336432/Animate_static_American_style_image_20261018171323.mp4"
