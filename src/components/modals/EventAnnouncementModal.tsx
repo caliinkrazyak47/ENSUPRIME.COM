@@ -58,15 +58,14 @@ export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
       className="fixed inset-0 z-[9999999] flex items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-[2px] animate-in fade-in duration-200 select-none"
       onClick={() => setIsOpen(false)}
     >
-      {/* CONTENEDOR EXACTO ESTILO CARDI B / TICKETS:
-          - Centrado total vertical y horizontal en cualquier pantalla
-          - Flyer 100% visible completo sin cortes
-          - Botón X flotante arriba
-          - Botón COMPRAR ENTRADA ancho debajo
+      {/* CONTENEDOR AJUSTADO AL TAMAÑO REAL DEL FLYER:
+          - Sin franjas negras a los lados
+          - Botón X flotante arriba a la derecha
+          - Botón COMPRAR ENTRADA debajo adaptado al ancho del flyer
       */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex flex-col items-center justify-center max-w-[90vw] sm:max-w-[430px] md:max-w-[460px] w-full my-auto animate-in zoom-in-95 duration-200"
+        className="relative flex flex-col items-center justify-center w-fit max-w-[90vw] my-auto animate-in zoom-in-95 duration-200"
       >
         {/* BOTÓN CERRAR 'X' FLOTANTE */}
         <button
@@ -77,18 +76,18 @@ export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
           <X className="w-8 h-8 sm:w-9 sm:h-9 stroke-[2.5]" />
         </button>
 
-        {/* FLYER COMPLETO 100% VISIBLE (CENTRADITO Y SIN CORTES) */}
+        {/* FLYER COMPLETO 100% VISIBLE AJUSTADO EXACTO (SIN BORDES NEGROS A LOS LADOS) */}
         <a
           href={eventUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] group cursor-pointer flex items-center justify-center border border-white/20 bg-black/90"
+          className="relative block rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] group cursor-pointer border border-white/20"
           title={`Haz clic para comprar tu entrada para ${eventTitle}`}
         >
           <img
             src={flyerUrl}
             alt={eventTitle}
-            className="w-full h-auto max-h-[70vh] sm:max-h-[74vh] object-contain block mx-auto transition-transform duration-500 group-hover:scale-[1.01]"
+            className="w-auto h-auto max-w-[85vw] sm:max-w-[420px] max-h-[70vh] sm:max-h-[74vh] block transition-transform duration-500 group-hover:scale-[1.01]"
           />
         </a>
 
