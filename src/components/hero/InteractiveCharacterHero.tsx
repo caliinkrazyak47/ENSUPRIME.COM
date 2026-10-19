@@ -202,7 +202,7 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
           className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1]"
         >
           <source
-            src="/videos/hero-bg-seamless.mp4"
+            src="/videos/hero-bg-pumpkin-seamless.mp4"
             type="video/mp4"
           />
         </video>
