@@ -173,41 +173,6 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
     targetFrameRef.current = CENTER_FRAME;
   };
 
-  // Crossfade buffer continuo que corta antes del fade-out negro final del archivo original
-  const videoARef = useRef<HTMLVideoElement | null>(null);
-  const videoBRef = useRef<HTMLVideoElement | null>(null);
-  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
-
-  // El vídeo original de IA dura 8.0s y en el segundo 7.0 entra un parpadeo/fundido a negro.
-  // Al transicionar a los 6.8s, se elimina al 100% el parpadeo negro y queda en bucle infinito perfecto.
-  const LOOP_CUTOFF = 6.8;
-
-  const handleTimeUpdateA = () => {
-    const vA = videoARef.current;
-    const vB = videoBRef.current;
-    if (!vA || !vB) return;
-
-    if (vA.currentTime >= LOOP_CUTOFF && activeVideo === 'A') {
-      vB.currentTime = 0;
-      vB.play().then(() => {
-        setActiveVideo('B');
-      }).catch(() => {});
-    }
-  };
-
-  const handleTimeUpdateB = () => {
-    const vA = videoARef.current;
-    const vB = videoBRef.current;
-    if (!vA || !vB) return;
-
-    if (vB.currentTime >= LOOP_CUTOFF && activeVideo === 'B') {
-      vA.currentTime = 0;
-      vA.play().then(() => {
-        setActiveVideo('A');
-      }).catch(() => {});
-    }
-  };
-
   return (
     <section
       ref={containerRef}
@@ -225,40 +190,19 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
       <SchemeNavbar madridTime={timeData} />
 
       {/* ============================================================== */}
-      {/* 0. VIDEO BACKGROUND SEAMLESS CROSSFADE BUFFER (SIN PARPADEO NI NEGRO) */}
+      {/* 0. VIDEO BACKGROUND 100% FLUIDO Y SIN CORTES (SEAMLESS PING-PONG LOOP) */}
       {/* ============================================================== */}
       <div className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden bg-[#0d0717]">
-        {/* Capa A */}
         <video
-          ref={videoARef}
           autoPlay
+          loop
           muted
           playsInline
           preload="auto"
-          onTimeUpdate={handleTimeUpdateA}
-          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-700 ease-in-out ${
-            activeVideo === 'A' ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
+          className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1]"
         >
           <source
-            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1792336432/Animate_static_American_style_image_20261018171323.mp4"
-            type="video/mp4"
-          />
-        </video>
-
-        {/* Capa B (buffer continuo para solapar sin corte negro) */}
-        <video
-          ref={videoBRef}
-          muted
-          playsInline
-          preload="auto"
-          onTimeUpdate={handleTimeUpdateB}
-          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-700 ease-in-out ${
-            activeVideo === 'B' ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        >
-          <source
-            src="https://res.cloudinary.com/v47hsuhi/video/upload/v1792336432/Animate_static_American_style_image_20261018171323.mp4"
+            src="/videos/hero-bg-seamless.mp4"
             type="video/mp4"
           />
         </video>
