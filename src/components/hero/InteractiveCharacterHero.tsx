@@ -173,18 +173,21 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
     targetFrameRef.current = CENTER_FRAME;
   };
 
-  // Crossfade buffer continuo para loop 100% sin parpadeos ni pausas
+  // Crossfade buffer continuo que corta antes del fade-out negro final del archivo original
   const videoARef = useRef<HTMLVideoElement | null>(null);
   const videoBRef = useRef<HTMLVideoElement | null>(null);
   const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
 
+  // El vídeo original de IA dura 8.0s y en el segundo 7.0 entra un parpadeo/fundido a negro.
+  // Al transicionar a los 6.8s, se elimina al 100% el parpadeo negro y queda en bucle infinito perfecto.
+  const LOOP_CUTOFF = 6.8;
+
   const handleTimeUpdateA = () => {
     const vA = videoARef.current;
     const vB = videoBRef.current;
-    if (!vA || !vB || !vA.duration) return;
+    if (!vA || !vB) return;
 
-    // 0.6 segundos antes del final, preparar y arrancar el vídeo B en segundo plano
-    if (vA.duration - vA.currentTime <= 0.6 && activeVideo === 'A') {
+    if (vA.currentTime >= LOOP_CUTOFF && activeVideo === 'A') {
       vB.currentTime = 0;
       vB.play().then(() => {
         setActiveVideo('B');
@@ -195,10 +198,9 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
   const handleTimeUpdateB = () => {
     const vA = videoARef.current;
     const vB = videoBRef.current;
-    if (!vA || !vB || !vB.duration) return;
+    if (!vA || !vB) return;
 
-    // 0.6 segundos antes del final, preparar y arrancar el vídeo A
-    if (vB.duration - vB.currentTime <= 0.6 && activeVideo === 'B') {
+    if (vB.currentTime >= LOOP_CUTOFF && activeVideo === 'B') {
       vA.currentTime = 0;
       vA.play().then(() => {
         setActiveVideo('A');
@@ -223,7 +225,7 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
       <SchemeNavbar madridTime={timeData} />
 
       {/* ============================================================== */}
-      {/* 0. VIDEO BACKGROUND SEAMLESS CROSSFADE BUFFER (CERO PARPADEO) */}
+      {/* 0. VIDEO BACKGROUND SEAMLESS CROSSFADE BUFFER (SIN PARPADEO NI NEGRO) */}
       {/* ============================================================== */}
       <div className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden bg-[#0d0717]">
         {/* Capa A */}
@@ -234,8 +236,8 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
           playsInline
           preload="auto"
           onTimeUpdate={handleTimeUpdateA}
-          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-500 ease-linear ${
-            activeVideo === 'A' ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-700 ease-in-out ${
+            activeVideo === 'A' ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
           <source
@@ -244,15 +246,15 @@ export const InteractiveCharacterHero: React.FC<HeroProps> = () => {
           />
         </video>
 
-        {/* Capa B (buffer para solapamiento continuo) */}
+        {/* Capa B (buffer continuo para solapar sin corte negro) */}
         <video
           ref={videoBRef}
           muted
           playsInline
           preload="auto"
           onTimeUpdate={handleTimeUpdateB}
-          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-500 ease-linear ${
-            activeVideo === 'B' ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] saturate-[1.1] transition-opacity duration-700 ease-in-out ${
+            activeVideo === 'B' ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
           <source
