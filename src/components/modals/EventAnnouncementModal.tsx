@@ -9,9 +9,9 @@ interface EventAnnouncementModalProps {
 }
 
 export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
-  flyerUrl = '/images/madness-halloween-tiffanys.jpg',
-  eventUrl = 'https://venta.madnesslight.com/ventatpv.php?fiesta_id=376#ventadeentradas',
-  eventTitle = 'HALLOWEEN 2026 BY MADFEST YOUNG EN TIFFANYS · 30 DE OCTUBRE',
+  flyerUrl = '/images/shoko-la-residencia-lil-naay.jpg',
+  eventUrl = 'https://shokomadrid.com/es/products/la-residencia-sunday-25-10-2026',
+  eventTitle = 'SHÔKO MADRID · LA RESIDENCIA DE LOS ARTISTAS · LIL NAAY (25 OCTUBRE)',
   isReady = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
