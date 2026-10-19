@@ -14,8 +14,8 @@ import {
   Minimize,
   RotateCcw,
   X,
-  Layers,
-  Search
+  Search,
+  Layers
 } from 'lucide-react';
 import rawChannels from '../../data/iptvChannels.json';
 
@@ -93,10 +93,10 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(85);
 
-  // MODO PANTALLA COMPLETA
+  // MODO PANTALLA COMPLETA & VISIBILIDAD DE CONTROLES
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const [showFullscreenControls, setShowFullscreenControls] = useState<boolean>(true);
+  const [showPlayerControls, setShowPlayerControls] = useState<boolean>(false);
   const controlsTimeoutRef = useRef<any>(null);
 
   // TELEVISIÓN (IPTV) STATE
@@ -538,16 +538,26 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     }
   }, [volume, isMuted]);
 
-  // Autocierre o atenuación de controles en fullscreen
-  const handleUserActivity = () => {
-    setShowFullscreenControls(true);
+  // Autocierre o atenuación de controles de la TV (solo aparecen al tocar con el dedo o mover ratón y desaparecen solos para no tapar la emisión)
+  const handleUserActivity = useCallback(() => {
+    setShowPlayerControls(true);
     if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
     controlsTimeoutRef.current = setTimeout(() => {
-      if (!isDrawerOpen) {
-        setShowFullscreenControls(false);
+      if (!isDrawerOpen && !isChannelDropdownOpen) {
+        setShowPlayerControls(false);
       }
-    }, 4500);
-  };
+    }, 3000);
+  }, [isDrawerOpen, isChannelDropdownOpen]);
+
+  // Al abrir el menú o panel de canales, mantener visibles los controles; al cerrarlos, iniciar temporizador
+  useEffect(() => {
+    if (isDrawerOpen || isChannelDropdownOpen) {
+      setShowPlayerControls(true);
+      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    } else {
+      handleUserActivity();
+    }
+  }, [isDrawerOpen, isChannelDropdownOpen, handleUserActivity]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -772,17 +782,18 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
               data-lenis-prevent
               data-lenis-prevent-wheel
               data-lenis-prevent-touch
-              onMouseMove={isFullscreen ? handleUserActivity : undefined}
-              onClick={isFullscreen ? handleUserActivity : undefined}
-              className={`transform-gpu will-change-transform contain-layout ${
+              onMouseMove={handleUserActivity}
+              onTouchStart={handleUserActivity}
+              onClick={handleUserActivity}
+              className={`transform-gpu will-change-transform contain-layout select-none ${
                 isFullscreen
-                  ? 'fixed inset-0 z-[999999] w-screen h-screen bg-black flex items-center justify-center select-none overflow-hidden'
-                  : 'relative aspect-video rounded-2xl bg-black overflow-hidden shadow-inner ring-1 ring-white/10'
+                  ? 'fixed inset-0 z-[999999] w-screen h-screen bg-black flex items-center justify-center overflow-hidden'
+                  : 'relative aspect-video rounded-2xl bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] ring-1 ring-white/10 group/tvcard'
               }`}
             >
-              {/* CASO 1: MODO TELEVISIÓN (REPRODUCTOR MEDISET INFINITY GLASS EMBEBIDO EN LA TV) */}
+              {/* CASO 1: MODO TELEVISIÓN (REPRODUCTOR TDTCHANNELS PRO ESTILO GLASS LUXURY) */}
               {activeMode === 'television' && (
-                <div className="relative w-full h-full bg-black flex items-center justify-center group/tvscreen">
+                <div className="relative w-full h-full bg-black flex items-center justify-center">
                   <video
                     ref={iptvVideoRef}
                     playsInline
@@ -791,42 +802,62 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                     className="w-full h-full object-contain"
                   />
 
-                  {/* Badge en vivo flotante estilo Mediaset Infinity */}
-                  <div className="absolute top-3 left-3 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0D0B14]/85 backdrop-blur-xl border border-white/15 text-[11px] font-mono-code shadow-2xl">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
-                    </span>
-                    <span className="font-black text-white uppercase tracking-wider">{activeIptvChannel.name}</span>
-                    <span className="text-white/40">|</span>
-                    <span className="text-[#C0D43E] font-bold text-[10px]">DIRECTO HD</span>
+                  {/* 1. TOP-LEFT EPG PILL (ESTILO EXACTO CAPTURA: "ESTAS VIENDO • ENTRETENIMIENTO", HORARIO Y TITULO CON BARRA AZUL/LIMA) */}
+                  <div className={`absolute top-3 sm:top-4 left-3 sm:left-4 z-20 transition-all duration-300 ${
+                    showPlayerControls ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'
+                  }`}>
+                    <div className="bg-black/70 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 max-w-[240px] xs:max-w-[290px] shadow-2xl">
+                      <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono-code font-bold uppercase tracking-wider text-white/70">
+                        <span className="text-white">ESTAS VIENDO</span>
+                        <span>•</span>
+                        <span className="text-[#C0D43E]">{activeIptvChannel.group || 'EN DIRECTO'}</span>
+                      </div>
+                      <div className="mt-1 flex items-baseline gap-1.5 text-xs sm:text-sm font-bold text-white truncate">
+                        <span className="text-white/50 text-[10px] sm:text-[11px] font-mono-code">24/7</span>
+                        <span className="truncate">{activeIptvChannel.name}</span>
+                      </div>
+                      {/* Mini progress bar continua */}
+                      <div className="w-full h-1 bg-white/15 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-[#C0D43E] rounded-full w-[65%]" />
+                      </div>
+                    </div>
                   </div>
 
-                  {/* MENÚ DESPLEGABLE DE CANALES EN EL REPRODUCTOR */}
-                  <div ref={dropdownRef} className="absolute top-3 right-3 z-30 flex items-center gap-2">
-                    {/* Botón que despliega la lista de todos los canales */}
-                    <div className="relative">
+                  {/* 2. TOP-RIGHT CONTROLS: BOTÓN GUÍA PEQUEÑO Y PANTALLA COMPLETA */}
+                  <div className={`absolute top-3 sm:top-4 right-3 sm:right-4 z-30 flex items-center gap-2 transition-all duration-300 ${
+                    showPlayerControls || isChannelDropdownOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'
+                  }`}>
+                    {/* Botón Guía pequeño como en el reproductor anterior */}
+                    <div ref={dropdownRef} className="relative">
                       <button
-                        onClick={() => setIsChannelDropdownOpen(!isChannelDropdownOpen)}
-                        className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0D0B14]/85 hover:bg-white text-white hover:text-black backdrop-blur-xl border border-white/20 text-xs font-mono-code font-bold transition-all shadow-lg cursor-pointer"
-                        title="Seleccionar canal"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsChannelDropdownOpen(!isChannelDropdownOpen);
+                        }}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border text-xs font-mono-code font-bold transition-all shadow-lg cursor-pointer ${
+                          isChannelDropdownOpen
+                            ? 'border-[#C0D43E] text-[#C0D43E]'
+                            : 'border-white/15 text-white hover:text-[#C0D43E] hover:border-[#C0D43E]'
+                        }`}
+                        title="Guía de canales"
                       >
                         <Layers className="w-3.5 h-3.5 text-[#C0D43E]" />
-                        <span className="truncate max-w-[120px] sm:max-w-[160px] uppercase">{activeIptvChannel.name}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isChannelDropdownOpen ? 'rotate-180' : ''}`} />
+                        <span className="uppercase text-[11px]">Guía</span>
+                        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isChannelDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
 
-                      {/* Dropdown con scroll vertical fluido */}
+                      {/* Dropdown de Canales desplegable */}
                       {isChannelDropdownOpen && (
                         <div
                           data-lenis-prevent
                           data-lenis-prevent-wheel
                           data-lenis-prevent-touch
+                          onClick={(e) => e.stopPropagation()}
                           onWheel={(e) => e.stopPropagation()}
-                          className="absolute right-0 mt-2 w-72 sm:w-80 max-h-80 overflow-y-auto overscroll-contain mediaset-glass-scrollbar bg-[#0D0B14]/95 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl p-2 space-y-1 z-50 animate-in fade-in zoom-in-95 duration-150"
+                          className="absolute right-0 mt-2 w-72 sm:w-80 max-h-80 overflow-y-auto overscroll-contain mediaset-glass-scrollbar bg-black/90 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl p-2 space-y-1 z-50 animate-in fade-in zoom-in-95 duration-150"
                         >
-                          {/* Buscador rápido integrado dentro del dropdown */}
-                          <div className="p-1 mb-1 border-b border-white/10 sticky top-0 bg-[#0D0B14]/95 backdrop-blur-xl z-10">
+                          {/* Buscador integrado */}
+                          <div className="p-1 mb-1 border-b border-white/10 sticky top-0 bg-black/90 backdrop-blur-xl z-10">
                             <div className="relative">
                               <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-white/50" />
                               <input
@@ -848,7 +879,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                             </div>
                             <div className="px-1 pt-1.5 pb-0.5 text-[10px] font-mono-code text-white/40 flex justify-between uppercase">
                               <span>Canales ({dropdownChannels.length})</span>
-                              <span>Scroll para explorar</span>
+                              <span>Toca para sintonizar</span>
                             </div>
                           </div>
 
@@ -874,7 +905,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                                   }`}
                                 >
                                   <div className="flex items-center gap-2 truncate">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#C0D43E] shrink-0" />
                                     <span className="truncate uppercase">{ch.name}</span>
                                   </div>
                                   <span className="text-[10px] opacity-60 ml-2 shrink-0">{ch.country || ch.group || 'DIRECTO'}</span>
@@ -886,20 +917,25 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                       )}
                     </div>
 
-                    {/* Botón Pantalla Completa Mediaset Infinity */}
-                    <button
-                      onClick={enterFullscreen}
-                      className="p-1.5 rounded-full bg-[#0D0B14]/85 hover:bg-white text-white hover:text-black backdrop-blur-xl border border-white/20 transition-all shadow-lg cursor-pointer"
-                      title="Pantalla Completa"
-                    >
-                      <Maximize className="w-4 h-4" />
-                    </button>
+                    {/* Botón Pantalla Completa en la esquina del reproductor */}
+                    {!isFullscreen && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          enterFullscreen();
+                        }}
+                        className="p-1.5 rounded-full bg-black/70 hover:bg-white text-white hover:text-black backdrop-blur-md border border-white/15 transition-all shadow-lg cursor-pointer"
+                        title="Ver en Pantalla Completa"
+                      >
+                        <Maximize className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
 
                   {/* Loading indicator */}
                   {isIptvLoading && !iptvError && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/85 z-20 backdrop-blur-md">
-                      <div className="w-14 h-14 rounded-full border-3 border-[#C0D43E]/20 border-t-[#C0D43E] animate-spin mb-3 shadow-[0_0_20px_rgba(192,212,62,0.4)]" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-20 backdrop-blur-sm">
+                      <div className="w-12 h-12 rounded-full border-2 border-white/20 border-t-[#C0D43E] animate-spin mb-3" />
                       <span className="font-mono-code text-xs text-white uppercase tracking-widest font-black">
                         Sintonizando {activeIptvChannel.name}...
                       </span>
@@ -908,7 +944,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
 
                   {/* Error state with retry */}
                   {iptvError && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/95 z-20 p-4 text-center">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 z-20 p-4 text-center">
                       <p className="font-mono-code text-xs text-red-400 mb-3">
                         Canal temporalmente no disponible
                       </p>
@@ -924,7 +960,7 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                 </div>
               )}
 
-              {/* CASO 2: MODO PLAYLIST MUSICA VIDEOS (GPU LAYER ISOLATION FOR MAXIMUM SMOOTHNESS) */}
+              {/* CASO 2: MODO PLAYLIST MUSICA VIDEOS */}
               {activeMode === 'music' && (
                 <iframe
                   id="youtube-tv-player"
@@ -938,288 +974,204 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
                 />
               )}
 
-              {/* OVERLAY DE CONTROLES GLASS EN PANTALLA COMPLETA DIRECTA (SOBRE EL MISMO REPRODUCTOR) */}
-              {isFullscreen && (
-                <>
-                  {/* SUTILES GRADIENTES DE CRISTAL PARA CONTROL OVERLAY */}
-                  <div
-                    className={`absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/80 via-black/40 to-transparent pointer-events-none transition-opacity duration-300 z-30 ${
-                      showFullscreenControls ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  />
-                  <div
-                    className={`absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none transition-opacity duration-300 z-30 ${
-                      showFullscreenControls ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  />
-
-                  {/* CABECERA TOP MEDIASET GLASS OVERLAY */}
-                  <header
-                    className={`absolute top-0 inset-x-0 z-40 p-4 sm:p-6 flex items-center justify-between transition-all duration-300 ${
-                      showFullscreenControls ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-                    }`}
+              {/* BARRA DE CONTROLES INFERIOR ESTILO EXACTO CAPTURA (TRANSPARENTE / GLASS, BOTONES BLANCO Y LIMA-LIMÓN) */}
+              {/* Oculta por defecto para no tapar la emisión; solo aparece al tocar la pantalla o mover el ratón y se oculta sola */}
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className={`absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-5 z-40 flex items-center justify-center transition-all duration-300 pointer-events-none ${
+                  showPlayerControls
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-3'
+                }`}
+              >
+                <div className="w-full max-w-4xl bg-black/75 backdrop-blur-md border border-white/15 rounded-full px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3.5 shadow-2xl pointer-events-auto">
+                  {/* LADO IZQUIERDO: PLAY / PAUSA */}
+                  <button
+                    onClick={handleTogglePlay}
+                    className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-white hover:text-[#C0D43E] transition-colors cursor-pointer group shrink-0"
+                    title={isPlaying ? 'Pausar' : 'Reproducir'}
                   >
-                    {/* Lado izquierdo: Canal/Música e indicador LIVE */}
-                    <div className="flex items-center gap-3.5">
-                      <div className="flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white/[0.08] backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                        <span className="relative flex h-3 w-3">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
-                        </span>
-                        <span className="font-mono-code font-black text-xs sm:text-sm tracking-wider uppercase text-white">DIRECTO</span>
-                        <span className="w-px h-3.5 bg-white/20" />
-                        <span className="font-display font-extrabold text-sm sm:text-base tracking-wide uppercase text-white">
-                          {activeMode === 'television' ? activeIptvChannel.name : currentVideoInfo.title}
-                        </span>
-                        <span className="text-[10px] font-mono-code font-bold text-[#C0D43E] bg-[#C0D43E]/10 border border-[#C0D43E]/30 px-2 py-0.5 rounded-md hidden sm:inline">
-                          1080P FULL HD
-                        </span>
-                      </div>
-                    </div>
+                    {isPlaying ? (
+                      <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-[#C0D43E]" />
+                    ) : (
+                      <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-white group-hover:text-[#C0D43E]" />
+                    )}
+                    <span className="font-mono-code text-[11px] sm:text-xs font-bold uppercase tracking-wider">
+                      {isPlaying ? 'Pausa' : 'Reproducir'}
+                    </span>
+                  </button>
 
-                    {/* Lado derecho: Botón Canales (si es televisión) y Cerrar */}
-                    <div className="flex items-center gap-2.5">
-                      {activeMode === 'television' && (
-                        <button
-                          onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-2xl backdrop-blur-2xl border transition-all text-xs font-mono-code font-bold cursor-pointer shadow-lg ${
-                            isDrawerOpen
-                              ? 'bg-[#C0D43E] text-black border-[#C0D43E] font-black'
-                              : 'bg-white/[0.08] hover:bg-white/20 text-white border-white/20'
-                          }`}
-                        >
-                          <Layers className="w-4 h-4" />
-                          <span>CANALES & GUÍA</span>
-                          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isDrawerOpen ? 'rotate-180' : ''}`} />
-                        </button>
-                      )}
-
-                      <button
-                        onClick={exitFullscreen}
-                        className="w-10 h-10 rounded-2xl bg-white/[0.08] hover:bg-red-600 text-white backdrop-blur-2xl border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95"
-                        title="Salir de pantalla completa (Esc)"
-                      >
-                        <Minimize className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </header>
-
-                  {/* PANEL LATERAL GLASS CON DESPLAZAMIENTO DE ARRIBA A ABAJO (VERTICAL) */}
-                  {activeMode === 'television' && isDrawerOpen && (
-                    <aside
-                      className="absolute top-0 right-0 bottom-0 w-full sm:w-[420px] md:w-[460px] z-50 flex flex-col bg-black/60 backdrop-blur-3xl border-l border-white/15 shadow-[0_0_60px_rgba(0,0,0,0.8)] animate-in slide-in-from-right duration-300"
+                  {/* VOLUMEN CON SLIDER */}
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <button
+                      onClick={() => {
+                        const nextMute = !isMuted;
+                        setIsMuted(nextMute);
+                        if (iptvVideoRef.current) iptvVideoRef.current.muted = nextMute;
+                        if (playerRef.current) {
+                          if (nextMute) playerRef.current.mute?.();
+                          else playerRef.current.unMute?.();
+                        }
+                      }}
+                      className="text-white hover:text-[#C0D43E] transition-colors cursor-pointer"
+                      title={isMuted ? 'Activar sonido' : 'Silenciar'}
                     >
-                      {/* Header del cajón Glass */}
-                      <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.03]">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#6E1FE8] to-[#C0D43E] flex items-center justify-center shadow-md">
-                            <Tv className="w-4 h-4 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-display font-extrabold text-sm uppercase tracking-wider text-white">
-                              Guía de Canales Directo
-                            </h3>
-                            <p className="font-mono-code text-[10px] text-white/50 uppercase">Desplaza arriba y abajo para navegar</p>
-                          </div>
-                        </div>
+                      {isMuted ? (
+                        <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-400" />
+                      ) : (
+                        <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      )}
+                    </button>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={isMuted ? 0 : volume}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setVolume(val);
+                        if (isMuted) setIsMuted(false);
+                        if (iptvVideoRef.current) iptvVideoRef.current.volume = val / 100;
+                        if (playerRef.current) {
+                          playerRef.current.unMute?.();
+                          playerRef.current.setVolume?.(val);
+                        }
+                      }}
+                      className="w-14 sm:w-20 h-1 bg-white/20 accent-[#C0D43E] cursor-pointer rounded-full"
+                    />
+                  </div>
 
-                        <button
-                          onClick={() => setIsDrawerOpen(false)}
-                          className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-all cursor-pointer"
-                          title="Cerrar panel de canales"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
+                  {/* BARRA DE PROGRESO / TIMELINE DIRECTO (COMO EN LA CAPTURA) */}
+                  <div className="hidden md:flex items-center gap-2 flex-1 min-w-0 px-2">
+                    <div className="relative w-full h-1 bg-white/20 rounded-full overflow-hidden">
+                      <div className="absolute left-0 top-0 bottom-0 bg-[#C0D43E] rounded-full w-[88%]" />
+                    </div>
+                    <span className="font-mono-code text-[10px] text-white/60 shrink-0">
+                      LIVE
+                    </span>
+                  </div>
 
-                      {/* Barra de Filtros: Categorías */}
-                      <div className="p-4 border-b border-white/10 bg-white/[0.02]">
-                        <div className="relative">
-                          <select
-                            value={activeIptvCategory}
-                            onChange={(e) => setActiveIptvCategory(e.target.value)}
-                            className="w-full h-10 bg-black/60 border border-white/20 rounded-xl px-3.5 pr-9 text-xs font-mono-code font-bold text-white appearance-none focus:outline-none focus:border-[#C0D43E] cursor-pointer"
-                          >
-                            {IPTV_CATEGORIES.map((cat) => (
-                              <option key={cat} value={cat} className="bg-[#110B1C] text-white py-1">
-                                {getCategoryFlag(cat)} {cat}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/60" />
-                        </div>
-                      </div>
+                  {/* BADGE DIRECTO (PUNTO ROJO / LIMA) */}
+                  <div className="flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 rounded-full bg-white/10 text-[10px] sm:text-[11px] font-mono-code font-bold text-white shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="tracking-wider">DIRECTO</span>
+                  </div>
 
-                      {/* LISTADO VERTICAL CON DESPLAZAMIENTO DE ARRIBA A ABAJO */}
-                      <div
-                        data-lenis-prevent
-                        data-lenis-prevent-wheel
-                        data-lenis-prevent-touch
-                        onWheel={(e) => e.stopPropagation()}
-                        className="flex-1 overflow-y-auto overscroll-contain mediaset-glass-scrollbar p-3 space-y-2"
-                      >
-                        {filteredIptvChannels.length === 0 ? (
-                          <div className="py-12 text-center font-mono-code text-xs text-white/40">
-                            No se encontraron canales en esta categoría
-                          </div>
-                        ) : (
-                          filteredIptvChannels.map((channel) => {
-                            const isSelected = activeIptvChannel.id === channel.id;
+                  {/* BADGE CALIDAD */}
+                  <span className="hidden sm:inline font-mono-code text-[10px] text-white/70 px-1.5 py-0.5 rounded border border-white/15 shrink-0">
+                    1080p
+                  </span>
 
-                            return (
-                              <button
-                                key={channel.id}
-                                onClick={() => {
-                                  setActiveIptvChannel(channel);
-                                  setIsPlaying(true);
-                                }}
-                                className={`w-full p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex items-center justify-between group ${
-                                  isSelected
-                                    ? 'bg-white/20 border-[#C0D43E] shadow-[0_8px_25px_rgba(192,212,62,0.25)] backdrop-blur-2xl ring-1 ring-[#C0D43E]/50'
-                                    : 'bg-white/[0.04] hover:bg-white/[0.12] border-white/10 hover:border-white/20 backdrop-blur-xl'
-                                }`}
-                              >
-                                <div className="flex items-center gap-3 min-w-0">
-                                  <div
-                                    className={`w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 border transition-all ${
-                                      isSelected
-                                        ? 'bg-black/80 border-[#C0D43E] text-[#C0D43E]'
-                                        : 'bg-black/50 border-white/10 text-white/70 group-hover:border-white/30'
-                                    }`}
-                                  >
-                                    {channel.logo && !channel.logo.includes('/images/channels') ? (
-                                      <img
-                                        src={channel.logo}
-                                        alt={channel.name}
-                                        className="w-full h-full object-contain"
-                                        onError={(e) => {
-                                          (e.target as HTMLElement).style.display = 'none';
-                                        }}
-                                      />
-                                    ) : (
-                                      <Tv className="w-5 h-5" />
-                                    )}
-                                  </div>
-
-                                  <div className="min-w-0">
-                                    <div className="flex items-center gap-2">
-                                      <span
-                                        className={`font-display font-extrabold text-sm uppercase tracking-wide truncate ${
-                                          isSelected ? 'text-white' : 'text-white/90 group-hover:text-white'
-                                        }`}
-                                      >
-                                        {channel.name}
-                                      </span>
-                                      {isSelected && (
-                                        <span className="inline-flex items-center gap-1 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase shadow-[0_0_8px_#EF4444] animate-pulse">
-                                          <span className="w-1 h-1 rounded-full bg-white" />
-                                          LIVE
-                                        </span>
-                                      )}
-                                    </div>
-                                    <p className="font-mono-code text-[10px] text-white/50 truncate mt-0.5 uppercase">
-                                      {channel.country || channel.group || 'Emisión Continua'} • 1080p
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="shrink-0 ml-2">
-                                  {isSelected ? (
-                                    <div className="flex items-center gap-0.5 h-4">
-                                      <span className="w-1 h-3 bg-[#C0D43E] rounded-full animate-wave-1" />
-                                      <span className="w-1 h-4 bg-[#C0D43E] rounded-full animate-wave-2" />
-                                      <span className="w-1 h-2 bg-[#C0D43E] rounded-full animate-wave-3" />
-                                    </div>
-                                  ) : (
-                                    <Play className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
-                                  )}
-                                </div>
-                              </button>
-                            );
-                          })
-                        )}
-                      </div>
-                    </aside>
+                  {/* BOTÓN GUÍA RÁPIDO */}
+                  {activeMode === 'television' && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (isFullscreen) {
+                          setIsDrawerOpen(!isDrawerOpen);
+                        } else {
+                          setIsChannelDropdownOpen(!isChannelDropdownOpen);
+                        }
+                      }}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-[#C0D43E] text-white hover:text-black font-mono-code text-[10px] sm:text-[11px] font-bold uppercase transition-all cursor-pointer shrink-0"
+                      title="Canales y Guía"
+                    >
+                      <Layers className="w-3 h-3 text-[#C0D43E] group-hover:text-black" />
+                      <span>Guía</span>
+                    </button>
                   )}
 
-                  {/* BARRA INFERIOR DE CONTROLES GLASS */}
-                  <footer
-                    className={`absolute bottom-0 inset-x-0 z-40 p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 transition-all duration-300 ${
-                      showFullscreenControls ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-                    }`}
+                  {/* BOTÓN PANTALLA COMPLETA */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (isFullscreen) {
+                        exitFullscreen();
+                      } else {
+                        enterFullscreen();
+                      }
+                    }}
+                    className="p-1 sm:p-1.5 text-white hover:text-[#C0D43E] transition-colors cursor-pointer shrink-0"
+                    title={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
                   >
-                    {/* Lado izquierdo: Play/Pausa, Volumen y Canal/Música actual */}
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <button
-                        onClick={handleTogglePlay}
-                        className="w-12 h-12 rounded-2xl bg-white text-black hover:bg-[#C0D43E] flex items-center justify-center transition-all cursor-pointer shadow-xl active:scale-95"
-                        title={isPlaying ? 'Pausar' : 'Reproducir'}
-                      >
-                        {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
-                      </button>
-
-                      {/* Botón Silenciar / Volumen */}
-                      <div className="flex items-center gap-2.5 px-3 py-2 rounded-2xl bg-white/[0.08] backdrop-blur-2xl border border-white/20">
-                        <button
-                          onClick={() => {
-                            const nextMute = !isMuted;
-                            setIsMuted(nextMute);
-                            if (iptvVideoRef.current) iptvVideoRef.current.muted = nextMute;
-                            if (playerRef.current) {
-                              if (nextMute) playerRef.current.mute?.();
-                              else playerRef.current.unMute?.();
-                            }
-                          }}
-                          className="text-white hover:text-[#C0D43E] transition-colors cursor-pointer"
-                          title={isMuted ? 'Activar sonido' : 'Silenciar'}
-                        >
-                          {isMuted ? <VolumeX className="w-5 h-5 text-red-400" /> : <Volume2 className="w-5 h-5" />}
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max="100"
-                          value={isMuted ? 0 : volume}
-                          onChange={(e) => {
-                            const val = Number(e.target.value);
-                            setVolume(val);
-                            if (isMuted) setIsMuted(false);
-                            if (iptvVideoRef.current) iptvVideoRef.current.volume = val / 100;
-                            if (playerRef.current) {
-                              playerRef.current.unMute?.();
-                              playerRef.current.setVolume?.(val);
-                            }
-                          }}
-                          className="w-20 sm:w-28 h-1.5 bg-white/20 accent-[#C0D43E] cursor-pointer rounded-full"
-                        />
-                        <span className="font-mono-code text-[11px] font-bold text-white/80">{isMuted ? '0%' : `${volume}%`}</span>
-                      </div>
-
-                      {/* Info Badge */}
-                      <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-2xl bg-white/[0.05] backdrop-blur-xl border border-white/10 font-mono-code text-xs">
-                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                        <span className="text-white font-bold">
-                          {activeMode === 'television' ? activeIptvChannel.name : currentVideoInfo.title}
-                        </span>
-                        <span className="text-white/40">|</span>
-                        <span className="text-white/60 text-[10px]">TRANSMISIÓN CONTINUA 24/7</span>
-                      </div>
-                    </div>
-
-                    {/* Lado derecho: Botón rápido para abrir panel lateral de canales si es TV */}
-                    {activeMode === 'television' && (
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setIsDrawerOpen(true)}
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/[0.08] hover:bg-white text-white hover:text-black backdrop-blur-2xl border border-white/20 font-mono-code text-xs font-bold transition-all cursor-pointer shadow-lg"
-                        >
-                          <Layers className="w-4 h-4" />
-                          <span>Explorar Canales (Arriba / Abajo)</span>
-                        </button>
-                      </div>
+                    {isFullscreen ? (
+                      <Minimize className="w-4 h-4" />
+                    ) : (
+                      <Maximize className="w-4 h-4" />
                     )}
-                  </footer>
-                </>
+                  </button>
+                </div>
+              </div>
+
+              {/* PANEL LATERAL GLASS EN PANTALLA COMPLETA */}
+              {isFullscreen && activeMode === 'television' && isDrawerOpen && (
+                <aside
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute top-0 right-0 bottom-0 w-full sm:w-[380px] z-50 flex flex-col bg-black/85 backdrop-blur-2xl border-l border-white/15 shadow-2xl animate-in slide-in-from-right duration-200"
+                >
+                  <div className="p-4 border-b border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Tv className="w-4 h-4 text-[#C0D43E]" />
+                      <h3 className="font-mono-code font-bold text-xs uppercase text-white tracking-wider">
+                        Guía de Canales
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-all cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Selector de Categoría */}
+                  <div className="p-3 border-b border-white/10">
+                    <select
+                      value={activeIptvCategory}
+                      onChange={(e) => setActiveIptvCategory(e.target.value)}
+                      className="w-full h-8 bg-black/60 border border-white/20 rounded-lg px-2 text-xs font-mono-code text-white appearance-none focus:outline-none focus:border-[#C0D43E]"
+                    >
+                      {IPTV_CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat} className="bg-[#110B1C] text-white">
+                          {getCategoryFlag(cat)} {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Lista de canales */}
+                  <div
+                    data-lenis-prevent
+                    data-lenis-prevent-wheel
+                    data-lenis-prevent-touch
+                    onWheel={(e) => e.stopPropagation()}
+                    className="flex-1 overflow-y-auto overscroll-contain mediaset-glass-scrollbar p-2 space-y-1.5"
+                  >
+                    {filteredIptvChannels.map((channel) => {
+                      const isSelected = activeIptvChannel.id === channel.id;
+                      return (
+                        <button
+                          key={channel.id}
+                          onClick={() => {
+                            setActiveIptvChannel(channel);
+                            setIsPlaying(true);
+                          }}
+                          className={`w-full p-2.5 rounded-xl border text-left transition-all flex items-center justify-between cursor-pointer ${
+                            isSelected
+                              ? 'bg-[#C0D43E] text-black font-bold border-[#C0D43E]'
+                              : 'bg-white/5 hover:bg-white/10 text-white border-white/10'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+                            <span className="truncate font-mono-code text-xs uppercase">{channel.name}</span>
+                          </div>
+                          <span className="text-[10px] opacity-70 shrink-0 uppercase">{channel.country || 'DIRECTO'}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </aside>
               )}
             </div>
 
