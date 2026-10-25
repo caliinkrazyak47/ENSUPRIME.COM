@@ -1,5 +1,31 @@
 [
   {
+    "id": "real_madrid_vs_barcelona",
+    "name": "Real Madrid Vs Barcelona",
+    "country": "España",
+    "group": "Deportes",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/El_Clasico.svg/512px-El_Clasico.svg.png",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/Clau1123carras/hjcy8YMW6t/584993.m3u8",
+    "categories": [
+      "DEPORTES",
+      "ESPAÑA",
+      "FÚTBOL"
+    ]
+  },
+  {
+    "id": "real_madrid_vs_barcelona_op2",
+    "name": "Real Madrid Vs Barcelona Op 2",
+    "country": "España",
+    "group": "Deportes",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/El_Clasico.svg/512px-El_Clasico.svg.png",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/Clau1123carras/hjcy8YMW6t/584955.m3u8",
+    "categories": [
+      "DEPORTES",
+      "ESPAÑA",
+      "FÚTBOL"
+    ]
+  },
+  {
     "id": "la_1",
     "name": "La 1",
     "country": "España",
