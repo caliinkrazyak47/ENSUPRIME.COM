@@ -456,7 +456,10 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     video.volume = isMuted ? 0 : volume / 100;
 
     let targetUrl = activeIptvChannel.url;
-    targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+    // Canales oficiales como RTVE tienen CORS abierto y no necesitan pasar por proxy
+    if (!targetUrl.includes('rtvelivestream.rtve.es') && !targetUrl.includes('cdn.jsdelivr.net')) {
+      targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+    }
 
     if (Hls.isSupported()) {
       if (iptvHlsRef.current) {
