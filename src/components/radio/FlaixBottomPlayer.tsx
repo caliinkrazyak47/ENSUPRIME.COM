@@ -25,7 +25,7 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
   isHidden = false,
 }) => {
   const [currentStationIndex, setCurrentStationIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(85);
   const [isMuted, setIsMuted] = useState<boolean>(false);
@@ -53,8 +53,10 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
 
   const currentStation = RADIO_STATIONS[currentStationIndex] || RADIO_STATIONS[0];
 
-  // Desbloqueo y reproducción garantizada con volumen activo (especial para móviles iOS y Android)
+  // Desbloqueo y reproducción garantizada con volumen activo solo cuando el usuario le ha dado a Play
   useEffect(() => {
+    if (!isPlaying) return;
+
     const unlockAndPlay = () => {
       const audio = audioRef.current;
       if (audio) {
@@ -65,7 +67,6 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
-              // Una vez que el audio realmente comenzó a sonar, podemos retirar los oyentes
               window.removeEventListener('click', unlockAndPlay);
               window.removeEventListener('touchstart', unlockAndPlay);
               window.removeEventListener('touchend', unlockAndPlay);
@@ -81,7 +82,6 @@ export const FlaixBottomPlayer: React.FC<FlaixBottomPlayerProps> = ({
     window.addEventListener('touchend', unlockAndPlay, { passive: true });
     window.addEventListener('pointerdown', unlockAndPlay);
 
-    // Intento directo en la carga inicial
     unlockAndPlay();
 
     return () => {

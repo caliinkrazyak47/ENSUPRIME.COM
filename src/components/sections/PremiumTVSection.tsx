@@ -488,9 +488,8 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
         const playPromise = video.play();
         if (playPromise && typeof playPromise.catch === 'function') {
           playPromise.catch(() => {
-            // Si el navegador bloquea el autoplay con sonido, silenciar y reproducir
-            video.muted = true;
-            setIsMuted(true);
+            // Reintentar respetando el volumen seleccionado por el usuario
+            video.volume = isMuted ? 0 : volume / 100;
             video.play().catch(() => {});
           });
         }
