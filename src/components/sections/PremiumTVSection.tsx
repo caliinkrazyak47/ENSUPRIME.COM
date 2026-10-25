@@ -493,11 +493,19 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
         }
       });
 
+      let networkRetryCount = 0;
       hls.on(Hls.Events.ERROR, (_ev, data) => {
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              hls.startLoad();
+              networkRetryCount++;
+              if (networkRetryCount <= 3) {
+                hls.startLoad();
+              } else {
+                hls.destroy();
+                setIptvError(true);
+                setIsIptvLoading(false);
+              }
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
               hls.recoverMediaError();
