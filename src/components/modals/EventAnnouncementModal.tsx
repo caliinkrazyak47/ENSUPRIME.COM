@@ -9,9 +9,9 @@ interface EventAnnouncementModalProps {
 }
 
 export const EventAnnouncementModal: React.FC<EventAnnouncementModalProps> = ({
-  flyerUrl = '/images/shoko-la-residencia-lil-naay.jpg',
-  eventUrl = 'https://shokomadrid.com/es/products/la-residencia-sunday-25-10-2026',
-  eventTitle = 'SHÔKO MADRID · LA RESIDENCIA DE LOS ARTISTAS · LIL NAAY (25 OCTUBRE)',
+  flyerUrl = '/images/shoko-la-residencia-young-chimi.jpg',
+  eventUrl = 'https://shokomadrid.com/es/products/la-residencia-sunday-22-11-2026',
+  eventTitle = 'SHÔKO MADRID · LA RESIDENCIA DE LOS ARTISTAS · YOUNG CHIMI (22 NOVIEMBRE)',
   isReady = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
