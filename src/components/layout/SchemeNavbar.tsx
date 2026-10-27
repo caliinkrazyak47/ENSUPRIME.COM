@@ -97,10 +97,13 @@ export const SchemeNavbar: React.FC<SchemeNavbarProps> = ({
                   <span className="font-impact text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.03em] uppercase leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] group-hover:text-white transition-colors">
                     ENSU
                   </span>
-                  <span className="font-impact text-2xl sm:text-3xl md:text-4xl text-[#6E1FE8] group-hover:text-[#C0D43E] tracking-[0.03em] uppercase leading-none transition-colors">
+                  <span className="font-impact text-2xl sm:text-3xl md:text-4xl text-[#6E1FE8] group-hover:text-[#FF7A00] tracking-[0.03em] uppercase leading-none transition-colors">
                     PRIME
                   </span>
-                  <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#C0D43E] rounded-none ml-1 sm:ml-1.5 animate-pulse self-end mb-1" />
+                  <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF7A00] rounded-none ml-1 sm:ml-1.5 animate-pulse self-end mb-1" />
+                  <span className="ml-2 px-1.5 py-0.5 rounded-md bg-[#FF7A00]/15 border border-[#FF7A00]/30 text-[#FF7A00] text-[9px] font-mono font-bold tracking-widest uppercase hidden sm:inline-block">
+                    HALLOWEEN
+                  </span>
                 </div>
               </a>
             </div>

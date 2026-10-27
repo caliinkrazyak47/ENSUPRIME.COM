@@ -54,6 +54,13 @@ const BANNER_ITEMS: BannerItem[] = [
     hoverTextColor: "#CEFF00",
   },
   {
+    text: "HALLOWEEN '26 🎃",
+    bg: "#FF6600", // Calabaza / Naranja Halloween Neón
+    textColor: "#000000",
+    hoverBg: "#110B1C",
+    hoverTextColor: "#FF6600",
+  },
+  {
     text: "ENSUPRIME FM",
     bg: "#6E1FE8", // Púrpura ENSUPRIME
     textColor: "#FFFFFF",
@@ -66,6 +73,13 @@ const BANNER_ITEMS: BannerItem[] = [
     textColor: "#141414",
     hoverBg: "#FF3EBA",
     hoverTextColor: "#FFFFFF",
+  },
+  {
+    text: "SPOOKY NIGHTS 🦇",
+    bg: "#110B1C", // Midnight Black
+    textColor: "#FF6600", // Naranja Halloween
+    hoverBg: "#FF6600",
+    hoverTextColor: "#110B1C",
   },
 ];
 

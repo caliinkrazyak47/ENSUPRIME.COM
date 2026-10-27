@@ -14,6 +14,7 @@ import { PremiumEventsSection } from './components/sections/PremiumEventsSection
 import { PremiumFooter } from './components/layout/PremiumFooter';
 import { FlaixBottomPlayer } from './components/radio/FlaixBottomPlayer';
 import { EventAnnouncementModal } from './components/modals/EventAnnouncementModal';
+import { HalloweenAtmosphere } from './components/layout/HalloweenAtmosphere';
 
 export default function App() {
   const [isFullscreenTv, setIsFullscreenTv] = useState<boolean>(false);
@@ -59,6 +60,9 @@ export default function App() {
 
       {/* CURSOR MAGNÉTICO PERSONALIZADO (AWWWARDS TIER) */}
       <CustomCursor />
+
+      {/* AMBIENTACIÓN HALLOWEEN ESTILO AMERICANO EDITORIAL */}
+      <HalloweenAtmosphere />
 
       {/* BARRA SUPERIOR MARQUEE DE NOTICIAS (ESTILO FILMBOT: RSS ESPAÑA & FÚTBOL) */}
       <FilmbotTopMarquee />

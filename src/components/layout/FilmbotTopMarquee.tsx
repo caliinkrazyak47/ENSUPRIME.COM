@@ -9,6 +9,12 @@ export interface FilmbotNewsItem {
 
 const INITIAL_NEWS: FilmbotNewsItem[] = [
   {
+    id: 'f-halloween',
+    source: 'MARCA',
+    title: '🎃 HALLOWEEN SPECIAL: Noches de terror y fiesta exclusiva en Madrid · Toda la cobertura en directo',
+    link: '#eventos',
+  },
+  {
     id: 'f1',
     source: 'EL MUNDO',
     title: 'La Audiencia Nacional y la UCO estrechan el cerco sobre la trama de contrataciones en la administración pública',
