@@ -107,5 +107,921 @@
       "ESPAÑA",
       "FÚTBOL"
     ]
+  },
+  {
+    "id": "real_madrid_tv",
+    "name": "REAL MADRID TV",
+    "country": "España",
+    "group": "Deportes",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=realmadrid.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327980.m3u8",
+    "categories": [
+      "DEPORTES",
+      "FÚTBOL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "24_horas_fhd",
+    "name": "24 HORAS FHD",
+    "country": "España",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=rtve.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414778.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "ten_sd",
+    "name": "TEN SD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414774.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "vintv_fhd",
+    "name": "VINTV FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414754.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "sundance_fhd",
+    "name": "SUNDANCE FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414697.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "squirrel_2_fhd",
+    "name": "SQUIRREL 2 FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414732.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "movistar_plus_hd",
+    "name": "MOVISTAR PLUS HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414776.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "m_originales_hd",
+    "name": "M+ ORIGINALES HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414805.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "nova_fhd",
+    "name": "NOVA FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414766.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "star_tve_fhd",
+    "name": "STAR TVE FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414756.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "nickelodeon_hd",
+    "name": "NICKELODEON HD",
+    "country": "España",
+    "group": "Infantil",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=nickelodeon.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414720.m3u8",
+    "categories": [
+      "INFANTIL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "neox_hd",
+    "name": "NEOX HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414768.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "mtv",
+    "name": "MTV",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414696.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "hola_play",
+    "name": "Hola! Play",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/725076.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "fdf_fhd",
+    "name": "FDF FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414760.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "energy_fhd",
+    "name": "ENERGY FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414765.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "dmax_fhd",
+    "name": "DMAX FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414758.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "disney_channel",
+    "name": "DISNEY CHANNEL",
+    "country": "España",
+    "group": "Infantil",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=disney.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414716.m3u8",
+    "categories": [
+      "INFANTIL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "clan",
+    "name": "CLAN",
+    "country": "España",
+    "group": "Infantil",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=rtve.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414719.m3u8",
+    "categories": [
+      "INFANTIL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "boing",
+    "name": "BOING",
+    "country": "España",
+    "group": "Infantil",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=boing.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414711.m3u8",
+    "categories": [
+      "INFANTIL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "bemad_tv_fhd",
+    "name": "BEMAD TV FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414770.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "amc_living_uhd",
+    "name": "AMC LIVING  UHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414742.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "bbc_food",
+    "name": "BBC FOOD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=bbcfood.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/745982.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "bbc_history",
+    "name": "BBC HISTORY",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=bbcfood.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/745979.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "canal_cocina_4k_uhd",
+    "name": "CANAL COCINA 4K UHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414745.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "discovery_channel_fhd",
+    "name": "DISCOVERY CHANNEL FHD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=discovery.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414734.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "divinity_fhd",
+    "name": "DIVINITY FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414763.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "historia_fhd",
+    "name": "HISTORIA FHD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=canalhistoria.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414740.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "national_geographic_fhd",
+    "name": "NATIONAL GEOGRAPHIC FHD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=nationalgeographic.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414738.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "national_geographic_wild_fhd",
+    "name": "NATIONAL GEOGRAPHIC WILD FHD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=nationalgeographic.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414736.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "odisea_4k_uhd",
+    "name": "ODISEA 4K UHD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=bbcfood.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414729.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "discovery_hd",
+    "name": "DISCOVERY HD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=discovery.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414424.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "dmax_hd",
+    "name": "DMAX HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414431.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "m_documentales_hd",
+    "name": "M+ DOCUMENTALES HD",
+    "country": "España",
+    "group": "Documentales",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=bbcfood.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/414426.m3u8",
+    "categories": [
+      "DOCUMENTALES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "a3series_fhd",
+    "name": "A3SERIES FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327802.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "accion_por_m_fhd",
+    "name": "ACCION por M+ FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327778.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "amc_crime_fhd",
+    "name": "AMC  CRIME FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327834.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "amc_break_fhd",
+    "name": "AMC BREAK FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327838.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "amc_fhd",
+    "name": "AMC FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327836.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "axn_fhd",
+    "name": "AXN FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=axn.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327809.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "axn_movies_fhd",
+    "name": "AXN MOVIES FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=axn.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327806.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "bom_cine_fhd",
+    "name": "BOM CINE FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327827.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "comedia_por_m_fhd",
+    "name": "COMEDIA por M+ FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327781.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "comedy_central_hd",
+    "name": "COMEDY CENTRAL HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327804.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "cosmo_fhd",
+    "name": "COSMO FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327829.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "dark_fhd",
+    "name": "DARK FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327819.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "estrenos_por_m",
+    "name": "ESTRENOS por M+",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327767.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "hbo_max_avances",
+    "name": "HBO Max Avances",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/1732800.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "hollywood_fhd",
+    "name": "HOLLYWOOD FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=canalhollywood.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327821.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "mega_fhd",
+    "name": "MEGA FHD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327790.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "mytime_movie_network",
+    "name": "MyTIME MOVIE NETWORK",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327783.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "star_channel_hd",
+    "name": "STAR CHANNEL HD",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327818.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "syfy_fhd",
+    "name": "SYFY FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327832.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "skyshowtime_fhd",
+    "name": "SkyShowtime FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=movistarplus.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/1732799.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "tcm_hd",
+    "name": "TCM HD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tcm.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327816.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "warner_tv_fhd",
+    "name": "WARNER TV FHD",
+    "country": "España",
+    "group": "Películas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=warnertv.es",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/327815.m3u8",
+    "categories": [
+      "PELICULAS",
+      "SERIES",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "atv_hd_directo",
+    "name": "ATV HD DIRECTO",
+    "country": "Perú",
+    "group": "Internacional",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=latina.pe",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/9482.m3u8",
+    "categories": [
+      "INTERNACIONAL",
+      "PERU"
+    ]
+  },
+  {
+    "id": "america_tv_hd_directo",
+    "name": "America TV HD DIRECTO",
+    "country": "Perú",
+    "group": "Internacional",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=latina.pe",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/9478.m3u8",
+    "categories": [
+      "INTERNACIONAL",
+      "PERU"
+    ]
+  },
+  {
+    "id": "latina_fhd",
+    "name": "Latina FHD",
+    "country": "Perú",
+    "group": "Internacional",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=latina.pe",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/9474.m3u8",
+    "categories": [
+      "INTERNACIONAL",
+      "PERU"
+    ]
+  },
+  {
+    "id": "panamericana_fhd",
+    "name": "Panamericana FHD",
+    "country": "Perú",
+    "group": "Internacional",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=latina.pe",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/9481.m3u8",
+    "categories": [
+      "INTERNACIONAL",
+      "PERU"
+    ]
+  },
+  {
+    "id": "rtv_callao",
+    "name": "RTV Callao",
+    "country": "Perú",
+    "group": "Internacional",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=latina.pe",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/487758.m3u8",
+    "categories": [
+      "INTERNACIONAL",
+      "PERU"
+    ]
+  },
+  {
+    "id": "rt_espa_ol",
+    "name": "RT Español",
+    "country": "España",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/23224.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "dw_espa_ol",
+    "name": "DW Español",
+    "country": "España",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/79084.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "euronews_espanol",
+    "name": "Euronews Espanol",
+    "country": "España",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=euronews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/501086.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "cnn_espanol",
+    "name": "CNN Espanol",
+    "country": "España",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cnn.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/79087.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "abc_news_live_hd",
+    "name": "ABC News Live HD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597256.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "cbs_news_new_york",
+    "name": "CBS NEWS NEW YORK",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597247.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "cnbc_hd",
+    "name": "CNBC HD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597242.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "cnn_usa_hd",
+    "name": "CNN USA HD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cnn.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597240.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "cheddar_news_fhd",
+    "name": "Cheddar News FHD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597244.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "fox_news_hd",
+    "name": "FOX News HD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=foxnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597235.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "ms_now",
+    "name": "MS NOW",
+    "country": "España",
+    "group": "Generalistas",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=tv.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/1088733.m3u8",
+    "categories": [
+      "GENERAL",
+      "ESPAÑA"
+    ]
+  },
+  {
+    "id": "news_12_new_jersey_fhd",
+    "name": "News 12 New Jersey FHD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597230.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "newsmax_hd",
+    "name": "Newsmax HD",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597227.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
+  },
+  {
+    "id": "scripps_news",
+    "name": "SCRIPPS NEWS",
+    "country": "Estados Unidos",
+    "group": "Noticias",
+    "logo": "https://www.google.com/s2/favicons?sz=128&domain_url=cbsnews.com",
+    "url": "http://cloudtvserviceplatinum.site:8080/live/reginaldoumanany/xyjck9XPN4/597226.m3u8",
+    "categories": [
+      "NOTICIAS",
+      "USA"
+    ]
   }
 ]
