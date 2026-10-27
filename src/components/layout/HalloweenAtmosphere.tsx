@@ -22,47 +22,69 @@ export const HalloweenAtmosphere: React.FC = () => {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-30 overflow-hidden select-none"
     >
-      {/* 1. TELARAÑA EDITORIAL ESQUINA SUPERIOR DERECHA (MÁS VISIBLE Y ELEGANTE) */}
-      <div
-        style={{
-          transform: `translate3d(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px, 0)`,
-          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-        className="absolute -top-3 -right-3 w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 opacity-60 transition-opacity duration-500"
-      >
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full text-[#FF6B00]">
-          <path d="M100 0 L0 100" strokeWidth="0.8" strokeDasharray="2 2" />
-          <path d="M100 0 L30 100" strokeWidth="0.6" />
-          <path d="M100 0 L70 100" strokeWidth="0.6" />
-          <path d="M100 0 L0 70" strokeWidth="0.6" />
-          <path d="M100 0 L0 30" strokeWidth="0.6" />
-          {/* Círculos concéntricos de la telaraña con brillo naranja */}
-          <path d="M100 20 Q80 20 80 0" strokeWidth="0.9" />
-          <path d="M100 45 Q55 45 55 0" strokeWidth="0.9" />
-          <path d="M100 70 Q30 70 30 0" strokeWidth="0.9" />
-          <path d="M100 95 Q5 95 5 0" strokeWidth="0.9" />
-          {/* Pequeña araña minimalista colgando */}
-          <line x1="60" y1="20" x2="60" y2="40" stroke="#FF6B00" strokeWidth="0.6" />
-          <circle cx="60" cy="42" r="2.5" fill="#110B1C" stroke="#FF6B00" strokeWidth="0.8" />
-        </svg>
-      </div>
+      {/* 1. TELARAÑA DELICADA Y ELEGANTE CON ARAÑA QUE BAJA POR SU HILO */}
+      <div className="absolute top-0 right-4 sm:right-12 z-40 pointer-events-none">
+        {/* Hilo de seda y Araña bajando con animación pendular suave */}
+        <div
+          className="relative flex flex-col items-center animate-spider-descend origin-top"
+          style={{
+            transform: `translate3d(${mousePos.x * 0.3}px, 0, 0)`,
+            transition: 'transform 0.4s ease-out',
+          }}
+        >
+          {/* Hilo de seda translúcido brillante */}
+          <div className="w-[1px] h-28 sm:h-36 bg-gradient-to-b from-[#FF6B00]/70 via-[#FF851A]/50 to-white/80" />
 
-      {/* 2. TELARAÑA INVERTIDA ESQUINA SUPERIOR IZQUIERDA (CONTRASTE SUTIL) */}
-      <div
-        style={{
-          transform: `translate3d(${-mousePos.x * 0.3}px, ${mousePos.y * 0.3}px, 0)`,
-          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-        className="absolute -top-4 -left-4 w-36 sm:w-48 h-36 sm:h-48 opacity-45"
-      >
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full text-[#FF6B00]">
-          <path d="M0 0 L100 100" strokeWidth="0.6" strokeDasharray="2 2" />
-          <path d="M0 0 L70 100" strokeWidth="0.5" />
-          <path d="M0 0 L100 70" strokeWidth="0.5" />
-          <path d="M0 25 Q25 25 25 0" strokeWidth="0.7" />
-          <path d="M0 55 Q55 55 55 0" strokeWidth="0.7" />
-          <path d="M0 85 Q85 85 85 0" strokeWidth="0.7" />
-        </svg>
+          {/* Araña vectorial detallada y moderna */}
+          <div className="relative -mt-0.5 animate-spider-swing origin-top">
+            <svg
+              viewBox="0 0 40 40"
+              className="w-8 h-8 sm:w-10 sm:h-10 text-[#110B1C] drop-shadow-[0_4px_10px_rgba(255,107,0,0.5)]"
+            >
+              {/* Ojos brillantes naranja neón */}
+              <circle cx="18" cy="18" r="1.2" fill="#FF6B00" />
+              <circle cx="22" cy="18" r="1.2" fill="#FF6B00" />
+
+              {/* Patas izquierdas */}
+              <path d="M16 19 Q10 13 4 15" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M16 21 Q8 18 3 22" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M16 23 Q9 25 4 30" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M17 24 Q11 30 7 35" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+
+              {/* Patas derechas */}
+              <path d="M24 19 Q30 13 36 15" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M24 21 Q32 18 37 22" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M24 23 Q31 25 36 30" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <path d="M23 24 Q29 30 33 35" stroke="#110B1C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+
+              {/* Cefalotórax (cabeza) */}
+              <circle cx="20" cy="19" r="3.5" fill="#110B1C" stroke="#FF6B00" strokeWidth="0.8" />
+              {/* Abdomen (cuerpo) */}
+              <ellipse cx="20" cy="26" rx="5" ry="6.5" fill="#110B1C" stroke="#FF6B00" strokeWidth="0.8" />
+              {/* Detalle reloj de arena o marca en el lomo */}
+              <polygon points="19,23 21,23 20,25" fill="#FF6B00" />
+              <polygon points="20,26 19,28 21,28" fill="#FF6B00" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Telaraña de esquina refinada y estilizada con curvas sutiles */}
+        <div
+          style={{
+            transform: `translate3d(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px, 0)`,
+            transition: 'transform 0.4s ease-out',
+          }}
+          className="absolute -top-4 -right-8 w-44 sm:w-56 h-44 sm:h-56 opacity-50"
+        >
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full text-[#FF6B00]">
+            <path d="M100 0 L15 85" strokeWidth="0.5" strokeDasharray="1 1" />
+            <path d="M100 0 L45 95" strokeWidth="0.4" />
+            <path d="M100 0 L0 55" strokeWidth="0.4" />
+            <path d="M100 25 Q75 25 75 0" strokeWidth="0.6" />
+            <path d="M100 50 Q50 50 50 0" strokeWidth="0.6" />
+            <path d="M100 75 Q25 75 25 0" strokeWidth="0.6" />
+          </svg>
+        </div>
       </div>
 
       {/* 3. FLOTA DE MURCIÉLAGOS SILUETA AMERICANA (IZQUIERDA SUPERIOR) */}

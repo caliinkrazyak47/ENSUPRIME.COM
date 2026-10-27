@@ -217,3 +217,26 @@
 .mediaset-glass-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* Spider descend and swing animation */
+@keyframes spiderDescend {
+  0% { transform: translateY(-80px); opacity: 0; }
+  20% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(24px); }
+  75% { transform: translateY(-8px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes spiderSwing {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(6deg); }
+  75% { transform: rotate(-6deg); }
+}
+
+.animate-spider-descend {
+  animation: spiderDescend 7s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+.animate-spider-swing {
+  animation: spiderSwing 3.5s ease-in-out infinite;
+}
