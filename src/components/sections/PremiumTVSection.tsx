@@ -456,7 +456,8 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     video.volume = isMuted ? 0 : volume / 100;
 
     let targetUrl = activeIptvChannel.url;
-    targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+    // Si la URL es directa de stream, se reproduce directo sin gastar los gigas del servidor
+    // hls.js maneja la resolución relativa y CORS automáticamente
 
     if (Hls.isSupported()) {
       if (iptvHlsRef.current) {
