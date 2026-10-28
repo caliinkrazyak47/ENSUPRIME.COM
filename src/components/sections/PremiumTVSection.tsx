@@ -456,8 +456,12 @@ export const PremiumTVSection: React.FC<PremiumTVSectionProps> = ({
     video.volume = isMuted ? 0 : volume / 100;
 
     let targetUrl = activeIptvChannel.url;
-    // Si la URL es directa de stream, se reproduce directo sin gastar los gigas del servidor
-    // hls.js maneja la resolución relativa y CORS automáticamente
+    // Si el canal es HTTP y la web corre en HTTPS, el navegador bloquea el stream (Mixed Content).
+    // Los canales HTTP usan /api/proxy para reproducirse de forma segura.
+    // Los canales HTTPS (como La 1) conectan directos sin consumir gigas del servidor.
+    if (targetUrl.startsWith('http://')) {
+      targetUrl = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+    }
 
     if (Hls.isSupported()) {
       if (iptvHlsRef.current) {
