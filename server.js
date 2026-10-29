@@ -73,7 +73,10 @@ const server = http.createServer(async (req, res) => {
         'Access-Control-Allow-Headers': '*'
       };
 
-      // Si es playlist HLS m3u8, reescribir URLs relativas hacia el proxy
+      // Si es playlist HLS m3u8, reescribir los segmentos de video hacia su origen directo en HTTPS
+      // De esta forma:
+      // 1. El navegador descarga el video (1.5 GB/h) DIRECTAMENTE de la antena emisora sin bloqueo de Mixed Content ni CORS.
+      // 2. Tu servidor en Render solo transfiere el archivo de texto de la lista (1 KB) -> CERO GIGAS DE VIDEO GASTADOS!
       if (contentType.includes('mpegurl') || targetUrl.includes('.m3u8')) {
         let text = await response.text();
         const baseUrl = new URL(response.url || targetUrl);
@@ -85,7 +88,8 @@ const server = http.createServer(async (req, res) => {
             if (!trimmed.startsWith('http')) {
               absoluteUrl = new URL(trimmed, baseUrl).href;
             }
-            return `/api/proxy?url=${encodeURIComponent(absoluteUrl)}`;
+            // Enlazar directo al stream HTTPS
+            return absoluteUrl.replace('http://', 'https://');
           }
 
           if (trimmed.startsWith('#EXT-X-KEY') || trimmed.startsWith('#EXT-X-MEDIA')) {
@@ -94,7 +98,7 @@ const server = http.createServer(async (req, res) => {
               if (!uri.startsWith('http')) {
                 absoluteUrl = new URL(uri, baseUrl).href;
               }
-              return `URI="/api/proxy?url=${encodeURIComponent(absoluteUrl)}"`;
+              return `URI="${absoluteUrl.replace('http://', 'https://')}"`;
             });
           }
 
